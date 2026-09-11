@@ -1,0 +1,211 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "Linear",
+      "tagline": "The Issue Tracker Built for High-Performance Teams",
+      "colors": {
+        "primary": "#5E6AD2",
+        "secondary": "#4338CA",
+        "accent": "#38BDF8",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "authoritative",
+      "personality": "Confident, highly refined, and focused on tangible velocity for modern teams.",
+      "avoidWords": [
+        "all-in-one platform",
+        "game changer",
+        "synergistic",
+        "disruption"
+      ]
+    },
+    "positioning": {
+      "category": "Linear Cloud Architecture",
+      "competitors": [
+        "Legacy Manual Tools",
+        "Fragmented Scripts"
+      ],
+      "differentiator": "Cycles & Roadmaps"
+    },
+    "audience": {
+      "primary": "Tech founders, developers, ops managers",
+      "painPoints": [
+        "Wasting 15+ hours weekly maintaining manual setups",
+        "Unpredictable downtime and configuration drift",
+        "High friction when onboarding new team members"
+      ],
+      "motivations": [
+        "10x faster execution without operational complexity",
+        "Enterprise peace of mind with continuous reliability"
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-1",
+    "angle": "pain-agitate-solve",
+    "angleTitle": "The 15-Hour Engineering Tax",
+    "hook": "You didn't raise a Seed round to become a full-time Jira administrator.",
+    "narrative": "Starts with a exhausted engineering lead spending late Sunday evening fixing broken workflows and updating stale boards. Agitates the pain of spending 15+ hours weekly on configuration drift rather than shipping features. Introduces Linear's fluid Cycles and Roadmaps, demonstrating a 10x jump in issue triage velocity via keyboard shortcuts and automated workflows.",
+    "emotionalArc": "Exhaustion -> Resentment -> Unstoppable Momentum",
+    "visualMood": "Dark obsidian studio lighting with high-contrast neon purple highlights and ultra-fast UI capture",
+    "estimatedSceneCount": 4,
+    "strategicScore": 9.5,
+    "reasoning": "Directly attacks the exact emotional drain tech founders and leads feel when managing legacy tools, anchoring Linear as the professional standard for fast-moving teams."
+  },
+  "storyboard": {
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Tension -> Solution -> Proof -> Action",
+    "pacingStrategy": "Rapid visual hook (3s), fluid pain agitation (4s), high-speed proof (4s), authoritative closing (4s)",
+    "scenes": [
+      {
+        "id": "scene-1",
+        "sceneIndex": 1,
+        "name": "The Hook: The Jira Admin Trap",
+        "intent": "Disrupt the scrolling feed with a relatable, high-stakes pain point for technical founders.",
+        "durationSeconds": 3,
+        "emotionalBeat": "Tension and sharp recognition",
+        "headlineCopy": "You didn't raise a Seed round to become a full-time Jira administrator.",
+        "supportingCopy": "The 15-Hour Engineering Tax is silently eating your runway.",
+        "visualDescription": "A dark, cluttered interface overlay flickers with amber warning indicators. High-contrast typography cuts through dark grid lines as ambient red light pulses subtly in the background.",
+        "pacingNotes": "Stagger kinetic text entrance by 4 frames per line for maximum punch.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Kinetic bold typography snapping into position",
+            "importance": "hero"
+          },
+          {
+            "role": "pain-badge",
+            "description": "Warning indicator flickering with '15 HRS/WK WASTED'",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2",
+        "sceneIndex": 2,
+        "name": "Agitation: The Configuration Drift",
+        "intent": "Quantify lost velocity and emphasize the frustration of administrative overhead.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Exhaustion turning into urgency",
+        "headlineCopy": "15+ hours weekly spent fighting configuration drift.",
+        "supportingCopy": "Stale boards. Broken workflows. Late Sunday ticket updates.",
+        "visualDescription": "An abstract, decaying stack of complex project management tickets fragments into visual clutter. A timer rapidly ramps up from 0 to 15 hours in muted crimson before dissolving.",
+        "pacingNotes": "Fast cuts on visual fragmentation synced to a rhythmic low-frequency audio ticking beat.",
+        "elementIntents": [
+          {
+            "role": "agitation-text",
+            "description": "Authoritative sans-serif copy detailing hours lost",
+            "importance": "hero"
+          },
+          {
+            "role": "decay-visual",
+            "description": "Shattering UI cards representing legacy project management tools",
+            "importance": "visual-anchor"
+          }
+        ]
+      },
+      {
+        "id": "scene-3",
+        "sceneIndex": 3,
+        "name": "Solution & Proof: 10x Triage Velocity",
+        "intent": "Demonstrate Linear's speed, keyboard-first navigation, and fluid workflow automation.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Relief, empowerment, and fluid control",
+        "headlineCopy": "10x ISSUE TRIAGE VELOCITY",
+        "supportingCopy": "Fluid Cycles & Roadmaps powered by keyboard-first precision.",
+        "visualDescription": "A dramatic reveal of Linear's sleek dark UI with signature #5E6AD2 indigo ambient illumination. Keyboard shortcut overlays (CMD+K) trigger instant issue sorting and automatic cycle assignment at 60fps.",
+        "pacingNotes": "Ultra-fluid spring animations with crisp 120fps-style movement for UI elements.",
+        "elementIntents": [
+          {
+            "role": "proof-metric",
+            "description": "Massive glowing '10x' metric overlay in Linear brand purple (#5E6AD2)",
+            "importance": "hero"
+          },
+          {
+            "role": "product-demo-ui",
+            "description": "Ultra-fast screencast of Linear Cycles and shortcut commands",
+            "importance": "hero"
+          }
+        ]
+      },
+      {
+        "id": "scene-4",
+        "sceneIndex": 4,
+        "name": "Call To Action: Reclaim Your Runway",
+        "intent": "Drive immediate migration to Linear for high-performance engineering teams.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Decisive focus and clarity",
+        "headlineCopy": "Stop paying the engineering tax. Built for speed.",
+        "supportingCopy": "Switch to Linear today.",
+        "visualDescription": "Clean, minimal lockup featuring the Linear logo emitting a soft #5E6AD2 backlight. A crisp 'Start Free Trial' button renders with a modern glow border.",
+        "pacingNotes": "Hold steady on lockup for the final 2 seconds to maximize brand recall.",
+        "elementIntents": [
+          {
+            "role": "cta-headline",
+            "description": "Bold closing statement commanding immediate action",
+            "importance": "hero"
+          },
+          {
+            "role": "brand-lockup",
+            "description": "Linear wordmark and brand mark with #5E6AD2 ambient glow",
+            "importance": "brand-anchor"
+          },
+          {
+            "role": "action-button",
+            "description": "High-contrast CTA button ready for conversion",
+            "importance": "conversion"
+          }
+        ]
+      }
+    ],
+    "concept": {
+      "id": "concept-1",
+      "angle": "pain-agitate-solve",
+      "angleTitle": "The 15-Hour Engineering Tax",
+      "hook": "You didn't raise a Seed round to become a full-time Jira administrator.",
+      "narrative": "Starts with a exhausted engineering lead spending late Sunday evening fixing broken workflows and updating stale boards. Agitates the pain of spending 15+ hours weekly on configuration drift rather than shipping features. Introduces Linear's fluid Cycles and Roadmaps, demonstrating a 10x jump in issue triage velocity via keyboard shortcuts and automated workflows.",
+      "emotionalArc": "Exhaustion -> Resentment -> Unstoppable Momentum",
+      "visualMood": "Dark obsidian studio lighting with high-contrast neon purple highlights and ultra-fast UI capture",
+      "estimatedSceneCount": 4,
+      "strategicScore": 9.5,
+      "reasoning": "Directly attacks the exact emotional drain tech founders and leads feel when managing legacy tools, anchoring Linear as the professional standard for fast-moving teams."
+    }
+  },
+  "critique": {
+    "overallScore": 9.5,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-3",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}

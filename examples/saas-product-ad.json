@@ -1,0 +1,225 @@
+{
+  "id": "kylian-ai-launch-v1",
+  "meta": {
+    "title": "Kylian AI - Product Launch Ad",
+    "fps": 30,
+    "width": 1080,
+    "height": 1920
+  },
+  "brand": {
+    "name": "Kylian AI",
+    "tagline": "The Autonomous Enterprise Engine",
+    "colors": {
+      "primary": "#6366F1",
+      "secondary": "#4338CA",
+      "accent": "#10B981",
+      "background": "#090D16",
+      "text": "#F8FAFC",
+      "muted": "#94A3B8"
+    },
+    "font": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+  },
+  "scenes": [
+    {
+      "id": "scene-1-hook",
+      "name": "Hook - Pain Point",
+      "durationFrames": 90,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#0F172A",
+        "glowOrb": true
+      },
+      "transition": {
+        "type": "fade",
+        "durationFrames": 8
+      },
+      "elements": [
+        {
+          "id": "hook-text",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Stop wasting 20 hours a week on manual spreadsheets.",
+            "fontSize": 72,
+            "fontWeight": 800,
+            "color": "brand.text",
+            "position": { "x": 50, "y": 38 },
+            "align": "center",
+            "animation": "word-by-word",
+            "delay": 0,
+            "maxWidth": 88,
+            "highlightWords": ["20", "hours", "spreadsheets"]
+          }
+        },
+        {
+          "id": "hook-pills",
+          "type": "feature-pills",
+          "props": {
+            "items": [
+              { "text": "❌ 14 Disconnected Tabs", "color": "#EF4444" },
+              { "text": "❌ Delayed Financial Close", "color": "#EF4444" }
+            ],
+            "position": { "x": 50, "y": 64 },
+            "layout": "vertical",
+            "staggerFrames": 8,
+            "delay": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-2-product",
+      "name": "Product Showcase",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#0B0F19",
+        "gradientTo": "#1E1B4B",
+        "glowOrb": true
+      },
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      },
+      "elements": [
+        {
+          "id": "solution-headline",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Meet your autonomous operations team.",
+            "fontSize": 60,
+            "fontWeight": 800,
+            "color": "brand.text",
+            "position": { "x": 50, "y": 16 },
+            "align": "center",
+            "animation": "fade-up",
+            "delay": 0,
+            "maxWidth": 90,
+            "highlightWords": ["autonomous"]
+          }
+        },
+        {
+          "id": "product-window",
+          "type": "app-window",
+          "props": {
+            "title": "Kylian Unified Command",
+            "url": "app.kylian.ai/live",
+            "width": 92,
+            "position": { "x": 50, "y": 56 },
+            "tilt": true,
+            "shadow": true,
+            "delay": 10,
+            "animation": "float-up",
+            "badges": [
+              { "text": "⚡ 99.4% Auto-Reconciliation", "position": "top-right" },
+              { "text": "🔒 Real-time Ledger Sync", "position": "bottom-left" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-3-metrics",
+      "name": "Social Proof & Metrics",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#064E3B",
+        "glowOrb": true
+      },
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      },
+      "elements": [
+        {
+          "id": "metric-headline",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Proven velocity at enterprise scale.",
+            "fontSize": 58,
+            "fontWeight": 700,
+            "color": "brand.text",
+            "position": { "x": 50, "y": 16 },
+            "align": "center",
+            "animation": "fade-up",
+            "delay": 0,
+            "maxWidth": 88
+          }
+        },
+        {
+          "id": "main-metric",
+          "type": "metric-counter",
+          "props": {
+            "label": "OPERATIONAL CYCLE VELOCITY",
+            "value": 10,
+            "suffix": "x",
+            "decimals": 0,
+            "color": "brand.accent",
+            "position": { "x": 50, "y": 48 },
+            "delay": 10,
+            "durationFrames": 35,
+            "trend": "up",
+            "subtext": "Median speedup across 140+ high-growth tech companies"
+          }
+        },
+        {
+          "id": "trust-badges",
+          "type": "feature-pills",
+          "props": {
+            "items": [
+              { "icon": "🛡️", "text": "SOC2 Type II Certified", "highlight": true, "color": "brand.accent" },
+              { "icon": "⚡", "text": "Zero Downtime Migration" }
+            ],
+            "position": { "x": 50, "y": 76 },
+            "layout": "horizontal",
+            "staggerFrames": 6,
+            "delay": 25
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-4-cta",
+      "name": "Brand Outro & CTA",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#1E1B4B",
+        "glowOrb": true
+      },
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      },
+      "elements": [
+        {
+          "id": "brand-logo",
+          "type": "logo-reveal",
+          "props": {
+            "brandName": "Kylian AI",
+            "tagline": "The Autonomous Enterprise OS",
+            "size": 140,
+            "position": { "x": 50, "y": 36 },
+            "animation": "scale-in",
+            "delay": 0
+          }
+        },
+        {
+          "id": "cta-button",
+          "type": "cta-button",
+          "props": {
+            "text": "Start 14-Day Free Trial",
+            "subtext": "No credit card required • 3-minute setup",
+            "url": "kylian.ai/free",
+            "position": { "x": 50, "y": 68 },
+            "pulse": true,
+            "delay": 12
+          }
+        }
+      ]
+    }
+  ]
+}

