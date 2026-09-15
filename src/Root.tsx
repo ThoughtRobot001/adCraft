@@ -8,6 +8,10 @@ import { HedgeCommercial } from "./recreations/hedge/HedgeCommercial";
 import { RcrutScene1 } from "./compositions/reconstructions/RcrutScene1";
 import { KylianPayrunInteraction } from "./compositions/kylian/KylianPayrunInteraction";
 import { KylianProductDashboard } from "./compositions/kylian/KylianProductDashboard";
+import { Studio } from "./studio/Studio";
+
+const studioComposition = () => <Studio />;
+
 
 const AdPropsSchema = z.union([
   z.object({ motionIR: MotionIRSchema }),
@@ -20,6 +24,14 @@ export const Root: React.FC = () => {
 
   return (
     <>
+      <Composition
+        id="CreativeStudio"
+        component={studioComposition}
+        durationInFrames={1}
+        fps={30}
+        width={1440}
+        height={900}
+      />
       <Composition
         id="KylianProductDashboard"
         component={KylianProductDashboard}
