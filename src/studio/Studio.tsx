@@ -4,88 +4,61 @@ import { MotionIR, MotionIRSchema } from "../schema";
 import "./studio.css";
 
 const motionIR = MotionIRSchema.parse(defaultAd) as MotionIR;
-const stages = ["Brand intelligence", "Concept strategy", "Storyboard", "Visual keyframes", "Motion reconstruction", "Quality gate", "Production"];
-const stageMeta = ["Complete", "Complete", "Complete", "Complete", "In review", "Pending", "Pending"];
-const swatches = [motionIR.brand.colors.primary, motionIR.brand.colors.accent, motionIR.brand.colors.secondary];
+const stages = ["Brief + evidence", "Creative directions", "Storyboard", "Keyframe lab", "Motion plan", "Quality gate", "Export package"];
+const concepts = [
+  { id: "signal", label: "Signal over noise", archetype: "Transformation", hook: "Finance teams stop chasing the work and start directing it.", strategy: "Start with operational overload, then reveal a calm autonomous system.", risk: "Needs disciplined pacing to avoid feeling like another productivity ad.", score: 9.2 },
+  { id: "control", label: "The invisible operator", archetype: "Metaphor", hook: "The best teammate is the one already three steps ahead.", strategy: "A quiet AI presence turns fragmented inputs into one confident outcome.", risk: "The metaphor must stay concrete in the final CTA.", score: 8.9 },
+  { id: "standard", label: "Raise the standard", archetype: "Manifesto", hook: "Enterprise finance should move at the speed of certainty.", strategy: "Premium editorial statements build toward proof, then a decisive action.", risk: "Requires strong product evidence to earn the manifesto tone.", score: 8.6 },
+];
 
-function Icon({ children }: { children: React.ReactNode }) {
-  return <span className="studio-icon" aria-hidden="true">{children}</span>;
-}
+function Icon({ children }: { children: React.ReactNode }) { return <span className="studio-icon" aria-hidden="true">{children}</span>; }
 
 export const Studio: React.FC = () => {
-  const [activeStage, setActiveStage] = useState(3);
-  const [activeScene, setActiveScene] = useState(0);
+  const [stage, setStage] = useState(0);
   const [brief, setBrief] = useState("Launch Kylian AI as the autonomous enterprise engine for finance teams.");
+  const [selectedConcept, setSelectedConcept] = useState<string | null>(null);
+  const [storyboardApproved, setStoryboardApproved] = useState(false);
+  const [keyframeChoice, setKeyframeChoice] = useState<Record<number, number>>({});
+  const [approvedScenes, setApprovedScenes] = useState<number[]>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [approved, setApproved] = useState(false);
-  const scene = motionIR.scenes[activeScene];
-  const totalSeconds = Math.round(motionIR.scenes.reduce((sum, item) => sum + item.durationFrames, 0) / (motionIR.meta.fps || 30));
-  const progress = useMemo(() => Math.round(((activeStage + 1) / stages.length) * 100), [activeStage]);
+  const [notice, setNotice] = useState("Draft brief — evidence not yet analyzed");
+  const [feedback, setFeedback] = useState("");
+  const scene = motionIR.scenes[Object.keys(keyframeChoice).length % motionIR.scenes.length];
+  const totalSeconds = Math.round(motionIR.scenes.reduce((sum, item) => sum + item.durationFrames, 0) / 30);
+  const allScenesApproved = approvedScenes.length === motionIR.scenes.length;
+  const progress = Math.round(((stage + 1) / stages.length) * 100);
+  const activeConcept = concepts.find((concept) => concept.id === selectedConcept);
 
-  const runStudio = () => {
-    setIsRunning(true);
-    window.setTimeout(() => {
-      setIsRunning(false);
-      setActiveStage(4);
-    }, 900);
+  const runAnalysis = () => {
+    setIsRunning(true); setNotice("Analyzing brief, audience tension, and brand evidence…");
+    window.setTimeout(() => { setIsRunning(false); setStage(1); setNotice("Brand evidence mapped — choose a creative direction"); }, 700);
   };
+  const approveScene = (index: number) => setApprovedScenes((current) => current.includes(index) ? current : [...current, index]);
+  const approveConcept = () => { if (!selectedConcept) return; setStage(2); setNotice("Direction locked — storyboard is ready for human review"); };
+  const canExport = Boolean(selectedConcept && storyboardApproved && allScenesApproved);
 
-  return (
-    <main className="studio-shell">
-      <aside className="studio-rail">
-        <div className="studio-mark"><span>AC</span><i /></div>
-        <nav aria-label="Studio navigation">
-          <button className="rail-button active" aria-label="Creative studio"><Icon>◈</Icon><small>Studio</small></button>
-          <button className="rail-button" aria-label="Campaigns"><Icon>▣</Icon><small>Campaigns</small></button>
-          <button className="rail-button" aria-label="Creative memory"><Icon>⌘</Icon><small>Memory</small></button>
-        </nav>
-        <div className="rail-bottom"><button className="rail-button" aria-label="Settings"><Icon>⚙</Icon><small>Settings</small></button><div className="avatar">TR</div></div>
-      </aside>
-
-      <section className="studio-main">
-        <header className="studio-header">
-          <div><div className="eyebrow"><span className="live-dot" />Creative studio / Campaign 014</div><h1>{motionIR.brand.name} <span>·</span> Product launch</h1></div>
-          <div className="header-actions"><span className="save-status"><span />Saved just now</span><button className="ghost-button">Share</button><button className="primary-button" onClick={runStudio}>{isRunning ? "Running..." : "Run studio"}<b>⌘ ↵</b></button></div>
-        </header>
-
-        <div className="studio-body">
-          <section className="workspace-column">
-            <div className="brief-card panel">
-              <div className="panel-heading"><div><span className="section-label">01 / Campaign brief</span><h2>Give the studio a direction.</h2></div><span className="status-pill">Draft</span></div>
-              <label className="field-label" htmlFor="brief">Creative brief</label>
-              <textarea id="brief" value={brief} onChange={(event) => setBrief(event.target.value)} />
-              <div className="brief-footer"><div className="brief-tags"><span>Product launch</span><span>Finance teams</span><span>Free trial</span></div><span className="char-count">{brief.length} / 500</span></div>
-            </div>
-
-            <div className="stage-panel panel">
-              <div className="panel-heading"><div><span className="section-label">02 / Production pipeline</span><h2>From intent to motion.</h2></div><span className="completion">{progress}% mapped</span></div>
-              <div className="stage-list">{stages.map((stage, index) => <button className={`stage-row ${activeStage === index ? "selected" : ""}`} onClick={() => setActiveStage(index)} key={stage}><span className={`stage-number ${index < 4 ? "done" : ""}`}>{index < 4 ? "✓" : `0${index + 1}`}</span><span className="stage-name">{stage}</span><span className={`stage-state ${index === activeStage ? "current" : ""}`}>{index === activeStage ? "Active" : stageMeta[index]}</span><span className="chevron">→</span></button>)}</div>
-            </div>
-
-            <div className="scenes-panel panel">
-              <div className="panel-heading"><div><span className="section-label">03 / Narrative beats</span><h2>Storyboard sequence</h2></div><button className="icon-button" aria-label="Add scene">+</button></div>
-              <div className="scene-strip">{motionIR.scenes.map((item, index) => <button key={item.id} className={`scene-card ${activeScene === index ? "selected" : ""}`} onClick={() => setActiveScene(index)}><span className="scene-index">0{index + 1}</span><span className="scene-name">{(item.name || `Scene ${index + 1}`).replace(" - ", "\\n")}</span><span className="scene-duration">{Math.round(item.durationFrames / 30)} sec</span></button>)}</div>
-            </div>
-          </section>
-
-          <section className="preview-column">
-            <div className="preview-header"><div><span className="section-label">04 / Art direction</span><h2>Keyframe review</h2></div><div className="preview-controls"><button className="icon-button">↶</button><button className="icon-button">↷</button><button className="fit-button">Fit <span>⌄</span></button></div></div>
-            <div className="keyframe-stage"><div className="keyframe-poster" style={{ background: `radial-gradient(circle at 50% 34%, ${swatches[0]}55 0, transparent 34%), linear-gradient(140deg, #090d16, #111936 65%, #090d16)` }}><div className="poster-grid" /><span className="poster-kicker">{motionIR.brand.name.toUpperCase()} / 01</span><h3>{(scene.name || `Scene ${activeScene + 1}`).split(" - ")[0]}</h3><p>{scene.elements[0]?.type === "kinetic-text" ? (scene.elements[0].props as { text?: string }).text : "Designing the future of enterprise work."}</p><div className="poster-orb" style={{ borderColor: swatches[1], boxShadow: `0 0 70px ${swatches[1]}88` }}><span>AI</span></div><span className="poster-footer">{String(activeScene + 1).padStart(2, "0")} / {String(motionIR.scenes.length).padStart(2, "0")}</span></div><div className="preview-badge"><span />Static keyframe</div></div>
-            <div className="timeline"><div className="timeline-top"><span>00:00</span><span>{String(totalSeconds).padStart(2, "0")}:00</span></div><div className="timeline-track"><span className="playhead" style={{ left: `${((activeScene + 0.4) / motionIR.scenes.length) * 100}%` }} /><div className="timeline-segments">{motionIR.scenes.map((item, index) => <button key={item.id} onClick={() => setActiveScene(index)} className={activeScene === index ? "active" : ""} style={{ flex: item.durationFrames }}>{String(index + 1).padStart(2, "0")}</button>)}</div></div><div className="timeline-bottom"><span>◉ 30 FPS</span><span>1080 × 1920</span><span>{totalSeconds}.0s duration</span></div></div>
-          </section>
-
-          <aside className="inspector-column">
-            <div className="inspector-heading"><span className="section-label">05 / Director&apos;s desk</span><button className="icon-button">•••</button></div>
-            <div className="score-card"><div className="score-ring"><strong>{approved ? "9.4" : "8.7"}</strong><span>/10</span></div><div><span className="section-label">Visual quality</span><h3>{approved ? "Gate approved" : "Needs one pass"}</h3><p>{approved ? "Ready for deterministic motion reconstruction." : "The art direction is close. Review the composition before motion."}</p></div></div>
-            <div className="inspector-section"><span className="section-label">Composition</span><div className="property-list"><div><span>Archetype</span><b>Monolithic centered</b></div><div><span>Focal point</span><b>50% / 38%</b></div><div><span>Negative space</span><b>64% breathing room</b></div><div><span>Camera</span><b>Slow push-in</b></div></div></div>
-            <div className="inspector-section"><span className="section-label">Brand system</span><div className="color-row">{swatches.map((color) => <span key={color} style={{ background: color }} />)}<b>{motionIR.brand.font.split(",")[0]}</b></div></div>
-            <button className={`approve-button ${approved ? "approved" : ""}`} onClick={() => setApproved(true)}>{approved ? "✓ Keyframe approved" : "Approve keyframe"}<span>↗</span></button>
-            <div className="export-card"><div><span className="section-label">Production output</span><h3>MotionIR is ready</h3></div><span className="export-dot" /><p>Reconstructed scenes preserve the approved visual blueprint as deterministic motion primitives.</p><button className="export-button" onClick={runStudio}>{isRunning ? "Preparing..." : "Prepare export"}<span>→</span></button></div>
-          </aside>
-        </div>
-      </section>
-    </main>
-  );
+  return <main className="studio-shell">
+    <aside className="studio-rail"><div className="studio-mark"><span>AC</span><i /></div><nav aria-label="Studio navigation"><button className="rail-button active" aria-label="Creative studio"><Icon>◈</Icon><small>Studio</small></button><button className="rail-button" aria-label="Campaigns"><Icon>▣</Icon><small>Campaigns</small></button><button className="rail-button" aria-label="Creative memory"><Icon>⌘</Icon><small>Memory</small></button></nav><div className="rail-bottom"><button className="rail-button" aria-label="Settings"><Icon>⚙</Icon><small>Settings</small></button><div className="avatar">TR</div></div></aside>
+    <section className="studio-main">
+      <header className="studio-header"><div><div className="eyebrow"><span className="live-dot" />Creative studio / Campaign 014</div><h1>{motionIR.brand.name} <span>·</span> Product launch</h1></div><div className="header-actions"><span className="save-status"><span />{notice}</span><button className="ghost-button">Share</button><button className="primary-button" onClick={runAnalysis} disabled={isRunning}>{isRunning ? "Analyzing…" : "Analyze brief"}<b>⌘ ↵</b></button></div></header>
+      <div className="studio-body">
+        <section className="workspace-column">
+          <div className="brief-card panel"><div className="panel-heading"><div><span className="section-label">01 / Evidence intake</span><h2>Start with a real brief.</h2></div><span className={`status-pill ${stage > 0 ? "ready" : ""}`}>{stage > 0 ? "Analyzed" : "Draft"}</span></div><label className="field-label" htmlFor="brief">Campaign intent</label><textarea id="brief" value={brief} onChange={(event) => setBrief(event.target.value)} maxLength={500} /><div className="brief-footer"><div className="brief-tags"><span>Product launch</span><span>Finance teams</span><span>Free trial</span></div><span className="char-count">{brief.length} / 500</span></div><div className="evidence-row"><span className="evidence-check">{stage > 0 ? "✓" : "○"}</span><div><b>Brand evidence</b><small>{stage > 0 ? "Tone, differentiator, and audience tension extracted" : "Run analysis to create traceable evidence"}</small></div></div></div>
+          <div className="stage-panel panel"><div className="panel-heading"><div><span className="section-label">02 / Creative system</span><h2>Human gates, not a black box.</h2></div><span className="completion">{progress}% mapped</span></div><div className="stage-list">{stages.map((item, index) => <button className={`stage-row ${stage === index ? "selected" : ""}`} onClick={() => setStage(index)} key={item}><span className={`stage-number ${stage > index ? "done" : ""}`}>{stage > index ? "✓" : `0${index + 1}`}</span><span className="stage-name">{item}</span><span className={`stage-state ${stage === index ? "current" : ""}`}>{stage > index ? "Complete" : stage === index ? "Active" : "Locked"}</span><span className="chevron">→</span></button>)}</div></div>
+          <div className="artifact-card panel"><span className="section-label">Traceable artifact</span><h3>{activeConcept ? activeConcept.label : "No direction selected"}</h3><p>{activeConcept ? activeConcept.hook : "Every output will cite the brief, creative choice, and review that produced it."}</p><div className="artifact-meta"><span>Owner <b>{activeConcept ? "Creative team" : "AI + human"}</b></span><span>State <b>{canExport ? "Exportable" : "Needs review"}</b></span></div></div>
+        </section>
+        <section className="preview-column">
+          <div className="preview-header"><div><span className="section-label">03 / Direction room</span><h2>{stage === 1 ? "Choose the idea worth producing." : stage === 2 ? "Review the narrative blueprint." : "Visual production board"}</h2></div><span className="gate-label">{selectedConcept ? "Direction selected" : "Gate 1 of 4"}</span></div>
+          {stage === 1 && <div className="concept-grid">{concepts.map((concept) => <button key={concept.id} className={`concept-card ${selectedConcept === concept.id ? "selected" : ""}`} onClick={() => setSelectedConcept(concept.id)}><div className="concept-top"><span className="concept-index">0{concepts.indexOf(concept) + 1}</span><span className="score">{concept.score}/10</span></div><span className="concept-archetype">{concept.archetype}</span><h3>{concept.label}</h3><p className="hook">“{concept.hook}”</p><p>{concept.strategy}</p><small>Risk: {concept.risk}</small></button>)}</div>}
+          {stage === 1 && <button className="wide-action" disabled={!selectedConcept} onClick={approveConcept}>{selectedConcept ? "Lock direction and build storyboard" : "Select a direction to continue"}<span>→</span></button>}
+          {stage !== 1 && <div className="keyframe-stage"><div className="keyframe-poster" style={{ background: `radial-gradient(circle at 50% 34%, ${motionIR.brand.colors.primary}55 0, transparent 34%), linear-gradient(140deg, #090d16, #111936 65%, #090d16)` }}><div className="poster-grid" /><span className="poster-kicker">{motionIR.brand.name.toUpperCase()} / {String((scene ? Object.keys(keyframeChoice).length + 1 : 1)).padStart(2, "0")}</span><h3>{activeConcept?.label || (scene?.name || "Narrative opener").split(" - ")[0]}</h3><p>{activeConcept?.hook || "Designing the future of enterprise work."}</p><div className="poster-orb" style={{ borderColor: motionIR.brand.colors.accent, boxShadow: `0 0 70px ${motionIR.brand.colors.accent}88` }}><span>AI</span></div><span className="poster-footer">{String(Object.keys(keyframeChoice).length + 1).padStart(2, "0")} / {String(motionIR.scenes.length).padStart(2, "0")}</span></div><div className="preview-badge"><span />{stage >= 4 ? "MotionIR preview" : "Keyframe blueprint"}</div></div>}
+          {stage === 2 && <div className="review-strip"><div><b>{activeConcept?.label || "Selected direction"}</b><span>{motionIR.scenes.length} narrative beats · {totalSeconds}s · {activeConcept?.archetype || "Transformation"}</span></div><button className={storyboardApproved ? "approved" : ""} onClick={() => { setStoryboardApproved(true); setStage(3); setNotice("Storyboard approved — generate and compare scene keyframes"); }}>{storyboardApproved ? "✓ Storyboard approved" : "Approve storyboard"}</button></div>}
+          {stage >= 3 && <div className="keyframe-lab"><div className="lab-heading"><div><span className="section-label">Candidate keyframes</span><b>Scene {Object.keys(keyframeChoice).length + 1} / {motionIR.scenes.length}</b></div><span>{approvedScenes.length} approved</span></div><div className="candidate-row">{[0, 1].map((candidate) => <button key={candidate} className={`candidate ${keyframeChoice[Object.keys(keyframeChoice).length] === candidate ? "selected" : ""}`} onClick={() => setKeyframeChoice((current) => ({ ...current, [Object.keys(current).length]: candidate }))}><span className="candidate-art" style={{ background: candidate === 0 ? `linear-gradient(135deg, ${motionIR.brand.colors.primary}, #0d1323)` : `linear-gradient(135deg, #201b36, ${motionIR.brand.colors.accent})` }} /><span>{candidate === 0 ? "Centered clarity" : "Editorial tension"}</span><small>{candidate === 0 ? "Recommended · 9.1" : "Alternative · 8.8"}</small></button>)}</div><textarea className="feedback" value={feedback} onChange={(event) => setFeedback(event.target.value)} placeholder="Revision note for the art director (optional)" /><button className="wide-action" disabled={keyframeChoice[Object.keys(keyframeChoice).length] === undefined} onClick={() => { approveScene(Object.keys(keyframeChoice).length); setKeyframeChoice((current) => ({ ...current, [Object.keys(current).length]: current[Object.keys(current).length] ?? 0 })); }}>{allScenesApproved ? "All scenes approved — inspect quality gate" : "Approve selected keyframe"}<span>→</span></button></div>}
+          <div className="timeline"><div className="timeline-top"><span>00:00</span><span>{String(totalSeconds).padStart(2, "0")}:00</span></div><div className="timeline-track"><div className="timeline-segments">{motionIR.scenes.map((item, index) => <button key={item.id} className={approvedScenes.includes(index) ? "active" : ""} style={{ flex: item.durationFrames }} onClick={() => setKeyframeChoice((current) => ({ ...current }))}>{String(index + 1).padStart(2, "0")}</button>)}</div></div><div className="timeline-bottom"><span>◉ 30 FPS</span><span>1080 × 1920</span><span>{totalSeconds}.0s duration</span></div></div>
+        </section>
+        <aside className="inspector-column"><div className="inspector-heading"><span className="section-label">04 / Quality desk</span><button className="icon-button">•••</button></div><div className="score-card"><div className="score-ring"><strong>{canExport ? "9.2" : stage >= 3 ? "8.7" : "—"}</strong><span>/10</span></div><div><span className="section-label">Production readiness</span><h3>{canExport ? "Ready to export" : "Review required"}</h3><p>{canExport ? "Every scene has an approved visual blueprint." : "The studio will block export until human review gates are complete."}</p></div></div><div className="inspector-section"><span className="section-label">Quality dimensions</span><div className="property-list"><div><span>Narrative clarity</span><b>{selectedConcept ? "9.1 / 10" : "Not scored"}</b></div><div><span>Brand fidelity</span><b>{stage > 0 ? "9.4 / 10" : "Not scored"}</b></div><div><span>Visual hierarchy</span><b>{approvedScenes.length ? "8.9 / 10" : "Not scored"}</b></div><div><span>Technical validity</span><b>{canExport ? "Passed" : "Blocked"}</b></div></div></div><div className="inspector-section"><span className="section-label">Blocking issues</span><div className="issue-list"><span className={selectedConcept ? "resolved" : ""}>{selectedConcept ? "✓" : "!"} Creative direction selected</span><span className={storyboardApproved ? "resolved" : ""}>{storyboardApproved ? "✓" : "!"} Storyboard approved</span><span className={allScenesApproved ? "resolved" : ""}>{allScenesApproved ? "✓" : "!"} All keyframes approved</span></div></div><button className={`approve-button ${canExport ? "approved" : ""}`} disabled={!canExport} onClick={() => { setStage(6); setNotice("Export package prepared — MotionIR is traceable to approved artifacts"); }}>{canExport ? "Prepare production package" : "Export is gated"}<span>↗</span></button><div className="export-card"><div><span className="section-label">Production output</span><h3>{canExport ? "MotionIR + review package" : "Not production-ready"}</h3></div><span className="export-dot" /><p>{canExport ? "Includes storyboard, approved keyframes, critique, and deterministic MotionIR." : "No MP4 claim is made until the creative and quality gates pass."}</p></div></aside>
+      </div>
+    </section>
+  </main>;
 };
-
 export default Studio;
