@@ -473,15 +473,17 @@ export interface TemporalState {
 export type CinematicBeatStage =
   | "anticipation"
   | "entrance"
-  | "interaction"
   | "escalation"
   | "interruption"
+  | "emphasis"
   | "climax"
-  | "snap"
-  | "release";
+  | "release"
+  | "transition"
+  | "interaction"
+  | "snap";
 
 export interface CinematicCameraCue {
-  action: "hold" | "push-in" | "dive" | "recoil" | "snap-freeze" | "whip-prep";
+  action: "hold" | "push-in" | "dive" | "recoil" | "snap-freeze" | "whip-prep" | "drift" | "settle" | "orbit" | string;
   scale: number;
   translateY: number;
   tiltX: number;
