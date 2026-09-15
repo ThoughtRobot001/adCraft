@@ -3390,6 +3390,47 @@
       "userVerdict": "rejected",
       "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
       "timestamp": 1789499663922
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789501815569
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789501815574
     }
   ],
   "affinityWeights": {
@@ -3589,6 +3630,6 @@
     "pair:sound-warm-resolution-chime:cta-button": 0.75,
     "pair:sound-warm-resolution-chime:bg-astra-horizon-glow": 0.75,
     "pair:cta-button:bg-astra-horizon-glow": 0.75,
-    "pair:comp-monolithic-hero:tech-kinetic-stagger": 1
+    "pair:comp-monolithic-hero:tech-kinetic-stagger": 1.25
   }
 }

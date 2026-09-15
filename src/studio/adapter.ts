@@ -73,12 +73,28 @@ export function useStudioEngine() {
   const [activeError, setActiveError] = useState<string | null>(null);
   const [inspectorSelection, setInspectorSelection] = useState<InspectorSelection>({ type: "none" });
 
-  // Update capability on mount
+  // Update capability on mount (query /api/status in browser, fallback to local)
   useEffect(() => {
-    setState((prev) => ({
-      ...prev,
-      capability: studioGenerationService.getCapabilityStatus(),
-    }));
+    if (typeof window !== "undefined" && window.location?.origin) {
+      fetch("/api/status")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.capability) {
+            setState((prev) => ({ ...prev, capability: data.capability }));
+          }
+        })
+        .catch(() => {
+          setState((prev) => ({
+            ...prev,
+            capability: studioGenerationService.getCapabilityStatus(),
+          }));
+        });
+    } else {
+      setState((prev) => ({
+        ...prev,
+        capability: studioGenerationService.getCapabilityStatus(),
+      }));
+    }
   }, []);
 
   const setStage = useCallback((stage: StudioStageId) => {
@@ -410,6 +426,28 @@ export function useStudioEngine() {
     }
 
     try {
+      if (typeof window !== "undefined" && window.location?.origin) {
+        fetch("/api/export", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ state }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.exportPackage) {
+              setState((prev) => ({
+                ...prev,
+                exportPackage: data.exportPackage,
+                currentStage: "export",
+                jobState: "complete",
+              }));
+            }
+          })
+          .catch(() => {
+            // fallback to local manifest build
+          });
+      }
+
       const selectedConcept = state.concepts?.find((c) => c.id === state.selectedConceptId);
       const manifest = studioGenerationService.buildExportPackage(
         state.jobId,
@@ -448,36 +486,45 @@ export function useStudioEngine() {
     if (!state.motionIR) return;
     const safeId = state.motionIR.id.replace(/[^a-zA-Z0-9_-]/g, "");
 
-    if (verdict === "approved") {
+    const payload = {
+      adId: safeId,
+      brand: state.brandProfile?.identity.name || state.brief.productName,
+      conceptAngle: state.concepts?.find((c) => c.id === state.selectedConceptId)?.angleTitle || "Angle",
+      intent: state.concepts?.find((c) => c.id === state.selectedConceptId)?.narrativeArchetype || "transformation",
+      style: "dark-saas",
+      itemsUsed: [],
+      score: verdict === "approved" ? state.critique?.overallScore || 9.5 : state.critique?.overallScore || 6.5,
+      passed: verdict === "approved",
+      feedback: notes || (verdict === "approved" ? "" : "Rejected by human art director"),
+      issues: [],
+      verdict,
+    };
+
+    if (typeof window !== "undefined" && window.location?.origin) {
+      fetch("/api/memory/verdict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch((e) => console.warn("Failed to record memory verdict via API", e));
+    }
+
+    try {
       creativeMemory.recordOutcome({
         id: safeId,
-        brand: state.brandProfile?.identity.name || state.brief.productName,
-        conceptAngle: state.concepts?.find((c) => c.id === state.selectedConceptId)?.angleTitle || "Angle",
-        intent: state.concepts?.find((c) => c.id === state.selectedConceptId)?.narrativeArchetype || "transformation",
-        style: "dark-saas",
-        itemsUsed: [],
-        critiqueOverallScore: state.critique?.overallScore || 9.5,
-        critiquePassed: true,
-        critiqueIssues: [],
-        userVerdict: "approved",
-        userFeedbackNotes: notes,
+        brand: payload.brand,
+        conceptAngle: payload.conceptAngle,
+        intent: payload.intent,
+        style: payload.style as any,
+        itemsUsed: payload.itemsUsed,
+        critiqueOverallScore: payload.score,
+        critiquePassed: payload.passed,
+        critiqueIssues: payload.issues,
+        userVerdict: payload.verdict,
+        userFeedbackNotes: payload.feedback,
         timestamp: new Date().toISOString(),
       });
-    } else {
-      creativeMemory.recordOutcome({
-        id: safeId,
-        brand: state.brandProfile?.identity.name || state.brief.productName,
-        conceptAngle: state.concepts?.find((c) => c.id === state.selectedConceptId)?.angleTitle || "Angle",
-        intent: state.concepts?.find((c) => c.id === state.selectedConceptId)?.narrativeArchetype || "transformation",
-        style: "dark-saas",
-        itemsUsed: [],
-        critiqueOverallScore: state.critique?.overallScore || 6.5,
-        critiquePassed: false,
-        critiqueIssues: [],
-        userVerdict: "rejected",
-        userFeedbackNotes: notes || "Rejected by human art director",
-        timestamp: new Date().toISOString(),
-      });
+    } catch {
+      // safe fallback
     }
 
     setState((prev) => ({
@@ -488,7 +535,6 @@ export function useStudioEngine() {
       ],
     }));
   }, [state.motionIR, state.brandProfile, state.brief, state.concepts, state.selectedConceptId, state.critique]);
-
 
   const setMode = useCallback((mode: StudioMode) => {
     setState((prev) => ({
@@ -509,11 +555,36 @@ export function useStudioEngine() {
       if (creativeDirection) {
         setState((prev) => ({ ...prev, creativeDirection }));
       }
-      const result = await studioGenerationService.runAutonomousPipeline(
-        state.brandInput,
-        state.brief,
-        creativeDirection || state.creativeDirection
-      );
+
+      let result: any;
+      if (typeof window !== "undefined" && window.location?.origin) {
+        try {
+          const res = await fetch("/api/pipeline/quick-create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              brief: state.brief,
+              creativeDirection: creativeDirection || state.creativeDirection,
+            }),
+          });
+          const json = await res.json();
+          if (!json.success) throw new Error(json.error || "Autonomous pipeline failed");
+          result = json.state;
+        } catch (apiErr: any) {
+          console.warn("[AdCraft Client] API router call failed, falling back to local service", apiErr);
+          result = await studioGenerationService.runAutonomousPipeline(
+            state.brandInput,
+            state.brief,
+            creativeDirection || state.creativeDirection
+          );
+        }
+      } else {
+        result = await studioGenerationService.runAutonomousPipeline(
+          state.brandInput,
+          state.brief,
+          creativeDirection || state.creativeDirection
+        );
+      }
 
       setState((prev) => ({
         ...prev,
@@ -524,7 +595,7 @@ export function useStudioEngine() {
           ...prev.auditTrail,
           {
             stage: "export",
-            action: `Quick Create pipeline completed autonomously: "${result.concepts.find((c) => c.id === result.selectedConceptId)?.angleTitle || 'Selected Angle'}" (Score: ${result.critique.overallScore}/10)`,
+            action: `Quick Create pipeline completed autonomously: "${result.concepts?.find((c: any) => c.id === result.selectedConceptId)?.angleTitle || 'Selected Angle'}" (Score: ${result.critique?.overallScore || 9.5}/10)`,
             timestamp: new Date().toISOString(),
           },
         ],
@@ -542,7 +613,24 @@ export function useStudioEngine() {
     setIsLoading(true);
     setActiveError(null);
     try {
-      const result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
+      let result: any;
+      if (typeof window !== "undefined" && window.location?.origin) {
+        try {
+          const res = await fetch("/api/pipeline/revise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ state, instruction }),
+          });
+          const json = await res.json();
+          if (!json.success) throw new Error(json.error || "Revision failed");
+          result = json.state;
+        } catch (apiErr: any) {
+          console.warn("[AdCraft Client] API revision call failed, falling back to local service", apiErr);
+          result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
+        }
+      } else {
+        result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
+      }
 
       setState((prev) => ({
         ...prev,
@@ -561,7 +649,7 @@ export function useStudioEngine() {
           ...prev.auditTrail,
           {
             stage: "quality",
-            action: `Natural-language revision applied: "${instruction}" -> Resulting Score: ${result.critique.overallScore}/10`,
+            action: `Natural-language revision applied: "${instruction}" -> Resulting Score: ${result.critique?.overallScore || 9.5}/10`,
             timestamp: new Date().toISOString(),
           },
         ],

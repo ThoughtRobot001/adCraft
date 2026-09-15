@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Player } from "@remotion/player";
+import { AdComposition, computeTotalDurationFrames } from "../compositions/AdComposition";
 import { useStudioEngine, DEFAULT_BRIEF, DEFAULT_BRAND } from "./adapter";
 import { StudioStageId, StudioMode, InspectorSelection, getStageStatus } from "./types";
 import "./studio.css";
@@ -270,40 +272,57 @@ export const Studio: React.FC = () => {
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                   <div className="adcraft-viewport-container">
                     <div className="adcraft-viewport-screen">
-                      {currentKeyframe ? (
-                        <img
-                          src={currentKeyframe.candidateKeyframe.imageUri}
-                          alt={`Scene ${activeSceneIndex + 1}`}
-                          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                      {state.motionIR ? (
+                        <Player
+                          component={AdComposition}
+                          inputProps={{ motionIR: state.motionIR }}
+                          durationInFrames={computeTotalDurationFrames(state.motionIR.scenes)}
+                          compositionWidth={1080}
+                          compositionHeight={1920}
+                          fps={state.motionIR.meta?.fps || 30}
+                          style={{ width: "100%", height: "100%" }}
+                          controls
+                          loop
+                          autoPlay={false}
                         />
+                      ) : currentKeyframe ? (
+                        <>
+                          <img
+                            src={currentKeyframe.candidateKeyframe.imageUri}
+                            alt={`Scene ${activeSceneIndex + 1}`}
+                            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                          />
+                          <div className="adcraft-viewport-overlay">
+                            <span style={{ fontSize: "11px", fontWeight: 700, color: "#FFF", textTransform: "uppercase" }}>
+                              Scene {activeSceneIndex + 1}: {currentScene?.name || "Scene"}
+                            </span>
+                            <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.7)" }}>
+                              {currentScene?.durationSeconds}s
+                            </span>
+                          </div>
+                        </>
                       ) : (
                         <div style={{ color: "var(--adcraft-text-muted)", display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
                           Frame Loading...
                         </div>
                       )}
-                      <div className="adcraft-viewport-overlay">
-                        <span style={{ fontSize: "11px", fontWeight: 700, color: "#FFF", textTransform: "uppercase" }}>
-                          Scene {activeSceneIndex + 1}: {currentScene?.name || "Scene"}
-                        </span>
-                        <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.7)" }}>
-                          {currentScene?.durationSeconds}s
-                        </span>
-                      </div>
                     </div>
 
-                    {/* Scrubber & Controls */}
-                    <div className="adcraft-viewport-controls">
-                      <button
-                        className="adcraft-btn adcraft-btn-secondary"
-                        style={{ padding: "6px 12px", fontSize: "11px" }}
-                        onClick={() => setIsPlaying(!isPlaying)}
-                      >
-                        {isPlaying ? "⏸ Pause" : "▶ Play Sequence"}
-                      </button>
-                      <div className="adcraft-viewport-timecode">
-                        00:0{activeSceneIndex * 3} / 00:15
+                    {/* Scrubber & Controls (when static preview is shown) */}
+                    {!state.motionIR && (
+                      <div className="adcraft-viewport-controls">
+                        <button
+                          className="adcraft-btn adcraft-btn-secondary"
+                          style={{ padding: "6px 12px", fontSize: "11px" }}
+                          onClick={() => setIsPlaying(!isPlaying)}
+                        >
+                          {isPlaying ? "⏸ Pause" : "▶ Play Sequence"}
+                        </button>
+                        <div className="adcraft-viewport-timecode">
+                          00:0{activeSceneIndex * 3} / 00:15
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* 8-Beat Cinematic Rhythm Strip */}
@@ -1124,8 +1143,21 @@ export const Studio: React.FC = () => {
                 <div style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: "24px" }}>
                   {/* Viewport Preview */}
                   <div className="adcraft-card" style={{ alignItems: "center" }}>
-                    <div style={{ width: "240px", height: "426px", backgroundColor: "#000", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--adcraft-border-subtle)" }}>
-                      {currentKeyframe ? (
+                    <div style={{ width: "270px", height: "480px", backgroundColor: "#000", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--adcraft-border-subtle)" }}>
+                      {state.motionIR ? (
+                        <Player
+                          component={AdComposition}
+                          inputProps={{ motionIR: state.motionIR }}
+                          durationInFrames={computeTotalDurationFrames(state.motionIR.scenes)}
+                          compositionWidth={1080}
+                          compositionHeight={1920}
+                          fps={state.motionIR.meta?.fps || 30}
+                          style={{ width: "100%", height: "100%" }}
+                          controls
+                          loop
+                          autoPlay={false}
+                        />
+                      ) : currentKeyframe ? (
                         <img
                           src={currentKeyframe.candidateKeyframe.imageUri}
                           alt="Motion Preview"
@@ -1138,7 +1170,7 @@ export const Studio: React.FC = () => {
                       )}
                     </div>
                     <div style={{ fontSize: "11px", color: "var(--adcraft-text-muted)", marginTop: "8px" }}>
-                      Scene {activeSceneIndex + 1} of {state.motionIR.scenes.length}
+                      1080 × 1920 Broadcast Canvas (30 FPS)
                     </div>
                   </div>
 
