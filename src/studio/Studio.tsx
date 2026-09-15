@@ -88,18 +88,26 @@ export const Studio: React.FC = () => {
       <header className="adcraft-header">
         <div className="adcraft-brand-cluster">
           <div className="adcraft-logo-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path
-                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                stroke="#FFF"
+                d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+                stroke="#07080B"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                fill="#10E544"
               />
             </svg>
           </div>
           <span className="adcraft-title">AdCraft</span>
-          <span className="adcraft-tagline">AI Creative Studio</span>
+          <span className="adcraft-tagline">Studio</span>
+          <div className="adcraft-project-pill">
+            <span style={{ color: "#FFF", fontWeight: 700 }}>{state.brief.productName || "AdCraft Project"}</span>
+            <span style={{ color: "var(--adcraft-text-muted)" }}>•</span>
+            <span>{state.brief.aspectRatio || "9:16"}</span>
+            <span style={{ color: "var(--adcraft-text-muted)" }}>•</span>
+            <span>{state.brief.targetDurationSeconds || 15}s</span>
+          </div>
         </div>
 
         {/* Master Experience Switcher */}
@@ -272,6 +280,30 @@ export const Studio: React.FC = () => {
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                   <div className="adcraft-viewport-container">
                     <div className="adcraft-viewport-screen">
+                      {/* Dynamic Island Notch */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "8px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "80px",
+                          height: "16px",
+                          backgroundColor: "#000000",
+                          borderRadius: "20px",
+                          zIndex: 30,
+                          border: "1px solid rgba(255, 255, 255, 0.12)",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.8)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "0 8px",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)" }} />
+                        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "rgba(16, 229, 68, 0.8)" }} />
+                      </div>
                       {state.motionIR ? (
                         <Player
                           component={AdComposition}
@@ -332,7 +364,7 @@ export const Studio: React.FC = () => {
                         <span style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--adcraft-text-muted)", fontWeight: 700 }}>
                           Cinematic Beat Progression (Scene {activeSceneIndex + 1})
                         </span>
-                        <span style={{ fontSize: "10px", color: "var(--adcraft-accent-purple)", fontWeight: 600 }}>
+                        <span style={{ fontSize: "10px", color: "var(--adcraft-accent-green)", fontWeight: 600 }}>
                           8 Directed Beats
                         </span>
                       </div>
@@ -382,9 +414,9 @@ export const Studio: React.FC = () => {
                           style={{
                             padding: "6px 12px",
                             borderRadius: "6px",
-                            backgroundColor: state.critique.passedThreshold ? "rgba(16, 185, 129, 0.15)" : "rgba(245, 158, 11, 0.15)",
-                            border: `1px solid ${state.critique.passedThreshold ? "rgba(16, 185, 129, 0.4)" : "rgba(245, 158, 11, 0.4)"}`,
-                            color: state.critique.passedThreshold ? "#6EE7B7" : "#FCD34D",
+                            backgroundColor: state.critique.passedThreshold ? "var(--adcraft-accent-green-subtle)" : "rgba(245, 158, 11, 0.15)",
+                            border: `1px solid ${state.critique.passedThreshold ? "rgba(16, 229, 68, 0.35)" : "rgba(245, 158, 11, 0.4)"}`,
+                            color: state.critique.passedThreshold ? "var(--adcraft-accent-green)" : "#FCD34D",
                             fontWeight: 700,
                             fontSize: "12px",
                           }}
@@ -508,8 +540,8 @@ export const Studio: React.FC = () => {
                         {state.revisions.map((rev) => (
                           <div key={rev.id} className="adcraft-revision-history-item">
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                              <strong style={{ color: "#C4B5FD" }}>"{rev.instruction}"</strong>
-                              <span style={{ color: "#6EE7B7" }}>Score: {rev.resultingScore.toFixed(1)}/10</span>
+                              <strong style={{ color: "var(--adcraft-accent-green)" }}>"{rev.instruction}"</strong>
+                              <span style={{ color: "var(--adcraft-accent-green)" }}>Score: {rev.resultingScore.toFixed(1)}/10</span>
                             </div>
                             <ul style={{ margin: "4px 0 0 0", paddingLeft: "16px", color: "var(--adcraft-text-secondary)" }}>
                               {rev.summaryOfChanges.map((change, cIdx) => (
@@ -789,7 +821,7 @@ export const Studio: React.FC = () => {
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
                     <div>
                       <span className="adcraft-label">Archetype & Theme</span>
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#C4B5FD", marginTop: "4px" }}>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--adcraft-accent-green)", marginTop: "4px" }}>
                         {(state.brandProfile.identity.theme || "dark-saas").toUpperCase()}
                       </div>
                       <p style={{ fontSize: "12px", color: "var(--adcraft-text-secondary)", marginTop: "6px" }}>
@@ -870,7 +902,7 @@ export const Studio: React.FC = () => {
 
                           <div style={{ marginTop: "12px", padding: "10px", backgroundColor: "var(--adcraft-bg-elevated)", borderRadius: "6px" }}>
                             <span className="adcraft-label" style={{ fontSize: "10px" }}>Hook Headline</span>
-                            <div style={{ fontSize: "13px", fontWeight: 700, color: "#C4B5FD", marginTop: "2px" }}>
+                            <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--adcraft-accent-green)", marginTop: "2px" }}>
                               "{concept.hook}"
                             </div>
                           </div>
@@ -906,12 +938,12 @@ export const Studio: React.FC = () => {
 
                 {/* Persistent Visual Bible Inspector Banner */}
                 {state.visualBible && (
-                  <div className="adcraft-card" style={{ backgroundColor: "rgba(139, 92, 246, 0.08)", border: "1px solid rgba(139, 92, 246, 0.3)" }}>
+                  <div className="adcraft-card" style={{ backgroundColor: "var(--adcraft-accent-green-subtle)", border: "1px solid rgba(16, 229, 68, 0.25)" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <span style={{ fontSize: "16px" }}>📖</span>
                         <div>
-                          <span style={{ fontSize: "13px", fontWeight: 700, color: "#C4B5FD", textTransform: "uppercase" }}>
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--adcraft-accent-green)", textTransform: "uppercase" }}>
                             Persistent Visual Bible ({state.visualBible.visualLanguage.theme.toUpperCase()})
                           </span>
                           <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)" }}>
@@ -939,7 +971,7 @@ export const Studio: React.FC = () => {
                         onClick={() => setInspectorSelection({ type: "scene", sceneId: scene.id })}
                       >
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                          <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--adcraft-accent-purple)" }}>
+                          <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--adcraft-accent-green)" }}>
                             Scene {idx + 1} [{(scene.act || "scene").toUpperCase()}]
                           </span>
                           <span style={{ fontSize: "11px", color: "var(--adcraft-text-muted)" }}>
@@ -1059,7 +1091,7 @@ export const Studio: React.FC = () => {
                           onClick={() => setInspectorSelection({ type: "keyframe", sceneId: currentKeyframeScene, candidateId: candidate.id })}
                         >
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                            <span style={{ fontSize: "12px", fontWeight: 700, color: "#C4B5FD" }}>
+                            <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--adcraft-accent-green)" }}>
                               Candidate {String.fromCharCode(65 + cIdx)} ({candidate.metadata?.variantType || "Primary"})
                             </span>
                             <span className="adcraft-badge adcraft-badge-fixture">
@@ -1142,8 +1174,32 @@ export const Studio: React.FC = () => {
 
                 <div style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: "24px" }}>
                   {/* Viewport Preview */}
-                  <div className="adcraft-card" style={{ alignItems: "center" }}>
-                    <div style={{ width: "270px", height: "480px", backgroundColor: "#000", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--adcraft-border-subtle)" }}>
+                  <div className="adcraft-viewport-container" style={{ padding: "16px", width: "322px" }}>
+                    <div className="adcraft-viewport-screen" style={{ width: "290px", height: "516px" }}>
+                      {/* Dynamic Island Notch */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "8px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "80px",
+                          height: "16px",
+                          backgroundColor: "#000000",
+                          borderRadius: "20px",
+                          zIndex: 30,
+                          border: "1px solid rgba(255, 255, 255, 0.12)",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.8)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "0 8px",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)" }} />
+                        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "rgba(16, 229, 68, 0.8)" }} />
+                      </div>
                       {state.motionIR ? (
                         <Player
                           component={AdComposition}
@@ -1212,7 +1268,7 @@ export const Studio: React.FC = () => {
                         </div>
                         <div>
                           <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)" }}>Primitives</div>
-                          <div style={{ fontSize: "13px", fontWeight: 700, color: "#6EE7B7" }}>4 Active</div>
+                          <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--adcraft-accent-green)" }}>4 Active</div>
                         </div>
                       </div>
                     </div>
@@ -1248,9 +1304,9 @@ export const Studio: React.FC = () => {
                       style={{
                         padding: "8px 18px",
                         borderRadius: "8px",
-                        backgroundColor: state.critique.passedThreshold ? "rgba(16, 185, 129, 0.15)" : "rgba(245, 158, 11, 0.15)",
-                        border: `1px solid ${state.critique.passedThreshold ? "rgba(16, 185, 129, 0.4)" : "rgba(245, 158, 11, 0.4)"}`,
-                        color: state.critique.passedThreshold ? "#6EE7B7" : "#FCD34D",
+                        backgroundColor: state.critique.passedThreshold ? "var(--adcraft-accent-green-subtle)" : "rgba(245, 158, 11, 0.15)",
+                        border: `1px solid ${state.critique.passedThreshold ? "rgba(16, 229, 68, 0.35)" : "rgba(245, 158, 11, 0.4)"}`,
+                        color: state.critique.passedThreshold ? "var(--adcraft-accent-green)" : "#FCD34D",
                         fontWeight: 700,
                         fontSize: "14px",
                       }}
@@ -1318,7 +1374,7 @@ export const Studio: React.FC = () => {
                               <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "4px" }}>
                                 {issue.description}
                               </div>
-                              <div style={{ fontSize: "11px", color: "#C4B5FD", marginTop: "2px" }}>
+                              <div style={{ fontSize: "11px", color: "var(--adcraft-accent-green)", marginTop: "2px" }}>
                                 Fix: {issue.suggestedFix}
                               </div>
                             </div>
@@ -1393,7 +1449,7 @@ export const Studio: React.FC = () => {
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "8px" }}>
                       {Object.entries(state.exportPackage.files).map(([key, val]) => (
                         <div key={key} style={{ display: "flex", justifyContent: "space-between", padding: "8px 12px", backgroundColor: "var(--adcraft-bg-elevated)", borderRadius: "6px", fontSize: "12px" }}>
-                          <span style={{ color: "#C4B5FD", fontWeight: 600, textTransform: "capitalize" }}>{key}</span>
+                          <span style={{ color: "var(--adcraft-accent-green)", fontWeight: 600, textTransform: "capitalize" }}>{key}</span>
                           <span style={{ color: "var(--adcraft-text-secondary)", fontFamily: "var(--adcraft-font-mono)" }}>{Array.isArray(val) ? `${val.length} assets` : String(val)}</span>
                         </div>
                       ))}
@@ -1435,7 +1491,7 @@ export const Studio: React.FC = () => {
                 {/* 11-Dimension Visual Analysis Breakdown */}
                 {inspectorAnalysis && (
                   <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                    <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "var(--adcraft-accent-purple)", letterSpacing: "0.5px" }}>
+                    <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "var(--adcraft-accent-green)", letterSpacing: "0.5px" }}>
                       11-Dimension Spatial Blueprint
                     </div>
 
@@ -1480,7 +1536,7 @@ export const Studio: React.FC = () => {
                       </div>
                       <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginTop: "4px" }}>
                         {inspectorAnalysis.spatialHierarchy.layers.map((l, lIdx) => (
-                          <span key={lIdx} style={{ fontSize: "9px", padding: "2px 6px", backgroundColor: "var(--adcraft-bg-elevated)", borderRadius: "4px", color: "#C4B5FD" }}>
+                          <span key={lIdx} style={{ fontSize: "9px", padding: "2px 6px", backgroundColor: "var(--adcraft-bg-elevated)", borderRadius: "4px", color: "var(--adcraft-accent-green)" }}>
                             Z{l.targetZIndex}: {l.role}
                           </span>
                         ))}
@@ -1592,7 +1648,7 @@ export const Studio: React.FC = () => {
 
                 <div className="adcraft-inspector-section">
                   <span className="adcraft-label">Emotional Beat</span>
-                  <div style={{ fontSize: "12px", color: "#C4B5FD", fontWeight: 600 }}>
+                  <div style={{ fontSize: "12px", color: "var(--adcraft-accent-green)", fontWeight: 600 }}>
                     {inspectorScene.emotionalBeat}
                   </div>
                 </div>
