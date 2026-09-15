@@ -7,6 +7,7 @@ import { studioGenerationService } from "./server/generation-service";
 import {
   CapabilityStatus,
   ExportPackageManifest,
+  StudioMode,
   StudioStageId,
   StudioState,
 } from "./types";
@@ -58,11 +59,13 @@ export function useStudioEngine() {
     jobId: `job-adcraft-${Date.now()}`,
     jobState: "draft",
     currentStage: "brief",
+    activeMode: "quick-create",
     capability: studioGenerationService.getCapabilityStatus(),
     brandInput: DEFAULT_BRAND,
     brief: DEFAULT_BRIEF,
     revisionsApplied: 0,
-    auditTrail: [{ stage: "brief", action: "Studio session initialized", timestamp: new Date().toISOString() }],
+    revisions: [],
+    auditTrail: [{ stage: "brief", action: "Studio session initialized in Quick Create mode", timestamp: new Date().toISOString() }],
   }));
 
   const [isLoading, setIsLoading] = useState(false);
@@ -415,10 +418,97 @@ export function useStudioEngine() {
     }));
   }, [state.motionIR, state.brandProfile, state.brief, state.concepts, state.selectedConceptId, state.critique]);
 
+
+  const setMode = useCallback((mode: StudioMode) => {
+    setState((prev) => ({
+      ...prev,
+      activeMode: mode,
+      auditTrail: [
+        ...prev.auditTrail,
+        { stage: prev.currentStage, action: `Switched studio mode to: ${mode}`, timestamp: new Date().toISOString() },
+      ],
+    }));
+  }, []);
+
+  // Quick Create: Autonomous End-to-End Pipeline
+  const runQuickCreate = useCallback(async (creativeDirection?: string) => {
+    setIsLoading(true);
+    setActiveError(null);
+    try {
+      if (creativeDirection) {
+        setState((prev) => ({ ...prev, creativeDirection }));
+      }
+      const result = await studioGenerationService.runAutonomousPipeline(
+        state.brandInput,
+        state.brief,
+        creativeDirection || state.creativeDirection
+      );
+
+      setState((prev) => ({
+        ...prev,
+        ...result,
+        jobState: "complete",
+        currentStage: "export",
+        auditTrail: [
+          ...prev.auditTrail,
+          {
+            stage: "export",
+            action: `Quick Create pipeline completed autonomously: "${result.concepts.find((c) => c.id === result.selectedConceptId)?.angleTitle || 'Selected Angle'}" (Score: ${result.critique.overallScore}/10)`,
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      }));
+    } catch (err: any) {
+      setActiveError(err.message);
+      setState((prev) => ({ ...prev, jobState: "failed", errorMessage: err.message }));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [state.brandInput, state.brief, state.creativeDirection]);
+
+  // Quick Create: Natural Language Revision
+  const submitNaturalLanguageRevision = useCallback(async (instruction: string) => {
+    setIsLoading(true);
+    setActiveError(null);
+    try {
+      const result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
+
+      setState((prev) => ({
+        ...prev,
+        storyboard: result.storyboard,
+        visualBible: result.visualBible,
+        approvedKeyframes: result.approvedKeyframes,
+        keyframeAnalyses: result.keyframeAnalyses,
+        motionPlans: result.motionPlans,
+        motionIR: result.motionIR,
+        critique: result.critique,
+        exportPackage: result.exportPackage,
+        revisionsApplied: prev.revisionsApplied + 1,
+        revisions: [...(prev.revisions || []), result.revision],
+        jobState: "complete",
+        auditTrail: [
+          ...prev.auditTrail,
+          {
+            stage: "quality",
+            action: `Natural-language revision applied: "${instruction}" -> Resulting Score: ${result.critique.overallScore}/10`,
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      }));
+    } catch (err: any) {
+      setActiveError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [state]);
+
   return {
     state,
     isLoading,
     activeError,
+    setMode,
+    runQuickCreate,
+    submitNaturalLanguageRevision,
     setStage,
     updateBrief,
     updateBrand,

@@ -106,13 +106,26 @@ export interface StudioConceptOption extends CreativeConcept {
   provenance: ArtifactProvenance;
 }
 
+export type StudioMode = "quick-create" | "creative-studio";
+
+export interface NaturalLanguageRevision {
+  id: string;
+  instruction: string;
+  timestamp: string;
+  category: "hook" | "premium" | "brevity" | "product-focus" | "custom";
+  summaryOfChanges: string[];
+  resultingScore: number;
+}
+
 export interface StudioState {
   jobId: string;
   jobState: StudioJobState;
   currentStage: StudioStageId;
+  activeMode: StudioMode;
   capability: CapabilityStatus;
   brandInput: BrandInput;
   brief: CampaignBrief;
+  creativeDirection?: string;
   brandProfile?: BrandProfile & { provenance: ArtifactProvenance };
   visualBible?: VisualBible & { provenance: ArtifactProvenance };
   concepts?: StudioConceptOption[];
@@ -126,6 +139,7 @@ export interface StudioState {
   critique?: CritiqueResult & { qualityDimensions: QualityDimensions; provenance: ArtifactProvenance };
   exportPackage?: ExportPackageManifest;
   revisionsApplied: number;
+  revisions?: NaturalLanguageRevision[];
   errorMessage?: string;
   auditTrail: { stage: StudioStageId; action: string; timestamp: string }[];
 }
