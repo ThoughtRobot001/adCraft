@@ -7,6 +7,7 @@ import { studioGenerationService } from "./server/generation-service";
 import {
   CapabilityStatus,
   ExportPackageManifest,
+  InspectorSelection,
   StudioMode,
   StudioStageId,
   StudioState,
@@ -70,6 +71,7 @@ export function useStudioEngine() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [activeError, setActiveError] = useState<string | null>(null);
+  const [inspectorSelection, setInspectorSelection] = useState<InspectorSelection>({ type: "none" });
 
   // Update capability on mount
   useEffect(() => {
@@ -262,7 +264,76 @@ export function useStudioEngine() {
         { stage: "keyframes", action: `Approved keyframe for scene "${sceneId}" (${chosen.metadata?.variantType})`, timestamp: new Date().toISOString() },
       ],
     }));
-  }, [state.storyboard, state.candidateKeyframes, state.brandProfile]);
+  }, [state.storyboard, state.candidateKeyframes, state.brandProfile, state.visualBible]);
+
+  const rejectKeyframe = useCallback((sceneId: string) => {
+    setState((prev) => {
+      const approved = { ...prev.approvedKeyframes };
+      delete approved[sceneId];
+      return {
+        ...prev,
+        approvedKeyframes: approved,
+        auditTrail: [
+          ...prev.auditTrail,
+          { stage: "keyframes", action: `Rejected keyframe for scene "${sceneId}"`, timestamp: new Date().toISOString() },
+        ],
+      };
+    });
+  }, []);
+
+  const regenerateKeyframesForScene = useCallback(async (sceneId: string) => {
+    const scene = state.storyboard?.scenes.find((s) => s.id === sceneId);
+    if (!scene || !state.brandProfile) return;
+    setIsLoading(true);
+    setActiveError(null);
+    try {
+      const newCands = await studioGenerationService.generateKeyframeCandidates(
+        scene,
+        state.brandProfile,
+        state.brief,
+        state.visualBible
+      );
+      setState((prev) => ({
+        ...prev,
+        candidateKeyframes: {
+          ...prev.candidateKeyframes,
+          [sceneId]: newCands,
+        },
+        auditTrail: [
+          ...prev.auditTrail,
+          { stage: "keyframes", action: `Regenerated visual keyframes for scene "${sceneId}"`, timestamp: new Date().toISOString() },
+        ],
+      }));
+    } catch (err: any) {
+      setActiveError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [state.storyboard, state.brandProfile, state.brief, state.visualBible]);
+
+  const reviseSpecificScene = useCallback(async (sceneId: string, fixDescription: string) => {
+    if (!state.motionIR || !state.critique) return;
+    setIsLoading(true);
+    try {
+      const revisedIR = studioGenerationService.applySurgicalRevision(state.motionIR, state.critique);
+      const newCritique = studioGenerationService.evaluateQuality(revisedIR, state.visualBible);
+      setState((prev) => ({
+        ...prev,
+        motionIR: revisedIR,
+        critique: newCritique,
+        revisionsApplied: prev.revisionsApplied + 1,
+        jobState: newCritique.passedThreshold ? "passed" : "revising",
+        auditTrail: [
+          ...prev.auditTrail,
+          { stage: "quality", action: `Surgically revised scene "${sceneId}": ${fixDescription}`, timestamp: new Date().toISOString() },
+        ],
+      }));
+    } catch (err: any) {
+      setActiveError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [state.motionIR, state.critique, state.visualBible]);
 
   // Gate 3 Completion: Compile Approved Blueprints into MotionIR
   const compileMotion = useCallback(async () => {
@@ -506,6 +577,8 @@ export function useStudioEngine() {
     state,
     isLoading,
     activeError,
+    inspectorSelection,
+    setInspectorSelection,
     setMode,
     runQuickCreate,
     submitNaturalLanguageRevision,
@@ -519,6 +592,9 @@ export function useStudioEngine() {
     reorderStoryboardScenes,
     approveStoryboardAndGenerateKeyframes,
     selectKeyframe,
+    rejectKeyframe,
+    regenerateKeyframesForScene,
+    reviseSpecificScene,
     compileMotion,
     applySurgicalRevision,
     exportProductionPackage,

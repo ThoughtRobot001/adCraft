@@ -750,3 +750,194 @@
   0%, 100% { opacity: 0.4; transform: scale(0.9); }
   50% { opacity: 1.0; transform: scale(1.2); }
 }
+
+/* Status Pills in Workflow Rail */
+.adcraft-status-pill {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--adcraft-font-mono);
+}
+
+.adcraft-status-pill.draft {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--adcraft-text-muted);
+}
+
+.adcraft-status-pill.running {
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #7DD3FC;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  animation: adcraft-pulse 1.4s infinite;
+}
+
+.adcraft-status-pill.needs-review {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #FCD34D;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.adcraft-status-pill.revising {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #FCD34D;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  animation: adcraft-pulse 1.4s infinite;
+}
+
+.adcraft-status-pill.approved {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #6EE7B7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.adcraft-status-pill.blocked {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--adcraft-text-muted);
+}
+
+.adcraft-status-pill.exporting {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: #C4B5FD;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.adcraft-status-pill.complete {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.adcraft-status-pill.failed {
+  background-color: rgba(244, 63, 94, 0.15);
+  color: #FDA4AF;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* 11-Dimension Inspector Item */
+.adcraft-inspector-dim {
+  padding: 8px 10px;
+  background-color: var(--adcraft-bg-elevated);
+  border-radius: 6px;
+  border: 1px solid var(--adcraft-border-subtle);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Quick Create Viewport Player */
+.adcraft-viewport-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.adcraft-viewport-screen {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 520px;
+  background-color: #07080C;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(139, 92, 246, 0.12);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adcraft-viewport-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.adcraft-viewport-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background-color: var(--adcraft-bg-surface);
+  border: 1px solid var(--adcraft-border-subtle);
+  border-radius: 8px;
+}
+
+.adcraft-viewport-timecode {
+  font-family: var(--adcraft-font-mono);
+  font-size: 11px;
+  color: var(--adcraft-text-secondary);
+}
+
+/* 8-Beat Rhythm Strip & Pills */
+.adcraft-beat-pill {
+  flex: 1;
+  text-align: center;
+  padding: 4px 2px;
+  border-radius: 4px;
+  background-color: var(--adcraft-bg-elevated);
+  border: 1px solid var(--adcraft-border-subtle);
+  color: var(--adcraft-text-muted);
+  transition: all 0.15s ease;
+}
+
+.adcraft-beat-pill.active {
+  background-color: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #C4B5FD;
+}
+
+/* Bridge Banner */
+.adcraft-bridge-banner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.7));
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Revision Action Pills */
+.adcraft-revision-pill-btn {
+  background-color: var(--adcraft-bg-elevated);
+  border: 1px solid var(--adcraft-border-subtle);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.adcraft-revision-pill-btn:hover {
+  background-color: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.adcraft-revision-history-item {
+  padding: 8px 12px;
+  background-color: var(--adcraft-bg-elevated);
+  border-radius: 6px;
+  border: 1px solid var(--adcraft-border-subtle);
+  font-size: 11px;
+}
+
