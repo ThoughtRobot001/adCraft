@@ -28,8 +28,10 @@ export class VisualKeyframeGenerator {
     const width = aspectRatio === "9:16" ? 1080 : 1920;
     const height = aspectRatio === "9:16" ? 1920 : 1080;
 
-    const outDir = options.outDir || path.join(process.cwd(), "out", "keyframes");
-    if (!fs.existsSync(outDir)) {
+    const outDir =
+      options.outDir ||
+      (typeof path !== "undefined" && path.join ? path.join(process.cwd(), "out", "keyframes") : "");
+    if (outDir && typeof fs !== "undefined" && fs.existsSync && !fs.existsSync(outDir)) {
       fs.mkdirSync(outDir, { recursive: true });
     }
 
@@ -40,7 +42,8 @@ export class VisualKeyframeGenerator {
       const prompt = this.craftArtDirectionPrompt(scene, profile, brief, variantType, aspectRatio);
       const candidateId = `keyframe-${scene.id}-var${variant}-${Date.now()}`;
       const filename = `${candidateId}.svg`;
-      const filePath = path.join(outDir, filename);
+      const filePath =
+        outDir && typeof path !== "undefined" && path.join ? path.join(outDir, filename) : "";
 
       // Synthesize high-definition compositional reference frame
       const svgContent = this.synthesizeCompositionFrame(
@@ -50,13 +53,15 @@ export class VisualKeyframeGenerator {
         width,
         height
       );
-      fs.writeFileSync(filePath, svgContent, "utf-8");
+      if (filePath && typeof fs !== "undefined" && fs.writeFileSync) {
+        fs.writeFileSync(filePath, svgContent, "utf-8");
+      }
 
       candidates.push({
         id: candidateId,
         sceneId: scene.id,
         prompt,
-        imageUri: filePath,
+        imageUri: filePath || `data:image/svg+xml;utf8,${encodeURIComponent(svgContent)}`,
         width,
         height,
         aspectRatio: aspectRatio as any,
@@ -108,7 +113,7 @@ export class VisualKeyframeGenerator {
    * Renders the spatial layout, typography bounds, atmospheric lighting orbs,
    * depth planes, and hero cards into an inspectable SVG artifact.
    */
-  private synthesizeCompositionFrame(
+  public synthesizeCompositionFrame(
     scene: StoryboardScene,
     profile: BrandProfile,
     variant: "monolithic-focus" | "asymmetric-depth",

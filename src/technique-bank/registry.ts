@@ -3,7 +3,10 @@ import path from "path";
 import { BUILTIN_TECHNIQUES } from "./recipes";
 import { DramaticIntent, TechniqueCategory, TechniqueQuery, TechniqueRecipe, TechniqueRecipeSchema } from "./types";
 
-const USER_TECHNIQUES_FILE = path.join(__dirname, "user-techniques.json");
+const USER_TECHNIQUES_FILE =
+  typeof path !== "undefined" && typeof path.join === "function" && typeof __dirname !== "undefined"
+    ? path.join(__dirname, "user-techniques.json")
+    : "";
 
 export class TechniqueBank {
   private static instance: TechniqueBank;
@@ -29,7 +32,12 @@ export class TechniqueBank {
 
   private loadUserTechniques() {
     try {
-      if (fs.existsSync(USER_TECHNIQUES_FILE)) {
+      if (
+        USER_TECHNIQUES_FILE &&
+        typeof fs !== "undefined" &&
+        fs.existsSync &&
+        fs.existsSync(USER_TECHNIQUES_FILE)
+      ) {
         const raw = fs.readFileSync(USER_TECHNIQUES_FILE, "utf-8");
         const list = JSON.parse(raw);
         if (Array.isArray(list)) {
@@ -48,6 +56,13 @@ export class TechniqueBank {
 
   private persistUserTechniques() {
     try {
+      if (
+        !USER_TECHNIQUES_FILE ||
+        typeof fs === "undefined" ||
+        !fs.writeFileSync
+      ) {
+        return;
+      }
       const userList = Array.from(this.techniques.values()).filter(
         (t) => !BUILTIN_TECHNIQUES.some((b) => b.id === t.id)
       );

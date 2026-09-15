@@ -6,6 +6,23 @@ Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setPublicDir(path.resolve(process.cwd(), "public"));
 
+Config.overrideWebpackConfig((current) => {
+  return {
+    ...current,
+    resolve: {
+      ...current.resolve,
+      fallback: {
+        ...current.resolve?.fallback,
+        fs: false,
+        path: false,
+        os: false,
+        crypto: false,
+        child_process: false,
+      },
+    },
+  };
+});
+
 
 // Dynamically resolve Chrome binary across environments (CI, macOS, Linux, Windows)
 const envBrowser = process.env.CHROME_PATH || process.env.PUPPETEER_EXECUTABLE_PATH;

@@ -27,10 +27,12 @@ export class KeyframeAnalyzer {
     const isAsymmetric = candidate.metadata?.variantType === "asymmetric-depth";
 
     // Inspect SVG if available for exact geometry
-    let svgText = "";
-    if (candidate.imageUri && fs.existsSync(candidate.imageUri)) {
+    let svgText = candidate.metadata?.svgContent || "";
+    if (!svgText && candidate.imageUri && typeof fs !== "undefined" && fs.existsSync) {
       try {
-        svgText = fs.readFileSync(candidate.imageUri, "utf-8");
+        if (fs.existsSync(candidate.imageUri)) {
+          svgText = fs.readFileSync(candidate.imageUri, "utf-8");
+        }
       } catch {
         // ignore read failure, use analytical model
       }

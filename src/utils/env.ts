@@ -2,6 +2,16 @@ import fs from "fs";
 import path from "path";
 
 export function loadEnv() {
+  if (
+    typeof process === "undefined" ||
+    typeof process.cwd !== "function" ||
+    typeof fs === "undefined" ||
+    !fs.existsSync ||
+    typeof path === "undefined" ||
+    !path.resolve
+  ) {
+    return;
+  }
   const envPath = path.resolve(process.cwd(), ".env");
   if (fs.existsSync(envPath)) {
     try {

@@ -54,14 +54,16 @@
         "[User Rejected]: Cards moved too fast at run 1789231571429",
         "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\".",
         "[Auto-Learned: spatial-collision-1789250794264] Cards clipped over centered headline at run 1789250794264",
-        "[User Rejected]: Cards moved too fast at run 1789250794264"
+        "[User Rejected]: Cards moved too fast at run 1789250794264",
+        "[Auto-Learned: spatial-collision-1789474255532] Cards clipped over centered headline at run 1789474255532",
+        "[User Rejected]: Cards moved too fast at run 1789474255532"
       ],
       "previewOrExample": {
         "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (365).png",
         "codeSnippet": "<PerspectiveCardGrid cards={frictionItems} continuousScrollSpeed={4.8} tiltY={-18} />",
         "description": "Infinite cascading cards flowing downwards in 3D perspective with ominous warning illumination."
       },
-      "qualityScore": 7.75,
+      "qualityScore": 7.5,
       "tags": [
         "tension",
         "backlog",
@@ -173,13 +175,15 @@
         "[User Rejected]: Cards moved too fast at run 1789231571429",
         "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\".",
         "[Auto-Learned: spatial-collision-1789250794264] Cards clipped over centered headline at run 1789250794264",
-        "[User Rejected]: Cards moved too fast at run 1789250794264"
+        "[User Rejected]: Cards moved too fast at run 1789250794264",
+        "[Auto-Learned: spatial-collision-1789474255532] Cards clipped over centered headline at run 1789474255532",
+        "[User Rejected]: Cards moved too fast at run 1789474255532"
       ],
       "previewOrExample": {
         "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (365).png",
         "codeSnippet": "const yOffset = (frame * continuousScrollSpeed) % totalGridHeight;"
       },
-      "qualityScore": 7.85,
+      "qualityScore": 7.6,
       "tags": [
         "conveyor",
         "scroll",
@@ -462,7 +466,7 @@
         "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (388).png",
         "codeSnippet": "transform: `perspective(1400px) rotateY(${rotY}deg) rotateX(4deg)`;"
       },
-      "qualityScore": 9.85,
+      "qualityScore": 9.95,
       "tags": [
         "3d",
         "titanium",
@@ -3141,18 +3145,181 @@
       "critiqueIssues": [],
       "userVerdict": "unreviewed",
       "timestamp": "2026-09-13T00:35:27.089Z"
+    },
+    {
+      "id": "reconstructed-ad-1789470239065",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T11:03:59.079Z"
+    },
+    {
+      "id": "reconstructed-ad-1789471864109",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T11:31:04.126Z"
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789472990046
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789472990052
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789474233692
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789474233697
+    },
+    {
+      "id": "session-test-rejection-1789474255532",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789474255532",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789474255532"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789474255532",
+      "timestamp": "2026-09-15T12:10:55.532Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-15T12:10:55.536Z"
+    },
+    {
+      "id": "reconstructed-ad-1789474278026",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T12:11:18.041Z"
     }
   ],
   "affinityWeights": {
-    "intent:create tension and visual overload:comp-perspective-conveyor-friction": -5.6,
-    "intent:create tension and visual overload:tech-conveyor-belt-3d": -5.6,
-    "pair:comp-perspective-conveyor-friction:tech-conveyor-belt-3d": -3.5,
-    "intent:create premium technical precision:tech-pbr-titanium-pivot": 2.8,
-    "intent:create premium technical precision:comp-monolithic-hardware": 2.8,
-    "intent:create premium technical precision:bg-matte-graphite-specular": 2.8,
-    "pair:tech-pbr-titanium-pivot:comp-monolithic-hardware": 2,
-    "pair:tech-pbr-titanium-pivot:bg-matte-graphite-specular": 2,
-    "pair:comp-monolithic-hardware:bg-matte-graphite-specular": 2,
+    "intent:create tension and visual overload:comp-perspective-conveyor-friction": -6.3,
+    "intent:create tension and visual overload:tech-conveyor-belt-3d": -6.3,
+    "pair:comp-perspective-conveyor-friction:tech-conveyor-belt-3d": -4,
+    "intent:create premium technical precision:tech-pbr-titanium-pivot": 3.15,
+    "intent:create premium technical precision:comp-monolithic-hardware": 3.15,
+    "intent:create premium technical precision:bg-matte-graphite-specular": 3.15,
+    "pair:tech-pbr-titanium-pivot:comp-monolithic-hardware": 2.25,
+    "pair:tech-pbr-titanium-pivot:bg-matte-graphite-specular": 2.25,
+    "pair:comp-monolithic-hardware:bg-matte-graphite-specular": 2.25,
     "intent:transformation:comp-perspective-conveyor-friction": -0.35,
     "intent:transformation:tech-conveyor-belt-3d": -0.35,
     "intent:transformation:bg-tension-shear-grid": -0.35,
@@ -3339,6 +3506,7 @@
     "pair:tech-action-progress-modal:bg-astra-horizon-glow": 0.75,
     "pair:sound-warm-resolution-chime:cta-button": 0.75,
     "pair:sound-warm-resolution-chime:bg-astra-horizon-glow": 0.75,
-    "pair:cta-button:bg-astra-horizon-glow": 0.75
+    "pair:cta-button:bg-astra-horizon-glow": 0.75,
+    "pair:comp-monolithic-hero:tech-kinetic-stagger": 0.5
   }
 }

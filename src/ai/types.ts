@@ -22,6 +22,14 @@ export interface CampaignBrief {
     subtext?: string;
   };
   customAngle?: string;
+  constraints?: string[];
+  tone?: string[];
+  cta?: {
+    label: string;
+    url?: string;
+  };
+  visualReferences?: string[];
+  outputChannels?: ("tiktok" | "instagram-reels" | "linkedin" | "youtube-shorts")[];
 }
 
 export interface CreativeConcept {

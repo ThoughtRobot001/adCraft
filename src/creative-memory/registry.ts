@@ -12,8 +12,14 @@ import {
   SessionOutcome,
 } from "./types";
 
-const MEMORY_STORE_DIR = path.join(__dirname, "data");
-const MEMORY_STORE_FILE = path.join(MEMORY_STORE_DIR, "memory-store.json");
+const MEMORY_STORE_DIR =
+  typeof path !== "undefined" && typeof path.join === "function" && typeof __dirname !== "undefined"
+    ? path.join(__dirname, "data")
+    : "";
+const MEMORY_STORE_FILE =
+  MEMORY_STORE_DIR && typeof path !== "undefined" && typeof path.join === "function"
+    ? path.join(MEMORY_STORE_DIR, "memory-store.json")
+    : "";
 
 interface PersistedMemoryState {
   items: CreativeMemoryItem[];
@@ -46,7 +52,12 @@ export class CreativeMemory {
 
     // 2. Load persisted user overrides, dynamic items, and outcome history
     try {
-      if (fs.existsSync(MEMORY_STORE_FILE)) {
+      if (
+        MEMORY_STORE_FILE &&
+        typeof fs !== "undefined" &&
+        fs.existsSync &&
+        fs.existsSync(MEMORY_STORE_FILE)
+      ) {
         const raw = fs.readFileSync(MEMORY_STORE_FILE, "utf-8");
         const state: PersistedMemoryState = JSON.parse(raw);
 
@@ -76,6 +87,14 @@ export class CreativeMemory {
 
   private persistState() {
     try {
+      if (
+        !MEMORY_STORE_DIR ||
+        typeof fs === "undefined" ||
+        !fs.writeFileSync ||
+        !fs.existsSync
+      ) {
+        return;
+      }
       if (!fs.existsSync(MEMORY_STORE_DIR)) {
         fs.mkdirSync(MEMORY_STORE_DIR, { recursive: true });
       }
