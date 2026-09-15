@@ -5,15 +5,100 @@ import { useStudioEngine, DEFAULT_BRIEF, DEFAULT_BRAND } from "./adapter";
 import { StudioStageId, StudioMode, InspectorSelection, getStageStatus } from "./types";
 import "./studio.css";
 
-const STAGES: { id: StudioStageId; label: string; number: string; group: "campaign" | "creative" }[] = [
-  { id: "brief", label: "Brief", number: "01", group: "campaign" },
-  { id: "evidence", label: "Brand", number: "02", group: "creative" },
-  { id: "concepts", label: "Concepts", number: "03", group: "creative" },
-  { id: "storyboard", label: "Storyboard", number: "04", group: "creative" },
-  { id: "keyframes", label: "Keyframes", number: "05", group: "creative" },
-  { id: "motion", label: "Motion", number: "06", group: "creative" },
-  { id: "quality", label: "Review", number: "07", group: "creative" },
-  { id: "export", label: "Export", number: "08", group: "creative" },
+interface RailStageItem {
+  id: "campaign" | "creative" | "storyboard" | "keyframes" | "motion" | "review" | "export";
+  label: string;
+  stageId: StudioStageId;
+  icon: React.ReactNode;
+}
+
+const RAIL_STAGES: RailStageItem[] = [
+  {
+    id: "campaign",
+    label: "Campaign",
+    stageId: "brief",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 10.5L12 3l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9.5z" />
+        <polyline points="8 15 11 12 13 14 16 10" />
+      </svg>
+    ),
+  },
+  {
+    id: "creative",
+    label: "Creative",
+    stageId: "concepts",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="13.5" cy="6.5" r=".8" fill="currentColor" />
+        <circle cx="17.5" cy="10.5" r=".8" fill="currentColor" />
+        <circle cx="8.5" cy="7.5" r=".8" fill="currentColor" />
+        <circle cx="6.5" cy="12.5" r=".8" fill="currentColor" />
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.6 0-.4-.2-.8-.4-1.1-.3-.4-.4-.8-.4-1.3 0-.9.7-1.6 1.6-1.6H16c3.3 0 6-2.7 6-6 0-5.5-4.5-10-10-10z" />
+      </svg>
+    ),
+  },
+  {
+    id: "storyboard",
+    label: "Storyboard",
+    stageId: "storyboard",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="3" width="16" height="18" rx="3" />
+        <path d="M8 3v4" />
+        <path d="M16 3v4" />
+        <path d="M4 8h16" />
+        <path d="M8 13h8" />
+        <path d="M8 17h5" />
+      </svg>
+    ),
+  },
+  {
+    id: "keyframes",
+    label: "Keyframes",
+    stageId: "keyframes",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="4" />
+        <path d="M8 16l8-8" />
+        <path d="M13 7l4 4" />
+      </svg>
+    ),
+  },
+  {
+    id: "motion",
+    label: "Motion",
+    stageId: "motion",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M8.5 8.5l7 7M15.5 8.5l-7 7" />
+      </svg>
+    ),
+  },
+  {
+    id: "review",
+    label: "Review",
+    stageId: "quality",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <polyline points="9 12 11 14 15 10" />
+      </svg>
+    ),
+  },
+  {
+    id: "export",
+    label: "Export",
+    stageId: "export",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="16" height="16" rx="4" />
+        <polyline points="8 12 12 16 16 12" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+      </svg>
+    ),
+  },
 ];
 
 const CANONICAL_BEATS = [
@@ -565,70 +650,54 @@ export const Studio: React.FC = () => {
       {/* ========================================================================= */}
       {state.activeMode === "creative-studio" && (
         <div className="adcraft-body">
-          {/* PANEL 1: LEFT WORKFLOW RAIL (240px) */}
+          {/* PANEL 1: LEFT WORKFLOW RAIL (Matching Reference) */}
           <aside className="adcraft-rail">
-            <div style={{ padding: "6px 8px 12px 8px", borderBottom: "1px solid var(--adcraft-border-subtle)" }}>
+            <div style={{ padding: "4px 8px 14px 8px", borderBottom: "1px solid var(--adcraft-border-subtle)", marginBottom: "6px" }}>
               <div style={{ fontSize: "13px", fontWeight: 700, color: "#FFF", letterSpacing: "-0.2px" }}>
-                {state.brandProfile?.identity.name || state.brief.productName}
+                {state.brandProfile?.identity.name || state.brief.productName || "Campaign"}
               </div>
               <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "2px" }}>
                 {state.brief.goal.replace(/_/g, " ").toUpperCase()}
               </div>
             </div>
 
-            {/* Campaign Group */}
-            <div style={{ marginTop: "12px" }}>
-              <div className="adcraft-rail-title">Campaign</div>
-              {STAGES.filter((s) => s.group === "campaign").map((stage) => {
-                const status = getStageStatus(stage.id, state);
-                const isActive = state.currentStage === stage.id;
+            {/* 7 Clean Workflow Stages */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              {RAIL_STAGES.map((stage) => {
+                const isActive =
+                  stage.id === "creative"
+                    ? state.currentStage === "concepts" || state.currentStage === "evidence"
+                    : state.currentStage === stage.stageId;
+                const status = getStageStatus(stage.stageId, state);
+                const isCompleted = status === "approved" || status === "complete";
                 return (
                   <button
                     key={stage.id}
                     className={`adcraft-rail-item ${isActive ? "active" : ""}`}
                     onClick={() => {
-                      engine.setStage(stage.id);
-                      setInspectorSelection({ type: "none" });
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <span className="adcraft-step-num">{stage.number}</span>
-                      <span>{stage.label}</span>
-                    </div>
-                    <span className={`adcraft-status-pill ${status}`}>{status}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Creative Group */}
-            <div style={{ marginTop: "12px" }}>
-              <div className="adcraft-rail-title">Creative</div>
-              {STAGES.filter((s) => s.group === "creative").map((stage) => {
-                const status = getStageStatus(stage.id, state);
-                const isActive = state.currentStage === stage.id;
-                return (
-                  <button
-                    key={stage.id}
-                    className={`adcraft-rail-item ${isActive ? "active" : ""}`}
-                    onClick={() => {
-                      engine.setStage(stage.id);
-                      if (stage.id === "keyframes" && firstSceneId) {
+                      if (stage.id === "creative") {
+                        engine.setStage(state.concepts && state.concepts.length > 0 ? "concepts" : state.brandProfile ? "evidence" : "concepts");
+                      } else {
+                        engine.setStage(stage.stageId);
+                      }
+                      if (stage.stageId === "keyframes" && firstSceneId) {
                         setInspectorSelection({ type: "keyframe", sceneId: firstSceneId, candidateId: "" });
-                      } else if (stage.id === "storyboard" && firstSceneId) {
+                      } else if (stage.stageId === "storyboard" && firstSceneId) {
                         setInspectorSelection({ type: "scene", sceneId: firstSceneId });
-                      } else if (stage.id === "motion") {
+                      } else if (stage.stageId === "motion") {
                         setInspectorSelection({ type: "render" });
                       } else {
                         setInspectorSelection({ type: "none" });
                       }
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <span className="adcraft-step-num">{stage.number}</span>
-                      <span>{stage.label}</span>
+                    <div className="adcraft-rail-item-content">
+                      <span className="adcraft-rail-icon">{stage.icon}</span>
+                      <span className="adcraft-rail-label">{stage.label}</span>
                     </div>
-                    <span className={`adcraft-status-pill ${status}`}>{status}</span>
+                    {isCompleted && (
+                      <span className="adcraft-rail-check" title="Completed">✓</span>
+                    )}
                   </button>
                 );
               })}
@@ -803,6 +872,24 @@ export const Studio: React.FC = () => {
             {/* STAGE 2: BRAND EVIDENCE */}
             {state.currentStage === "evidence" && state.brandProfile && (
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--adcraft-border-subtle)", paddingBottom: "12px" }}>
+                  <button
+                    className={`adcraft-btn ${state.currentStage === "evidence" ? "adcraft-btn-primary" : "adcraft-btn-secondary"}`}
+                    style={{ fontSize: "12px", padding: "6px 14px" }}
+                    onClick={() => engine.setStage("evidence")}
+                  >
+                    🔍 Brand Intelligence & Evidence
+                  </button>
+                  {state.concepts && state.concepts.length > 0 && (
+                    <button
+                      className="adcraft-btn adcraft-btn-secondary"
+                      style={{ fontSize: "12px", padding: "6px 14px" }}
+                      onClick={() => engine.setStage("concepts")}
+                    >
+                      💡 Narrative Concepts ({state.concepts.length})
+                    </button>
+                  )}
+                </div>
                 <div className="adcraft-stage-header">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
@@ -865,6 +952,24 @@ export const Studio: React.FC = () => {
             {/* STAGE 3: CREATIVE CONCEPTS */}
             {state.currentStage === "concepts" && state.concepts && (
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--adcraft-border-subtle)", paddingBottom: "12px" }}>
+                  <button
+                    className={`adcraft-btn ${state.currentStage === "concepts" ? "adcraft-btn-primary" : "adcraft-btn-secondary"}`}
+                    style={{ fontSize: "12px", padding: "6px 14px" }}
+                    onClick={() => engine.setStage("concepts")}
+                  >
+                    💡 Narrative Concepts ({state.concepts.length})
+                  </button>
+                  {state.brandProfile && (
+                    <button
+                      className="adcraft-btn adcraft-btn-secondary"
+                      style={{ fontSize: "12px", padding: "6px 14px" }}
+                      onClick={() => engine.setStage("evidence")}
+                    >
+                      🔍 Brand Intelligence & Evidence
+                    </button>
+                  )}
+                </div>
                 <div className="adcraft-stage-header">
                   <h1 className="adcraft-stage-title">Creative Concept Exploration</h1>
                   <p className="adcraft-stage-subtitle">

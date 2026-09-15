@@ -538,26 +538,17 @@ body, html {
   overflow: hidden;
 }
 
-/* Panel 1: Left Workflow Rail */
+/* Panel 1: Left Workflow Rail (Matching Reference) */
 .adcraft-rail {
-  width: 240px;
-  min-width: 240px;
+  width: 210px;
+  min-width: 210px;
   background-color: var(--adcraft-bg-surface);
   border-right: 1px solid var(--adcraft-border-subtle);
   display: flex;
   flex-direction: column;
-  padding: 16px 12px;
-  gap: 4px;
+  padding: 16px 10px;
+  gap: 2px;
   overflow-y: auto;
-}
-
-.adcraft-rail-title {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--adcraft-text-muted);
-  padding: 8px 10px 4px 10px;
 }
 
 .adcraft-rail-item {
@@ -569,56 +560,60 @@ body, html {
   background: transparent;
   border: 1px solid transparent;
   color: var(--adcraft-text-secondary);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 500;
   cursor: pointer;
   transition: var(--adcraft-transition);
   text-align: left;
-  position: relative;
+  user-select: none;
 }
 
 .adcraft-rail-item:hover {
   background-color: var(--adcraft-bg-elevated);
-  color: var(--adcraft-text-primary);
+  color: #FFFFFF;
 }
 
 .adcraft-rail-item.active {
   background-color: var(--adcraft-bg-elevated);
-  border-color: rgba(16, 229, 68, 0.35);
+  border-color: rgba(16, 229, 68, 0.3);
   color: #FFFFFF;
-  font-weight: 700;
+  font-weight: 600;
   box-shadow: inset 3px 0 0 var(--adcraft-accent-green);
 }
 
-.adcraft-step-num {
-  font-family: var(--adcraft-font-mono);
-  font-size: 11px;
-  color: var(--adcraft-accent-green);
-  margin-right: 10px;
+.adcraft-rail-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.adcraft-status-pill {
-  font-size: 9px;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  padding: 2px 6px;
-  border-radius: var(--adcraft-radius-pill);
+.adcraft-rail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--adcraft-text-secondary);
+  transition: var(--adcraft-transition);
+  flex-shrink: 0;
 }
 
-.adcraft-status-pill.completed {
-  background-color: var(--adcraft-accent-green-subtle);
-  color: var(--adcraft-accent-green);
-  border: 1px solid rgba(16, 229, 68, 0.3);
-}
-
-.adcraft-status-pill.active {
-  background-color: rgba(255, 255, 255, 0.1);
+.adcraft-rail-item:hover .adcraft-rail-icon {
   color: #FFFFFF;
 }
 
-.adcraft-status-pill.ready {
-  color: var(--adcraft-text-muted);
+.adcraft-rail-item.active .adcraft-rail-icon {
+  color: var(--adcraft-accent-green);
+}
+
+.adcraft-rail-label {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.adcraft-rail-check {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--adcraft-accent-green);
+  opacity: 0.9;
 }
 
 /* Panel 2: Center Visual Workspace (Dominant Flex 1) */
