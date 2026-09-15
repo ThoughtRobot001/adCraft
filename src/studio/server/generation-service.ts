@@ -21,6 +21,8 @@ import {
   StoryboardArchitect,
   StoryboardScene,
   TemporalChoreographer,
+  VisualBible,
+  VisualBibleArchitect,
   VisualCritic,
   VisualKeyframeGenerator,
 } from "../../stages";
@@ -45,6 +47,7 @@ export class StudioGenerationService {
   private reconstructor = new MotionIRReconstructor();
   private visualCritic = new VisualCritic();
   private sceneReviser = new SceneReviser();
+  private visualBibleArchitect = new VisualBibleArchitect();
 
   /**
    * Evaluates the current system capability honestly without masking.
@@ -121,6 +124,23 @@ export class StudioGenerationService {
   }
 
   /**
+   * Stage 2b: Persistent Visual Bible Synthesis
+   * Generates the 7-dimension persistent Visual Bible governing the campaign.
+   */
+  async synthesizeVisualBible(
+    profile: BrandProfile,
+    brief: CampaignBrief,
+    concepts?: CreativeConcept[]
+  ): Promise<VisualBible & { provenance: ArtifactProvenance }> {
+    const bible = await this.visualBibleArchitect.synthesizeVisualBible(profile, brief, concepts);
+    const provenance = this.createProvenance("visual-bible", profile.identity.name, "auto-recommended");
+    return {
+      ...bible,
+      provenance,
+    };
+  }
+
+  /**
    * Stage 3: Storyboard Architecture
    */
   async designStoryboard(
@@ -147,13 +167,15 @@ export class StudioGenerationService {
   async generateKeyframeCandidates(
     scene: StoryboardScene,
     profile: BrandProfile,
-    brief: CampaignBrief
+    brief: CampaignBrief,
+    bible?: VisualBible
   ): Promise<CandidateKeyframe[]> {
     const rawCandidates = await this.keyframeGenerator.generateKeyframesForScene(
       scene,
       profile,
       brief,
-      { candidatesPerScene: 2 }
+      { candidatesPerScene: 2 },
+      bible
     );
 
     const cap = this.getCapabilityStatus();
@@ -166,7 +188,8 @@ export class StudioGenerationService {
         profile,
         variantType,
         cand.width,
-        cand.height
+        cand.height,
+        bible
       );
       const dataUri = `data:image/svg+xml;utf8,${encodeURIComponent(svgCode)}`;
 
@@ -202,9 +225,10 @@ export class StudioGenerationService {
     analysis: KeyframeAnalysis,
     approved: ApprovedKeyframe,
     profile: BrandProfile,
-    fps: number = 30
+    fps: number = 30,
+    bible?: VisualBible
   ): MotionPlan {
-    return this.temporalChoreographer.createMotionPlan(scene, analysis, approved, profile, fps);
+    return this.temporalChoreographer.createMotionPlan(scene, analysis, approved, profile, fps, bible);
   }
 
   /**
@@ -213,9 +237,10 @@ export class StudioGenerationService {
   reconstructMotionIR(
     inputs: ReconstructedSceneInput[],
     profile: BrandProfile,
-    brief: CampaignBrief
+    brief: CampaignBrief,
+    bible?: VisualBible
   ): MotionIR & { provenance: ArtifactProvenance } {
-    const motionIR = this.reconstructor.reconstructMotionIR(inputs, profile, brief);
+    const motionIR = this.reconstructor.reconstructMotionIR(inputs, profile, brief, 30, bible);
     MotionIRSchema.parse(motionIR);
 
     const provenance = this.createProvenance("motion-ir", undefined, "auto-recommended");
@@ -229,9 +254,10 @@ export class StudioGenerationService {
    * Stage 6: Quality Critique & 8-Dimension Evaluation
    */
   evaluateQuality(
-    motionIR: MotionIR
+    motionIR: MotionIR,
+    bible?: VisualBible
   ): CritiqueResult & { qualityDimensions: QualityDimensions; provenance: ArtifactProvenance } {
-    const critique = this.visualCritic.critique(motionIR);
+    const critique = this.visualCritic.critique(motionIR, bible);
 
     // Compute structured 8-dimension quality scorecard
     const dims: QualityDimensions = {

@@ -13,3 +13,4 @@ export * from "./keyframe-critic";
 export * from "./keyframe-analyzer";
 export * from "./temporal-choreographer";
 export * from "./motionir-reconstructor";
+export * from "./visual-bible-architect";

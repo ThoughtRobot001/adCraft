@@ -10,6 +10,7 @@ import {
   KeyframeAnalysis,
   MotionPlan,
   Storyboard,
+  VisualBible,
 } from "../stages";
 
 export type ProvenanceSource = "live-ai" | "deterministic-fixture" | "sample-demo";
@@ -113,6 +114,7 @@ export interface StudioState {
   brandInput: BrandInput;
   brief: CampaignBrief;
   brandProfile?: BrandProfile & { provenance: ArtifactProvenance };
+  visualBible?: VisualBible & { provenance: ArtifactProvenance };
   concepts?: StudioConceptOption[];
   selectedConceptId?: string;
   storyboard?: Storyboard & { provenance: ArtifactProvenance };

@@ -18,6 +18,7 @@ import {
   TemporalScaleHierarchy,
   TemporalState,
   TemporalTypographyState,
+  VisualBible,
 } from "./types";
 
 export function lerp(a: number, b: number, t: number): number {
@@ -327,7 +328,8 @@ export class TemporalChoreographer {
     analysis: KeyframeAnalysis,
     keyframe: ApprovedKeyframe,
     profile: BrandProfile,
-    fps = 30
+    fps = 30,
+    bible?: VisualBible
   ): MotionPlan {
     const durationFrames = Math.round(scene.durationSeconds * fps);
     const intentLower = (scene.intent + " " + scene.headlineCopy).toLowerCase();
@@ -348,15 +350,59 @@ export class TemporalChoreographer {
       intentLower.includes("instant") ||
       intentLower.includes("eliminate");
 
+    let plan: MotionPlan;
     if (isAccumulation) {
-      return this.buildAccumulationMotionPlan(scene, analysis, durationFrames, fps);
+      plan = this.buildAccumulationMotionPlan(scene, analysis, durationFrames, fps);
+    } else if (isResolution) {
+      plan = this.buildResolutionMotionPlan(scene, analysis, durationFrames);
+    } else {
+      plan = this.buildStandardEditorialMotionPlan(scene, analysis, durationFrames);
     }
 
-    if (isResolution) {
-      return this.buildResolutionMotionPlan(scene, analysis, durationFrames);
+    if (bible) {
+      plan.visualBibleId = bible.id;
+      const isTransform = !!scene.transformationCall?.isExplicitTransformation;
+      const departures = scene.transformationCall?.allowedDepartures || [];
+
+      // Camera governance
+      if (!isTransform || !departures.includes("camera")) {
+        const maxTiltX = bible.cameraLanguage.tiltConstraints.maxTiltX;
+        const maxTiltY = bible.cameraLanguage.tiltConstraints.maxTiltY;
+        if (plan.beats) {
+          for (const beat of plan.beats) {
+            if (beat.cameraCue) {
+              beat.cameraCue.tiltX = Math.max(-maxTiltX, Math.min(maxTiltX, beat.cameraCue.tiltX));
+              if (beat.cameraCue.tiltY !== undefined) {
+                beat.cameraCue.tiltY = Math.max(-maxTiltY, Math.min(maxTiltY, beat.cameraCue.tiltY));
+              }
+            }
+            if (beat.compositionState?.cameraPosition?.tiltX !== undefined) {
+              beat.compositionState.cameraPosition.tiltX = Math.max(
+                -maxTiltX,
+                Math.min(maxTiltX, beat.compositionState.cameraPosition.tiltX)
+              );
+            }
+          }
+        }
+      }
+
+      // Lighting governance
+      if (!isTransform || !departures.includes("lighting")) {
+        const keyIntensityScale = bible.lightingLogic.keyIntensity / 0.8;
+        if (plan.beats) {
+          for (const beat of plan.beats) {
+            if (beat.lightingCue) {
+              beat.lightingCue.intensity = Math.min(
+                1.0,
+                parseFloat((beat.lightingCue.intensity * keyIntensityScale).toFixed(2))
+              );
+            }
+          }
+        }
+      }
     }
 
-    return this.buildStandardEditorialMotionPlan(scene, analysis, durationFrames);
+    return plan;
   }
 
   /**

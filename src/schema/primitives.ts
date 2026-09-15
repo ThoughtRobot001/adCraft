@@ -400,7 +400,7 @@ export const CandidateNoiseFieldCardSchema = z.object({
   opacity: z.number().optional(),
   scale: z.number().optional(),
   spawnFrame: z.number().optional().describe("Frame when this card begins appearing"),
-  entryTrajectory: z.enum(["from-left", "from-right", "from-depth", "drop-down", "float-up", "pop-in", "fade"]).optional(),
+  entryTrajectory: z.enum(["from-left", "from-right", "from-depth", "drop-down", "float-up", "pop-in", "fade", "static-anchor", "foreground-slice"]).optional(),
   occludesTypography: z.boolean().optional().describe("Whether this card crosses container boundary to occlude headline copy"),
 });
 

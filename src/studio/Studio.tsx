@@ -374,6 +374,85 @@ export const Studio: React.FC = () => {
                 </p>
               </div>
 
+              {/* Persistent Visual Bible Inspector */}
+              {state.visualBible && (
+                <div
+                  className="adcraft-card"
+                  style={{
+                    border: "1px solid rgba(139, 92, 246, 0.35)",
+                    background: "linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, rgba(11, 13, 17, 0.95) 100%)",
+                    padding: "20px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <span style={{ fontSize: "18px" }}>📖</span>
+                      <span style={{ fontSize: "15px", fontWeight: 700, color: "#FFFFFF" }}>
+                        Campaign Visual Bible (Persistent Style & Coherence)
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: "9999px",
+                          backgroundColor: "rgba(139, 92, 246, 0.2)",
+                          color: "#C4B5FD",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {state.visualBible.visualLanguage.theme}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: "11px", color: "var(--adcraft-text-muted)" }}>
+                      Governs all downstream scenes & primitives
+                    </span>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+                    <div style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "8px" }}>
+                      <div className="adcraft-label">Product Identity</div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#FFF", marginTop: "4px" }}>
+                        {state.visualBible.productIdentity.formFactor}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "2px" }}>
+                        "{state.visualBible.productIdentity.signatureElement}"
+                      </div>
+                    </div>
+
+                    <div style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "8px" }}>
+                      <div className="adcraft-label">Typography System</div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#FFF", marginTop: "4px" }}>
+                        {state.visualBible.typographySystem.headlineFont}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "2px" }}>
+                        Tracking: {state.visualBible.typographySystem.headlineTracking}
+                      </div>
+                    </div>
+
+                    <div style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "8px" }}>
+                      <div className="adcraft-label">Materials & Lighting</div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#FFF", marginTop: "4px" }}>
+                        {state.visualBible.materials.surfaceType}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "2px" }}>
+                        Sheen: {state.visualBible.materials.borderSheen} | Light: {Math.round(state.visualBible.lightingLogic.keyIntensity * 100)}%
+                      </div>
+                    </div>
+
+                    <div style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "8px" }}>
+                      <div className="adcraft-label">Camera Language</div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#FFF", marginTop: "4px" }}>
+                        {state.visualBible.cameraLanguage.primaryShotPhilosophy}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "var(--adcraft-text-secondary)", marginTop: "2px" }}>
+                        Max Tilt: ±{state.visualBible.cameraLanguage.tiltConstraints.maxTiltX}°
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                 {state.storyboard.scenes.map((scene, idx) => (
                   <div key={scene.id} className="adcraft-card" style={{ padding: "18px 24px" }}>
@@ -385,6 +464,33 @@ export const Studio: React.FC = () => {
                         <span style={{ fontSize: "11px", color: "var(--adcraft-text-muted)", textTransform: "uppercase" }}>
                           [{scene.act || scene.elementIntents?.[0]?.role || "hook-headline"}]
                         </span>
+                        {scene.transformationCall?.isExplicitTransformation ? (
+                          <span
+                            style={{
+                              fontSize: "11px",
+                              fontWeight: 700,
+                              padding: "2px 8px",
+                              borderRadius: "4px",
+                              backgroundColor: "rgba(245, 158, 11, 0.18)",
+                              color: "#FCD34D",
+                              border: "1px solid rgba(245, 158, 11, 0.3)",
+                            }}
+                          >
+                            ⚡ Transformation Beat: [{scene.transformationCall.allowedDepartures.join(", ")}]
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              fontSize: "10px",
+                              padding: "2px 6px",
+                              borderRadius: "4px",
+                              backgroundColor: "rgba(255, 255, 255, 0.05)",
+                              color: "var(--adcraft-text-muted)",
+                            }}
+                          >
+                            ✓ Visual Bible Governed
+                          </span>
+                        )}
                       </div>
 
                       <div style={{ display: "flex", gap: "8px" }}>

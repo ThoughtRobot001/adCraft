@@ -1,6 +1,6 @@
 import { CampaignBrief } from "../ai/types";
 import { Element, MotionIR, Scene, SceneCamera } from "../schema";
-import { BrandProfile, KeyframeAnalysis, MotionPlan, StoryboardScene } from "./types";
+import { BrandProfile, KeyframeAnalysis, MotionPlan, StoryboardScene, VisualBible } from "./types";
 
 export interface ReconstructedSceneInput {
   scene: StoryboardScene;
@@ -11,13 +11,15 @@ export interface ReconstructedSceneInput {
 export class MotionIRReconstructor {
   /**
    * Reconstructs an array of scenes into a complete, deterministic MotionIR specification
-   * derived from the Storyboard, 11-dimension Keyframe Analysis, and Temporal MotionPlan.
+   * derived from the Storyboard, 11-dimension Keyframe Analysis, and Temporal MotionPlan,
+   * fully governed by the persistent Visual Bible unless explicitly transformed.
    */
   reconstructMotionIR(
     reconstructedScenes: ReconstructedSceneInput[],
     profile: BrandProfile,
     brief: CampaignBrief,
-    fps = 30
+    fps = 30,
+    bible?: VisualBible
   ): MotionIR {
     const brand = profile.identity;
     const width = brief.aspectRatio === "9:16" ? 1080 : 1920;
@@ -25,7 +27,17 @@ export class MotionIRReconstructor {
     const aspectRatio = (brief.aspectRatio as "9:16" | "16:9" | "1:1") || "9:16";
 
     const scenes: Scene[] = reconstructedScenes.map(({ scene, analysis, motionPlan }, index) =>
-      this.reconstructScene(scene, analysis, profile, brief, index, reconstructedScenes.length, fps, motionPlan)
+      this.reconstructScene(
+        scene,
+        analysis,
+        profile,
+        brief,
+        index,
+        reconstructedScenes.length,
+        fps,
+        motionPlan,
+        bible
+      )
     );
 
     return {
@@ -38,6 +50,7 @@ export class MotionIRReconstructor {
         aspectRatio,
       },
       brand,
+      visualBible: bible,
       scenes,
       audio: {
         volume: 0.45,
@@ -56,7 +69,8 @@ export class MotionIRReconstructor {
   }
 
   /**
-   * Reconstructs a single scene from its 11-dimension KeyframeAnalysis blueprint.
+   * Reconstructs a single scene from its 11-dimension KeyframeAnalysis blueprint,
+   * strictly inheriting the persistent Visual Bible unless explicit transformation calls allow departures.
    */
   reconstructScene(
     scene: StoryboardScene,
@@ -66,49 +80,87 @@ export class MotionIRReconstructor {
     index: number,
     totalScenes: number,
     fps: number,
-    motionPlan?: MotionPlan
+    motionPlan?: MotionPlan,
+    bible?: VisualBible
   ): Scene {
     const brand = profile.identity;
     const durationFrames = Math.round(scene.durationSeconds * fps);
     const isFirst = index === 0;
     const isLast = index === totalScenes - 1;
 
+    const isTransform = !!scene.transformationCall?.isExplicitTransformation;
+    const departures = scene.transformationCall?.allowedDepartures || [];
+
+    const allowPaletteDeparture = isTransform && departures.includes("palette");
+    const allowTypoDeparture = isTransform && departures.includes("typography");
+    const allowCameraDeparture = isTransform && departures.includes("camera");
+    const allowMaterialsDeparture = isTransform && departures.includes("materials");
+
     // 1. Composition -> Layout Strategy
     const layoutStrategy =
       analysis.negativeSpace.ratio >= 0.65
         ? "minimal-focus"
-        : analysis.composition.archetype === "asymmetric-editorial" || analysis.composition.archetype === "split-plane"
+        : analysis.composition.archetype === "asymmetric-editorial" ||
+          analysis.composition.archetype === "split-plane"
         ? "split-depth"
         : "hero-centered";
 
-    // 2. Color Distribution -> Scene Background
+    // 2. Color Distribution -> Scene Background (Visual Bible inheritance)
     const background = {
       type: "gradient" as const,
-      color: analysis.colorDistribution.dominantBackgroundHex,
-      gradientTo: analysis.colorDistribution.surfaceHex,
+      color:
+        (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.backgroundBase) ||
+        analysis.colorDistribution.dominantBackgroundHex,
+      gradientTo:
+        (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.surfaceElevated) ||
+        analysis.colorDistribution.surfaceHex,
       angle: 160,
-      glowOrb: !!analysis.colorDistribution.atmosphericGlow,
+      glowOrb:
+        (!allowPaletteDeparture && bible?.lightingLogic.atmosphericGlowOrb.enabled !== undefined)
+          ? bible.lightingLogic.atmosphericGlowOrb.enabled
+          : !!analysis.colorDistribution.atmosphericGlow,
     };
 
-    // 3. Depth Planes -> Atmosphere
+    // 3. Depth Planes -> Atmosphere (Visual Bible inheritance)
     const atmosphere = {
-      grain: 0.10,
+      grain:
+        (!allowMaterialsDeparture && bible?.visualLanguage.theme === "editorial-light")
+          ? 0.14
+          : 0.10,
       vignette: 0.28,
-      haze: analysis.depthPlanes.background.atmosphericHaze || 0.12,
+      haze:
+        (!allowMaterialsDeparture && bible?.lightingLogic.keyIntensity && bible.lightingLogic.keyIntensity > 0.75)
+          ? 0.14
+          : analysis.depthPlanes.background.atmosphericHaze || 0.12,
     };
 
-    // 4. Camera & Framing
-    const cameraShot: SceneCamera["shot"] =
+    // 4. Camera & Framing (Visual Bible inheritance)
+    let cameraShot: SceneCamera["shot"] =
       analysis.cameraFraming.shotType === "macro"
         ? "push-in"
         : analysis.cameraFraming.shotType === "static"
         ? "push-in"
         : analysis.cameraFraming.shotType;
 
+    if (bible && !allowCameraDeparture) {
+      if (bible.cameraLanguage.primaryShotPhilosophy === "controlled-push-in") {
+        cameraShot = "push-in";
+      } else if (bible.cameraLanguage.primaryShotPhilosophy === "subtle-drift") {
+        cameraShot = "drift";
+      } else if (bible.cameraLanguage.primaryShotPhilosophy === "orbital-pivot") {
+        cameraShot = "orbit";
+      } else if (bible.cameraLanguage.primaryShotPhilosophy === "locked-monumental") {
+        cameraShot = "push-in";
+      }
+    }
+
     const camera: SceneCamera = {
       shot: cameraShot,
       intensity: "medium",
-      ease: "cinematic",
+      ease:
+        bible?.cameraLanguage.cameraMotionCurve === "elastic-settle"
+          ? "elastic-settle"
+          : "cinematic",
     };
 
     // 5. Scene Transition
@@ -121,9 +173,23 @@ export class MotionIRReconstructor {
     // 6. Elements Reconstruction from Spatial Hierarchy & Geometry
     const elements: Element[] = [];
 
-    // Layer 1: Headline Typography (derived from typographyPlacement)
+    // Layer 1: Headline Typography (Visual Bible inheritance)
     const typo = analysis.typographyPlacement;
-    const targetFontWeight = (typo.targetFontWeight === 700 ? 700 : typo.targetFontWeight === 900 ? 900 : 800) as (400 | 500 | 600 | 700 | 800 | 900);
+    const targetFontWeight = (
+      (!allowTypoDeparture && bible?.typographySystem.weightHierarchy.hero) ||
+      (typo.targetFontWeight === 700 ? 700 : typo.targetFontWeight === 900 ? 900 : 800)
+    ) as 400 | 500 | 600 | 700 | 800 | 900;
+    const font =
+      (!allowTypoDeparture && bible?.typographySystem.headlineFont) ||
+      brand.font ||
+      "Inter, -apple-system, sans-serif";
+    const letterTracking =
+      (!allowTypoDeparture && bible?.typographySystem.headlineTracking) ||
+      typo.letterSpacing ||
+      "-0.03em";
+    const textColor =
+      (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.textPrimary) || "#F5F3FF";
+
     elements.push({
       id: `${scene.id}-headline`,
       type: "kinetic-text",
@@ -133,9 +199,10 @@ export class MotionIRReconstructor {
       props: {
         text: scene.headlineCopy,
         fontSize: typo.targetFontSize,
+        fontFamily: font,
         fontWeight: targetFontWeight,
-        letterSpacing: typo.letterSpacing,
-        color: "#F5F3FF",
+        letterSpacing: letterTracking,
+        color: textColor,
         position: { x: typo.headlineBounds.x, y: typo.headlineBounds.y },
         maxWidth: typo.headlineBounds.width,
         align: typo.alignment || "center",
@@ -144,7 +211,7 @@ export class MotionIRReconstructor {
       },
     });
 
-    // Layer 2: Hero Interactive Component (derived from focalPoint, scale, depth planes, and motionPlan)
+    // Layer 2: Hero Interactive Component (derived from focalPoint, scale, depth planes, motionPlan, and bible)
     const heroLayer = analysis.spatialHierarchy.layers.find((l) => l.role === "hero");
     const heroType = heroLayer?.suggestedPrimitiveType || "bento-grid";
     const heroElement = this.buildHeroElement(
@@ -153,7 +220,8 @@ export class MotionIRReconstructor {
       analysis,
       profile,
       durationFrames,
-      motionPlan
+      motionPlan,
+      bible
     );
     if (heroElement) {
       elements.push(heroElement);
@@ -169,8 +237,8 @@ export class MotionIRReconstructor {
         parallax: 0.15,
         props: {
           delay: 0,
-          color: brand.colors.primary,
-          accentColor: brand.colors.accent || "#B7AEFF",
+          color: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) || brand.colors.primary,
+          accentColor: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) || brand.colors.accent || "#B7AEFF",
           speed: 1.2,
           density: 40,
           streakLength: 2.5,
@@ -192,6 +260,7 @@ export class MotionIRReconstructor {
       heroElementId: heroElement?.id || `${scene.id}-headline`,
       elements,
       usedMemoryItemIds: [],
+      transformationCall: scene.transformationCall,
     };
   }
 
@@ -204,7 +273,8 @@ export class MotionIRReconstructor {
     analysis: KeyframeAnalysis,
     profile: BrandProfile,
     durationFrames: number,
-    motionPlan?: MotionPlan
+    motionPlan?: MotionPlan,
+    bible?: VisualBible
   ): Element | null {
     const brand = profile.identity;
     const heroX = analysis.focalPoint.x;
@@ -213,6 +283,18 @@ export class MotionIRReconstructor {
     const tiltX = analysis.depthPlanes.heroMidground.perspectiveTiltX;
     const tiltY = analysis.depthPlanes.heroMidground.perspectiveTiltY;
     const zDepth = analysis.depthPlanes.heroMidground.zDepth;
+
+    const isTransform = !!scene.transformationCall?.isExplicitTransformation;
+    const departures = scene.transformationCall?.allowedDepartures || [];
+    const allowPaletteDeparture = isTransform && departures.includes("palette");
+
+    const primaryColor =
+      (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) ||
+      brand.colors.primary;
+    const accentColor =
+      (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) ||
+      brand.colors.accent ||
+      "#B7AEFF";
 
     if (primitiveType === "candidate-noise-field" || primitiveType === "perspective-card-field") {
       return {
@@ -228,13 +310,13 @@ export class MotionIRReconstructor {
             heightPercent: 61,
             leftPercent: 4,
             widthPercent: 92,
-            borderRadius: 32,
+            borderRadius: (!isTransform && bible?.visualLanguage.cornerRadii.container) || 32,
             borderColor: "rgba(255, 255, 255, 0.12)",
-            backgroundColor: "#080A11",
+            backgroundColor: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.backgroundBase) || "#080A11",
           },
           volumetricBeam: {
-            color: analysis.colorDistribution.atmosphericGlow?.color || "#7C3AED",
-            secondaryColor: "#6366F1",
+            color: analysis.colorDistribution.atmosphericGlow?.color || primaryColor || "#7C3AED",
+            secondaryColor: accentColor || "#6366F1",
             originX: 50,
             originY: 100,
             intensity: 0.85,
@@ -338,13 +420,13 @@ export class MotionIRReconstructor {
               id: `${scene.id}-card-primary`,
               type: "audit-feed",
               title: scene.intent,
-              badge: "Verified Signal",
+              badge: isTransform ? "Transformed State" : "Verified Signal",
               items: [
                 "Direct Architecture & Calibration Match",
                 "Screening Delays Eliminated",
                 "Instant High-Velocity Match",
               ],
-              accentColor: brand.colors.primary,
+              accentColor: primaryColor,
             },
             {
               id: `${scene.id}-card-metric`,
@@ -352,7 +434,7 @@ export class MotionIRReconstructor {
               value: "99.4%",
               label: "PRECISION SCORE",
               tag: "Signal Calibrated",
-              accentColor: brand.colors.accent || "#B7AEFF",
+              accentColor: accentColor,
             },
             {
               id: `${scene.id}-card-trust`,
@@ -362,7 +444,7 @@ export class MotionIRReconstructor {
                 "Full Stack Verification",
                 "Production Ready",
               ],
-              accentColor: brand.colors.primary,
+              accentColor: primaryColor,
             },
           ],
         },
@@ -402,7 +484,7 @@ export class MotionIRReconstructor {
           suffix: "%",
           label: "ACCURACY & SPEED",
           position: { x: heroX, y: heroY },
-          color: brand.colors.primary,
+          color: primaryColor,
           delay: 0,
           decimals: 1,
           durationFrames: 45,

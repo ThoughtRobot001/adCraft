@@ -25,6 +25,8 @@ import {
   Storyboard,
   StoryboardArchitect,
   TemporalChoreographer,
+  VisualBible,
+  VisualBibleArchitect,
   VisualCritic,
   VisualKeyframeGenerator,
 } from "../stages";
@@ -54,6 +56,7 @@ export interface GenerateStudioAdResult {
   approvedKeyframes?: Record<string, ApprovedKeyframe>;
   keyframeAnalyses?: Record<string, KeyframeAnalysis>;
   motionPlans?: Record<string, MotionPlan>;
+  visualBible?: VisualBible;
   motionIR: MotionIR;
   critique: CritiqueResult;
   revisionsApplied: number;
@@ -74,6 +77,7 @@ export class AdPipeline {
   private compiler = new MotionIRCompiler();
   private visualCritic = new VisualCritic();
   private sceneReviser = new SceneReviser();
+  private visualBibleArchitect = new VisualBibleArchitect();
 
   /**
    * Complete Visual-First Creative Studio Pipeline:
@@ -103,6 +107,16 @@ export class AdPipeline {
     console.log(`   Angle: "${selectedConcept.angleTitle}" (Score: ${selectedConcept.strategicScore}/10)`);
     console.log(`   Hook:  "${selectedConcept.hook}"`);
 
+    // 2b. Persistent Visual Bible Synthesis (Governs all subsequent scenes and assets)
+    const visualBible = await this.visualBibleArchitect.synthesizeVisualBible(
+      brandProfile,
+      options.brief,
+      selectedConcept
+    );
+    console.log(`✅ [Visual Bible] Synthesized 7-Dimension Persistent Style Bible:`);
+    console.log(`   Theme: "${visualBible.visualLanguage.theme}" | Baseline Space: ${(visualBible.visualLanguage.negativeSpaceBaseline * 100).toFixed(0)}%`);
+    console.log(`   Typography: "${visualBible.typographySystem.headlineFont}" | Shot: "${visualBible.cameraLanguage.primaryShotPhilosophy}"`);
+
     // 3. Storyboard Architecture (Mandatory Narrative Arc Stage)
     const storyboard = await this.storyboardArchitect.designStoryboard(
       selectedConcept,
@@ -128,7 +142,9 @@ export class AdPipeline {
       const candidates = await this.keyframeGenerator.generateKeyframesForScene(
         scene,
         brandProfile,
-        options.brief
+        options.brief,
+        {},
+        visualBible
       );
       candidateKeyframes[scene.id] = candidates;
 
@@ -154,7 +170,8 @@ export class AdPipeline {
         analysis,
         approved,
         brandProfile,
-        fps
+        fps,
+        visualBible
       );
       motionPlans[scene.id] = motionPlan;
 
@@ -167,12 +184,14 @@ export class AdPipeline {
     let motionIR = this.reconstructor.reconstructMotionIR(
       reconstructedInputs,
       brandProfile,
-      options.brief
+      options.brief,
+      fps,
+      visualBible
     );
     console.log(`✅ [5/8] MotionIR Specification Reconstructed & Validated against Keyframe Blueprint.`);
 
     // 6. Motion & Visual Critique Quality Gate (Threshold: 9.0/10)
-    let critique = this.visualCritic.critique(motionIR);
+    let critique = this.visualCritic.critique(motionIR, visualBible);
     let revisionsApplied = 0;
     const maxRevisions = options.maxRevisions ?? 2;
 
@@ -180,7 +199,7 @@ export class AdPipeline {
       revisionsApplied++;
       console.log(`⚠️ Quality threshold (9.0/10) not met (Score: ${critique.overallScore}). Starting Revision Cycle ${revisionsApplied}/${maxRevisions}...`);
       motionIR = this.sceneReviser.revise(motionIR, critique);
-      critique = this.visualCritic.critique(motionIR);
+      critique = this.visualCritic.critique(motionIR, visualBible);
     }
 
     if (critique.passedThreshold) {
@@ -280,6 +299,7 @@ export class AdPipeline {
       approvedKeyframes,
       keyframeAnalyses,
       motionPlans,
+      visualBible,
       motionIR,
       critique,
       revisionsApplied,

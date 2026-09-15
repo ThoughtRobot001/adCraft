@@ -152,16 +152,19 @@ export function useStudioEngine() {
     setActiveError(null);
     try {
       const storyboard = await studioGenerationService.designStoryboard(chosen, state.brandProfile, state.brief);
+      const visualBible = await studioGenerationService.synthesizeVisualBible(state.brandProfile, state.brief, state.concepts);
       setState((prev) => ({
         ...prev,
         selectedConceptId: conceptId,
         storyboard,
+        visualBible,
         currentStage: "storyboard",
         jobState: "needs-review",
         auditTrail: [
           ...prev.auditTrail,
           { stage: "concepts", action: `Human Art Director selected direction: "${chosen.angleTitle}"`, timestamp: new Date().toISOString() },
           { stage: "storyboard", action: "Storyboard designed from selected direction", timestamp: new Date().toISOString() },
+          { stage: "storyboard", action: `Persistent Visual Bible synthesized (${visualBible.visualLanguage.theme})`, timestamp: new Date().toISOString() },
         ],
       }));
     } catch (err: any) {
@@ -205,7 +208,7 @@ export function useStudioEngine() {
     try {
       const candidateKeyframes: Record<string, any[]> = {};
       for (const scene of state.storyboard.scenes) {
-        const cands = await studioGenerationService.generateKeyframeCandidates(scene, state.brandProfile, state.brief);
+        const cands = await studioGenerationService.generateKeyframeCandidates(scene, state.brandProfile, state.brief, state.visualBible);
         candidateKeyframes[scene.id] = cands;
       }
 
@@ -244,7 +247,7 @@ export function useStudioEngine() {
     };
 
     const analysis = studioGenerationService.analyzeKeyframe(approved, scene, state.brandProfile);
-    const motionPlan = studioGenerationService.createMotionPlan(scene, analysis, approved, state.brandProfile, 30);
+    const motionPlan = studioGenerationService.createMotionPlan(scene, analysis, approved, state.brandProfile, 30, state.visualBible);
 
     setState((prev) => ({
       ...prev,
@@ -276,8 +279,8 @@ export function useStudioEngine() {
         motionPlan: state.motionPlans![scene.id],
       }));
 
-      const motionIR = studioGenerationService.reconstructMotionIR(inputs, state.brandProfile, state.brief);
-      const critique = studioGenerationService.evaluateQuality(motionIR);
+      const motionIR = studioGenerationService.reconstructMotionIR(inputs, state.brandProfile, state.brief, state.visualBible);
+      const critique = studioGenerationService.evaluateQuality(motionIR, state.visualBible);
 
       setState((prev) => ({
         ...prev,
@@ -305,7 +308,7 @@ export function useStudioEngine() {
     setIsLoading(true);
     try {
       const revisedIR = studioGenerationService.applySurgicalRevision(state.motionIR, state.critique);
-      const newCritique = studioGenerationService.evaluateQuality(revisedIR);
+      const newCritique = studioGenerationService.evaluateQuality(revisedIR, state.visualBible);
 
       setState((prev) => ({
         ...prev,

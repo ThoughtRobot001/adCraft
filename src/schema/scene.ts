@@ -28,6 +28,14 @@ export const SceneAtmosphereSchema = z.object({
   haze: z.number().min(0).max(1).default(0.1),
 });
 
+export const SceneTransformationCallSchema = z.object({
+  isExplicitTransformation: z.boolean(),
+  allowedDepartures: z.array(z.enum(["lighting", "materials", "typography", "palette", "density", "camera"])),
+  fromState: z.string().optional(),
+  toState: z.string().optional(),
+  narrativeJustification: z.string(),
+});
+
 export const SceneSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
@@ -43,6 +51,7 @@ export const SceneSchema = z.object({
   visualKitId: z.string().optional(),
   layoutStrategy: z.enum(["hero-centered", "split-depth", "stacked-cards", "minimal-focus"]).optional().default("hero-centered"),
   usedMemoryItemIds: z.array(z.string()).optional().default([]),
+  transformationCall: SceneTransformationCallSchema.optional(),
 });
 
 export type Scene = z.infer<typeof SceneSchema>;
@@ -50,3 +59,5 @@ export type SceneBackground = z.infer<typeof SceneBackgroundSchema>;
 export type SceneTransition = z.infer<typeof SceneTransitionSchema>;
 export type SceneCamera = z.infer<typeof SceneCameraSchema>;
 export type SceneAtmosphere = z.infer<typeof SceneAtmosphereSchema>;
+export type SceneTransformationCall = z.infer<typeof SceneTransformationCallSchema>;
+

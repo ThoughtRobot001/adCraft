@@ -104,6 +104,14 @@ export interface VisualComposition {
   staticClimaxFrame: string; // Description of the scene as a static print/poster composition at peak tension/clarity
 }
 
+export interface SceneTransformationCall {
+  isExplicitTransformation: boolean;
+  allowedDepartures: Array<"lighting" | "materials" | "typography" | "palette" | "density" | "camera">;
+  fromState?: string;
+  toState?: string;
+  narrativeJustification: string;
+}
+
 export interface StoryboardScene {
   id: string;
   sceneIndex: number;
@@ -118,6 +126,7 @@ export interface StoryboardScene {
   visualComposition?: VisualComposition;
   elementIntents: ElementIntent[];
   pacingNotes: string;
+  transformationCall?: SceneTransformationCall;
 }
 
 export interface Storyboard {
@@ -168,7 +177,8 @@ export interface CritiqueIssue {
     | "motion-intentionality"
     | "template-repetition"
     | "brand-specificity"
-    | "creative-memory-violation";
+    | "creative-memory-violation"
+    | "visual-bible-inconsistency";
   severity: "critical" | "major" | "minor";
   description: string;
   suggestedFix: string;
@@ -578,6 +588,7 @@ export interface TemporalCinematicQuestions {
 
 export interface MotionPlan {
   sceneId: string;
+  visualBibleId?: string;
   narrativeIntent: string;
   durationFrames: number;
   cinematicQuestions: TemporalCinematicQuestions;
@@ -620,5 +631,138 @@ export interface MotionPlan {
   transitionPreparation: {
     startFrame: number;
     momentum: "accelerate-forward" | "freeze-anticipation" | "fade-out" | "whip-prep";
+  };
+}
+
+/**
+ * ===========================================================================
+ * Persistent Visual Bible Interfaces
+ * Single source of visual truth governing all scenes, keyframes, assets,
+ * motion plans, and MotionIR specifications.
+ * ===========================================================================
+ */
+
+export interface VisualBibleProductIdentity {
+  name: string;
+  category: string;
+  formFactor:
+    | "desktop-browser"
+    | "mobile-device"
+    | "hardware-console"
+    | "bento-dashboard"
+    | "fintech-card"
+    | "abstract-metric";
+  signatureElement: string;
+  monogramOrLogo: {
+    symbol: string;
+    placement: "top-left" | "top-center" | "center-watermark";
+    treatment: "glow-bloom" | "minimal-monochrome" | "embossed-metallic";
+  };
+  keyDifferentiatorVisual: string;
+}
+
+export interface VisualBibleVisualLanguage {
+  theme: "dark-saas" | "editorial-light" | "cyber-terminal" | "industrial-monolith" | "consumer-vibrant";
+  aestheticPhilosophy: string;
+  colorTokens: {
+    backgroundBase: string;
+    surfaceElevated: string;
+    surfaceOverlay: string;
+    borderSubtle: string;
+    primaryBrand: string;
+    secondaryBrand: string;
+    accentHighlight: string;
+    textPrimary: string;
+    textMuted: string;
+  };
+  negativeSpaceBaseline: number; // 0.35 - 0.75
+  cornerRadii: {
+    container: number; // px
+    card: number; // px
+    pill: number; // px
+  };
+}
+
+export interface VisualBibleMaterials {
+  surfaceType: "glassmorphism" | "matte-ceramic" | "anodized-aluminum" | "tactile-paper" | "glossy-acrylic";
+  backdropBlur: number; // px
+  borderSheen: "specular-metallic" | "subtle-hairline" | "neon-glow" | "none";
+  roughness: number; // 0.0 to 1.0
+  transmissionOpacity: number; // 0.0 to 1.0
+  shadowTokens: {
+    elevation: string;
+    ambientGlow: string;
+  };
+}
+
+export interface VisualBibleLightingLogic {
+  keyLightVector: { angleDeg: number; elevationDeg: number };
+  keyIntensity: number; // 0.0 - 1.0
+  ambientFillOpacity: number; // 0.0 - 1.0
+  atmosphericGlowOrb: {
+    enabled: boolean;
+    color: string;
+    radiusPercent: number;
+    blurPx: number;
+  };
+  shadowFalloff: "crisp-contact" | "diffuse-soft" | "cinematic-volumetric";
+}
+
+export interface VisualBibleTypographySystem {
+  headlineFont: string;
+  bodyFont: string;
+  monoFont: string;
+  headlineTracking: string;
+  headlineLineHeight: number;
+  capitalization: "none" | "uppercase" | "title-case";
+  scaleRatios: {
+    heroDisplay: number; // px
+    sectionHeadline: number; // px
+    bodySubtext: number; // px
+    badgeLabel: number; // px
+  };
+  weightHierarchy: {
+    hero: 700 | 800 | 900;
+    subtext: 400 | 500 | 600;
+    badge: 600 | 700;
+  };
+}
+
+export interface VisualBibleCameraLanguage {
+  baseFieldOfView: number;
+  primaryShotPhilosophy: "controlled-push-in" | "subtle-drift" | "orbital-pivot" | "locked-monumental";
+  tiltConstraints: {
+    maxTiltX: number; // deg
+    maxTiltY: number; // deg
+  };
+  virtualDistance: "macro-tight" | "medium-balanced" | "wide-architectural";
+  cameraMotionCurve: "cinematic-smooth" | "snappy-tech" | "elastic-settle";
+}
+
+export interface VisualBibleRecurringSubject {
+  id: string;
+  name: string;
+  role: "primary-product-hero" | "brand-monogram" | "interaction-pointer" | "verification-badge";
+  primitiveType: "app-window" | "phone-mockup" | "cursor-interaction" | "feature-pills" | "metric-counter" | "logo-reveal";
+  lockedProps: Record<string, any>;
+  consistencyRules: string[];
+}
+
+export interface VisualBible {
+  id: string;
+  campaignId: string;
+  brandName: string;
+  createdAt: number;
+  version: number;
+  productIdentity: VisualBibleProductIdentity;
+  visualLanguage: VisualBibleVisualLanguage;
+  materials: VisualBibleMaterials;
+  lightingLogic: VisualBibleLightingLogic;
+  typographySystem: VisualBibleTypographySystem;
+  cameraLanguage: VisualBibleCameraLanguage;
+  recurringSubjects: VisualBibleRecurringSubject[];
+  transformationExceptions: {
+    allowedSceneIndices: number[];
+    rules: string[];
   };
 }

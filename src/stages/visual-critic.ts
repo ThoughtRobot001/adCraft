@@ -1,5 +1,5 @@
 import { MotionIR } from "../schema";
-import { CritiqueIssue, CritiqueResult, SceneCritique } from "./types";
+import { CritiqueIssue, CritiqueResult, SceneCritique, VisualBible } from "./types";
 import { COMPARISON_ELEMENT_TYPES, hasEqualWeightStack } from "./directing";
 import { creativeMemory } from "../creative-memory";
 
@@ -7,8 +7,10 @@ export class VisualCritic {
   // Gate set to 9.0 / 10 as an iterative design refinement tool (not treated as truth)
   private qualityThreshold = 9.0;
 
-  critique(motionIR: MotionIR): CritiqueResult {
+  critique(motionIR: MotionIR, bible?: VisualBible): CritiqueResult {
     console.log("🧐 [Stage 6/7 - Visual Critic] Senior Art Director reviewing hierarchy, typography restraint, negative space & intent...");
+
+    const activeBible = (motionIR as any).visualBible || bible;
 
     const sceneCritiques: SceneCritique[] = [];
     let totalScore = 0;
@@ -408,6 +410,88 @@ export class VisualCritic {
               description: `Creative Memory violation [${memItem.name}]: Resolution sound cue triggered in opening problem scene: "${failureMode}".`,
               suggestedFix: "Defer resolution chime to payoff/resolution scene.",
             });
+          }
+        }
+      }
+
+      // 10. Campaign Visual Bible Coherence & Transformation Gate
+      if (activeBible) {
+        const isTransform = !!(scene.transformationCall?.isExplicitTransformation);
+        const allowedDepartures = scene.transformationCall?.allowedDepartures || [];
+
+        // 10a. Typography Coherence
+        const kineticTexts = scene.elements.filter((el) => el.type === "kinetic-text");
+        for (const kt of kineticTexts) {
+          const font = (kt.props as any).fontFamily || (kt.props as any).font;
+          if (font) {
+            const bibleFont = activeBible.typographySystem.headlineFont.split(",")[0].trim().toLowerCase();
+            const elFont = font.split(",")[0].trim().toLowerCase();
+            const fontMatches = elFont.includes(bibleFont) || bibleFont.includes(elFont);
+
+            if (!fontMatches) {
+              if (isTransform && allowedDepartures.includes("typography")) {
+                // Authorized departure: permitted by storyboard transformationCall
+              } else {
+                typographyRestraint -= 2.5;
+                brandSpecificity -= 2.0;
+                issues.push({
+                  sceneId: scene.id,
+                  category: "visual-bible-inconsistency",
+                  severity: "critical",
+                  description: `Typography violation: Scene uses font '${font}' departing from Campaign Visual Bible headlineFont '${activeBible.typographySystem.headlineFont}' without explicit transformation authorization.`,
+                  suggestedFix: `Inherit Visual Bible headlineFont '${activeBible.typographySystem.headlineFont}' or declare an explicit transformationCall with 'typography' departure.`,
+                });
+              }
+            }
+          }
+        }
+
+        // 10b. Palette / Background Coherence
+        if (scene.background?.color && activeBible.visualLanguage?.colorTokens?.backgroundBase) {
+          const scBg = scene.background.color.toLowerCase();
+          const bbBg = activeBible.visualLanguage.colorTokens.backgroundBase.toLowerCase();
+          const isDarkBible = bbBg.startsWith("#0") || bbBg.startsWith("#1");
+          const isLightScene = scBg.startsWith("#f") || scBg === "#ffffff" || scBg === "white";
+          const isLightBible = bbBg.startsWith("#f") || bbBg === "#ffffff";
+          const isDarkScene = scBg.startsWith("#0") || scBg.startsWith("#1") || scBg === "#08080b";
+
+          const hasPaletteClash = (isDarkBible && isLightScene) || (isLightBible && isDarkScene);
+
+          if (hasPaletteClash) {
+            if (isTransform && allowedDepartures.includes("palette")) {
+              // Authorized departure: permitted
+            } else {
+              brandSpecificity -= 3.0;
+              issues.push({
+                sceneId: scene.id,
+                category: "visual-bible-inconsistency",
+                severity: "critical",
+                description: `Color Palette clash: Scene background (${scene.background.color}) radically departs from Visual Bible backgroundBase (${activeBible.visualLanguage.colorTokens.backgroundBase}) without explicit transformation authorization.`,
+                suggestedFix: `Harmonize background with Visual Bible colorTokens (${activeBible.visualLanguage.colorTokens.backgroundBase}) or declare an explicit transformationCall with 'palette' departure.`,
+              });
+            }
+          }
+        }
+
+        // 10c. Camera Language Constraints
+        if (scene.camera) {
+          const cameraMaxTilt = activeBible.cameraLanguage.tiltConstraints.maxTiltX;
+          for (const el of scene.elements) {
+            const rotX = Math.abs((el.props as any).rotateX ?? 0);
+            if (rotX > cameraMaxTilt + 8) {
+              if (isTransform && allowedDepartures.includes("camera")) {
+                // Authorized departure
+              } else {
+                visualHierarchy -= 1.5;
+                issues.push({
+                  sceneId: scene.id,
+                  category: "visual-bible-inconsistency",
+                  severity: "major",
+                  description: `Camera/Perspective constraint exceeded: Element '${el.id}' rotateX (${rotX}°) exceeds Visual Bible maxTiltX (${cameraMaxTilt}°) without explicit transformation authorization.`,
+                  suggestedFix: `Clamp 3D perspective tilt to Visual Bible constraints (max ${cameraMaxTilt}°).`,
+                });
+              }
+            }
           }
         }
       }
