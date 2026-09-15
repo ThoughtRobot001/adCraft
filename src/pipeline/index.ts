@@ -6,18 +6,32 @@ import { BrandInput } from "../ingestion";
 import { CampaignBrief } from "../ai/types";
 import { MotionIR } from "../schema";
 import {
+  ApprovedKeyframe,
   ArtDirector,
   BrandAnalyst,
   BrandProfile,
+  CandidateKeyframe,
   ConceptStrategist,
   CreativeConcept,
   CritiqueResult,
+  KeyframeAnalysis,
+  KeyframeAnalyzer,
+  KeyframeCritic,
   MotionIRCompiler,
+  MotionIRReconstructor,
+  MotionPlan,
+  ReconstructedSceneInput,
   SceneReviser,
   Storyboard,
   StoryboardArchitect,
+  TemporalChoreographer,
   VisualCritic,
+  VisualKeyframeGenerator,
 } from "../stages";
+export * from "../stages";
+export * from "../technique-bank";
+export * from "../creative-memory";
+import { creativeMemory, SessionOutcome } from "../creative-memory";
 
 const execAsync = promisify(exec);
 
@@ -27,7 +41,7 @@ export interface GenerateAdOptions {
   outputPath?: string;
   skipRender?: boolean;
   skipCritique?: boolean;
-  qualityThreshold?: number; // default 7.0
+  qualityThreshold?: number; // default 9.0
   maxRevisions?: number; // default 2
 }
 
@@ -36,6 +50,10 @@ export interface GenerateStudioAdResult {
   conceptCandidates: CreativeConcept[];
   selectedConcept: CreativeConcept;
   storyboard: Storyboard;
+  candidateKeyframes?: Record<string, CandidateKeyframe[]>;
+  approvedKeyframes?: Record<string, ApprovedKeyframe>;
+  keyframeAnalyses?: Record<string, KeyframeAnalysis>;
+  motionPlans?: Record<string, MotionPlan>;
   motionIR: MotionIR;
   critique: CritiqueResult;
   revisionsApplied: number;
@@ -47,15 +65,22 @@ export class AdPipeline {
   private brandAnalyst = new BrandAnalyst();
   private conceptStrategist = new ConceptStrategist();
   private storyboardArchitect = new StoryboardArchitect();
+  private keyframeGenerator = new VisualKeyframeGenerator();
+  private keyframeCritic = new KeyframeCritic();
+  private keyframeAnalyzer = new KeyframeAnalyzer();
+  private temporalChoreographer = new TemporalChoreographer();
+  private reconstructor = new MotionIRReconstructor();
   private artDirector = new ArtDirector();
   private compiler = new MotionIRCompiler();
   private visualCritic = new VisualCritic();
   private sceneReviser = new SceneReviser();
 
   /**
-   * Complete 10-stage autonomous creative studio pipeline:
-   * Brief -> Brand Understanding -> Concept Strategy -> Storyboard ->
-   * Copy & Art Direction -> MotionIR Compilation -> Render -> Visual Critique -> Revision Loop -> Final Ad
+   * Complete Visual-First Creative Studio Pipeline:
+   * Creative Direction -> Storyboard -> Static Keyframe Generation ->
+   * Visual Critique -> Approved Keyframe -> Keyframe Analysis (11 dimensions) ->
+   * Temporal Choreography (MotionPlan) -> MotionIR Reconstruction ->
+   * Motion Critique & Revision -> Animation & Render
    */
   async generateAd(options: GenerateAdOptions): Promise<GenerateStudioAdResult> {
     console.log(`\n======================================================`);
@@ -66,7 +91,7 @@ export class AdPipeline {
 
     // 1. Brand Understanding (Voice, Positioning, Audience)
     const brandProfile = await this.brandAnalyst.analyze(options.brand, options.brief);
-    console.log(`✅ [1/7] Brand Intelligence Established:`);
+    console.log(`✅ [1/8] Brand Intelligence Established:`);
     console.log(`   Tone: "${brandProfile.voice.tone}" | Differentiator: "${brandProfile.positioning.differentiator}"`);
 
     // 2. Creative Concept Strategy (3 distinct options -> best selected automatically)
@@ -74,42 +99,92 @@ export class AdPipeline {
       brandProfile,
       options.brief
     );
-    console.log(`✅ [2/7] Creative Concept Selected:`);
+    console.log(`✅ [2/8] Creative Concept Selected:`);
     console.log(`   Angle: "${selectedConcept.angleTitle}" (Score: ${selectedConcept.strategicScore}/10)`);
     console.log(`   Hook:  "${selectedConcept.hook}"`);
 
-    // 3. Storyboard Architecture (Mandatory Internal Creative Stage)
+    // 3. Storyboard Architecture (Mandatory Narrative Arc Stage)
     const storyboard = await this.storyboardArchitect.designStoryboard(
       selectedConcept,
       brandProfile,
       options.brief
     );
-    console.log(`✅ [3/7] Narrative Storyboard Blueprinted:`);
+    console.log(`✅ [3/8] Narrative Storyboard Blueprinted:`);
     console.log(`   Arc: "${storyboard.narrativeArc}"`);
     console.log(`   Scenes: ${storyboard.scenes.length} narrative beats | Pacing: "${storyboard.pacingStrategy}"`);
 
-    // 4. Copy & Art Direction (Visual hierarchy, typography, backgrounds)
-    const artDirectedScenes = this.artDirector.direct(storyboard, brandProfile, options.brief);
-    console.log(`✅ [4/7] Art Direction Completed for ${artDirectedScenes.length} scenes.`);
+    // 4. Static Keyframe Generation, Critique & 11-Dimension Analysis
+    console.log(`🎨 [4/8] Generating visual candidate keyframes for ${storyboard.scenes.length} scenes...`);
+    const candidateKeyframes: Record<string, CandidateKeyframe[]> = {};
+    const approvedKeyframes: Record<string, ApprovedKeyframe> = {};
+    const keyframeAnalyses: Record<string, KeyframeAnalysis> = {};
+    const motionPlans: Record<string, MotionPlan> = {};
+    const reconstructedInputs: ReconstructedSceneInput[] = [];
 
-    // 5. MotionIR Compilation (Deterministic compilation to renderable specification)
-    let motionIR = this.compiler.compile(artDirectedScenes, brandProfile, options.brief);
-    console.log(`✅ [5/7] MotionIR Specification Compiled & Validated.`);
+    const fps = 30;
 
-    // 6. Visual Critique & Quality Gate (Threshold: 7/10)
+    for (const scene of storyboard.scenes) {
+      // 4a. Candidate keyframe synthesis (AI Art-Direction Engine)
+      const candidates = await this.keyframeGenerator.generateKeyframesForScene(
+        scene,
+        brandProfile,
+        options.brief
+      );
+      candidateKeyframes[scene.id] = candidates;
+
+      // 4b. Senior Art Director Keyframe Visual Critique & Gate
+      const approved = this.keyframeCritic.selectAndApproveKeyframe(
+        candidates,
+        scene,
+        brandProfile
+      );
+      approvedKeyframes[scene.id] = approved;
+
+      // 4c. 11-Dimension Visual Analysis
+      const analysis = this.keyframeAnalyzer.analyzeApprovedKeyframe(
+        approved,
+        scene,
+        brandProfile
+      );
+      keyframeAnalyses[scene.id] = analysis;
+
+      // 4d. Temporal Choreography & MotionPlan
+      const motionPlan = this.temporalChoreographer.createMotionPlan(
+        scene,
+        analysis,
+        approved,
+        brandProfile,
+        fps
+      );
+      motionPlans[scene.id] = motionPlan;
+
+      reconstructedInputs.push({ scene, analysis, motionPlan });
+    }
+    console.log(`✅ [4/8] Static Keyframes Generated, Critiqued (>=9.0 Gate), Analyzed & Temporal MotionPlans Choreographed.`);
+
+    // 5. MotionIR Reconstruction from 11-Dimension Visual Blueprint
+    console.log(`📐 [5/8] Reconstructing MotionIR from 11-dimension keyframe blueprints...`);
+    let motionIR = this.reconstructor.reconstructMotionIR(
+      reconstructedInputs,
+      brandProfile,
+      options.brief
+    );
+    console.log(`✅ [5/8] MotionIR Specification Reconstructed & Validated against Keyframe Blueprint.`);
+
+    // 6. Motion & Visual Critique Quality Gate (Threshold: 9.0/10)
     let critique = this.visualCritic.critique(motionIR);
     let revisionsApplied = 0;
     const maxRevisions = options.maxRevisions ?? 2;
 
     while (critique.revisionRequired && revisionsApplied < maxRevisions && !options.skipCritique) {
       revisionsApplied++;
-      console.log(`⚠️ Quality threshold (7/10) not met (Score: ${critique.overallScore}). Starting Revision Cycle ${revisionsApplied}/${maxRevisions}...`);
+      console.log(`⚠️ Quality threshold (9.0/10) not met (Score: ${critique.overallScore}). Starting Revision Cycle ${revisionsApplied}/${maxRevisions}...`);
       motionIR = this.sceneReviser.revise(motionIR, critique);
       critique = this.visualCritic.critique(motionIR);
     }
 
     if (critique.passedThreshold) {
-      console.log(`🎉 [6/7] Quality Gate Passed! Final Critique Score: ${critique.overallScore}/10.`);
+      console.log(`🎉 [6/8] Quality Gate Passed! Final Critique Score: ${critique.overallScore}/10.`);
     } else {
       console.warn(`⚠️ Ad shipped with warnings. Final Critique Score: ${critique.overallScore}/10.`);
     }
@@ -127,10 +202,22 @@ export class AdPipeline {
     fs.writeFileSync(jsonPath, JSON.stringify(motionIR, null, 2), "utf-8");
     fs.writeFileSync(
       storyboardPath,
-      JSON.stringify({ brandProfile, selectedConcept, storyboard, critique }, null, 2),
+      JSON.stringify(
+        {
+          brandProfile,
+          selectedConcept,
+          storyboard,
+          candidateKeyframes,
+          approvedKeyframes,
+          keyframeAnalyses,
+          critique,
+        },
+        null,
+        2
+      ),
       "utf-8"
     );
-    console.log(`✅ [7/7] Production Assets Saved:`);
+    console.log(`✅ [7/8] Production Assets Saved:`);
     console.log(`   MotionIR:   ${jsonPath}`);
     console.log(`   Storyboard: ${storyboardPath}`);
 
@@ -138,7 +225,7 @@ export class AdPipeline {
     let videoPath: string | undefined = undefined;
     if (!options.skipRender) {
       videoPath = options.outputPath || path.join(outDir, `${safeId}.mp4`);
-      console.log(`🎬 Rendering final production MP4 to ${videoPath}...`);
+      console.log(`🎬 [8/8] Rendering final production MP4 to ${videoPath}...`);
 
       const cmd = `npx remotion render src/index.ts AdComposition "${videoPath}" --props="${jsonPath}"`;
       try {
@@ -149,19 +236,85 @@ export class AdPipeline {
         throw renderErr;
       }
     } else {
-      console.log(`⏭️ Skipping MP4 video render.`);
+      console.log(`⏭️ [8/8] Skipping MP4 video render.`);
     }
+
+    // Closed-Loop Outcome Learning: Record outcome in Creative Memory
+    const allUsedMemoryItemIds: string[] = [];
+    for (const s of motionIR.scenes) {
+      if (s.usedMemoryItemIds) {
+        for (const id of s.usedMemoryItemIds) {
+          if (!allUsedMemoryItemIds.includes(id)) allUsedMemoryItemIds.push(id);
+        }
+      }
+    }
+
+    const allIssues = critique.scenes.flatMap((s) => s.issues || []);
+
+    const outcome: SessionOutcome = {
+      id: safeId,
+      brand: brandProfile.identity.name,
+      conceptAngle: selectedConcept.angleTitle,
+      intent: selectedConcept.narrativeArchetype,
+      style: (brandProfile.identity.theme as any) || "dark-saas",
+      itemsUsed: allUsedMemoryItemIds,
+      critiqueOverallScore: critique.overallScore,
+      critiquePassed: critique.passedThreshold,
+      critiqueIssues: allIssues.map((iss) => ({
+        sceneId: iss.sceneId,
+        category: iss.category,
+        severity: iss.severity,
+        description: iss.description,
+      })),
+      userVerdict: "unreviewed",
+      timestamp: new Date().toISOString(),
+    };
+    creativeMemory.recordOutcome(outcome);
 
     return {
       brandProfile,
       conceptCandidates: concepts,
       selectedConcept,
       storyboard,
+      candidateKeyframes,
+      approvedKeyframes,
+      keyframeAnalyses,
+      motionPlans,
       motionIR,
       critique,
       revisionsApplied,
       jsonPath,
       videoPath,
     };
+  }
+
+  /**
+   * Closed-loop Human Feedback: Approve ad and reinforce successful creative vocabulary
+   */
+  approveAd(outcomeId: string, notes?: string): void {
+    const existing = creativeMemory.getOutcomes().find((o) => o.id === outcomeId);
+    if (existing) {
+      creativeMemory.recordOutcome({
+        ...existing,
+        userVerdict: "approved",
+        userFeedbackNotes: notes,
+      });
+      console.log(`🧠 [Creative Memory] Human Approval Recorded for ${outcomeId}: Vocabulary affinity boosted.`);
+    }
+  }
+
+  /**
+   * Closed-loop Human Feedback: Reject ad, penalize failed combinations, and register failure modes
+   */
+  rejectAd(outcomeId: string, failureNotes: string): void {
+    const existing = creativeMemory.getOutcomes().find((o) => o.id === outcomeId);
+    if (existing) {
+      creativeMemory.recordOutcome({
+        ...existing,
+        userVerdict: "rejected",
+        userFeedbackNotes: failureNotes,
+      });
+      console.log(`🧠 [Creative Memory] Human Rejection Recorded for ${outcomeId}: Learned failure mode "${failureNotes}".`);
+    }
   }
 }

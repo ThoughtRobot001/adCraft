@@ -1,0 +1,5 @@
+{
+  "status": "procedural-fallback",
+  "shaderFallback": "bg-shader-fluid-aurora",
+  "resolution": "1920x1080"
+}

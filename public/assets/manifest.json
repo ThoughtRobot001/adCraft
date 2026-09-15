@@ -1,0 +1,86 @@
+{
+  "extractedAt": "2026-09-12T16:44:06.927Z",
+  "extractedPlates": [
+    {
+      "file": "backgrounds/astra-dark-grid-plate.png",
+      "description": "Deep perspective 3D grid with dark obsidian gradient floor",
+      "source": "been seeing other motion designers make use of Astra and i finally decided to tr.mp4"
+    },
+    {
+      "file": "backgrounds/astra-horizon-glow.png",
+      "description": "Amber/gold ambient horizon bloom for high-value financial events",
+      "source": "been seeing other motion designers make use of Astra and i finally decided to tr.mp4"
+    },
+    {
+      "file": "backgrounds/astra-depth-monolith.png",
+      "description": "Monumental typography void backdrop with studio rim lighting",
+      "source": "been seeing other motion designers make use of Astra and i finally decided to tr.mp4"
+    },
+    {
+      "file": "backgrounds/blinkcash-cyan-ambient.png",
+      "description": "Electric cyan ambient fintech backdrop with subtle gradient contouring",
+      "source": "One tap, Stablecoin deposits, Super cool! I worked on this video for @BlinkCashX.mp4"
+    },
+    {
+      "file": "ui/blinkcash-deposit-modal.png",
+      "description": "Production mobile one-tap stablecoin deposit transaction card",
+      "source": "One tap, Stablecoin deposits, Super cool! I worked on this video for @BlinkCashX.mp4"
+    },
+    {
+      "file": "backgrounds/blinkcash-particle-flow.png",
+      "description": "High-velocity financial liquidity streak background",
+      "source": "One tap, Stablecoin deposits, Super cool! I worked on this video for @BlinkCashX.mp4"
+    },
+    {
+      "file": "backgrounds/supercool-bento-glass.png",
+      "description": "Frosted bento glass card layout with soft ambient lighting",
+      "source": "We make super cool launch videos https___t.co_8zAnWjkWSc.mp4"
+    },
+    {
+      "file": "textures/glass-frosted-refraction.png",
+      "description": "Refractive frosted glass surface texture for overlay blending",
+      "source": "We make super cool launch videos https___t.co_8zAnWjkWSc.mp4"
+    },
+    {
+      "file": "backgrounds/kinetic-stream-lines.png",
+      "description": "Kinetic motion stream lines with high-energy directional blur",
+      "source": "Best thing you'll see today https___t.co_q5w9SWLwGJ.mp4"
+    },
+    {
+      "file": "backgrounds/monolithic-graphite-dark.png",
+      "description": "Studio matte graphite dark surface plate with subtle specular sheen",
+      "source": "i made this video within 84 hours. no AI was used in the animation. thoughts htt.mp4"
+    },
+    {
+      "file": "textures/specular-lens-flare.png",
+      "description": "Clean anamorphic specular flare ray texture",
+      "source": "i made this video within 84 hours. no AI was used in the animation. thoughts htt.mp4"
+    }
+  ],
+  "vectorAssets": [
+    {
+      "file": "devices/ipad-pro-m4-frame.svg",
+      "description": "iPad Pro M4 ultra-thin vector hardware frame with micro-bezels"
+    },
+    {
+      "file": "devices/studio-display-5k-frame.svg",
+      "description": "Studio Display 5K monitor frame with aluminum stand"
+    },
+    {
+      "file": "ui/badge-usdc-verified.svg",
+      "description": "Verified USDC Settlement badge with security glow"
+    },
+    {
+      "file": "ui/badge-latency-ultra.svg",
+      "description": "Ultra-low latency execution pill (<12ms)"
+    },
+    {
+      "file": "ui/badge-prediction-market.svg",
+      "description": "Astra-style live probability market pill with dynamic odds"
+    },
+    {
+      "file": "ui/card-transaction-success.svg",
+      "description": "Fintech instant transaction verified settlement receipt"
+    }
+  ]
+}

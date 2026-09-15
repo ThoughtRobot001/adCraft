@@ -22,8 +22,8 @@ export const FeaturePills: React.FC<Props> = ({ props, brand }) => {
   const currentFrame = Math.max(0, frame - delay);
   if (frame < delay) return null;
 
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
   const primaryColor = resolveColor("brand.primary", brand);
-  const textColor = resolveColor("brand.text", brand);
 
   return (
     <div
@@ -37,7 +37,7 @@ export const FeaturePills: React.FC<Props> = ({ props, brand }) => {
         flexWrap: layout === "grid" || layout === "horizontal" ? "wrap" : "nowrap",
         justifyContent: "center",
         alignItems: "center",
-        gap: "16px",
+        gap: "14px",
         maxWidth: "92%",
         zIndex: 10,
       }}
@@ -48,48 +48,81 @@ export const FeaturePills: React.FC<Props> = ({ props, brand }) => {
         const spr = spring({
           frame: itemFrame,
           fps,
-          config: { damping: 13, mass: 0.6, stiffness: 120 },
+          config: { damping: 15, mass: 0.5, stiffness: 130 },
         });
 
         if (currentFrame < itemDelay) return null;
 
-        const scale = interpolate(spr, [0, 1], [0.4, 1]);
+        const scale = interpolate(spr, [0, 1], [0.5, 1]);
+        const translateY = interpolate(spr, [0, 1], [14, 0]);
         const opacity = interpolate(itemFrame, [0, 6], [0, 1], {
           extrapolateRight: "clamp",
         });
 
-        const isHighlight = item.highlight;
-        const itemColor = item.color ? resolveColor(item.color, brand) : primaryColor;
+        const isHighlight = Boolean(item.highlight);
 
         return (
           <div
             key={index}
             style={{
-              transform: `scale(${scale})`,
+              transform: `translateY(${translateY}px) scale(${scale})`,
               opacity,
-              backgroundColor: isHighlight ? `${itemColor}22` : "rgba(30, 41, 59, 0.75)",
-              border: `1.5px solid ${isHighlight ? itemColor : "rgba(255, 255, 255, 0.12)"}`,
+              backgroundColor: isLight
+                ? isHighlight
+                  ? "rgba(255, 255, 255, 0.98)"
+                  : "rgba(255, 255, 255, 0.92)"
+                : isHighlight
+                ? "rgba(30, 41, 59, 0.95)"
+                : "rgba(15, 23, 42, 0.8)",
+              border: isLight
+                ? isHighlight
+                  ? `1.5px solid ${primaryColor}55`
+                  : "1px solid rgba(15, 23, 42, 0.1)"
+                : isHighlight
+                ? `1.5px solid ${primaryColor}88`
+                : "1px solid rgba(255, 255, 255, 0.12)",
               borderRadius: "9999px",
-              padding: "18px 36px",
+              padding: "12px 24px",
               display: "flex",
               alignItems: "center",
-              gap: "14px",
-              backdropFilter: "blur(20px)",
-              boxShadow: isHighlight
-                ? `0 14px 30px ${itemColor}55, 0 0 20px ${itemColor}33`
-                : "0 12px 25px rgba(0,0,0,0.4)",
+              gap: "10px",
+              backdropFilter: "blur(16px)",
+              boxShadow: isLight
+                ? isHighlight
+                  ? `0 10px 25px rgba(0, 0, 0, 0.06), 0 0 15px ${primaryColor}15`
+                  : "0 8px 20px rgba(0, 0, 0, 0.04)"
+                : isHighlight
+                ? `0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px ${primaryColor}33`
+                : "0 10px 25px rgba(0, 0, 0, 0.4)",
             }}
           >
-            {item.icon && (
-              <span style={{ fontSize: "28px" }}>{item.icon}</span>
+            {/* Subtle Highlight Indicator Dot */}
+            {isHighlight && (
+              <div
+                style={{
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  backgroundColor: primaryColor,
+                  boxShadow: `0 0 8px ${primaryColor}`,
+                }}
+              />
             )}
+
+            {item.icon && (
+              <span style={{ fontSize: "18px", display: "flex", alignItems: "center" }}>
+                {item.icon}
+              </span>
+            )}
+
             <span
               style={{
                 fontFamily: brand.font,
-                fontSize: "24px",
+                fontSize: "18px",
                 fontWeight: 600,
-                color: isHighlight ? "#FFFFFF" : textColor,
+                color: isLight ? "#0F172A" : "#FFFFFF",
                 letterSpacing: "-0.01em",
+                whiteSpace: "nowrap",
               }}
             >
               {item.text}

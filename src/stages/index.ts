@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./directing";
 export * from "./gemini-client";
 export * from "./brand-analyst";
 export * from "./concept-strategist";
@@ -7,3 +8,8 @@ export * from "./art-director";
 export * from "./motionir-compiler";
 export * from "./visual-critic";
 export * from "./scene-reviser";
+export * from "./visual-keyframe-generator";
+export * from "./keyframe-critic";
+export * from "./keyframe-analyzer";
+export * from "./temporal-choreographer";
+export * from "./motionir-reconstructor";

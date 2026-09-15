@@ -1,12 +1,16 @@
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
 import { Brand, resolveColor, SceneBackground, SceneTransition as SceneTransitionType } from "../schema";
+import { getAsset } from "../asset-bank";
+import { ShaderGradient } from "./ShaderGradient";
+import { VideoBackground } from "./VideoBackground";
 
 interface Props {
   background: SceneBackground;
   transition: SceneTransitionType;
   durationFrames: number;
   brand: Brand;
+  backgroundAssetId?: string;
   children: React.ReactNode;
 }
 
@@ -15,6 +19,7 @@ export const SceneTransition: React.FC<Props> = ({
   transition,
   durationFrames,
   brand,
+  backgroundAssetId,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -23,47 +28,23 @@ export const SceneTransition: React.FC<Props> = ({
   const isEntering = frame < transitionDuration;
   const isExiting = frame > durationFrames - transitionDuration;
 
-  let opacity = 1;
-  let transform = "";
+  // Continuous cinematic drift across the scene duration (no static pauses)
+  const driftScale = 1 + (frame / durationFrames) * 0.035;
+  const driftY = Math.sin(frame / 50) * 6;
+  const driftX = Math.cos(frame / 65) * 4;
 
-  // Enter animation
+  let opacity = 1;
+  let transform = `translate3d(${driftX}px, ${driftY}px, 0) scale(${driftScale})`;
+
+  // Smooth cinematic enter/exit fades and pushes
   if (isEntering && transition.type !== "none") {
     const enterProgress = frame / transitionDuration;
-    if (transition.type === "fade") {
-      opacity = interpolate(enterProgress, [0, 1], [0, 1]);
-    } else if (transition.type === "slide-left") {
-      const x = interpolate(enterProgress, [0, 1], [100, 0]);
-      transform = `translateX(${x}px)`;
-      opacity = enterProgress;
-    } else if (transition.type === "slide-up") {
-      const y = interpolate(enterProgress, [0, 1], [80, 0]);
-      transform = `translateY(${y}px)`;
-      opacity = enterProgress;
-    } else if (transition.type === "zoom-out") {
-      const scale = interpolate(enterProgress, [0, 1], [1.15, 1]);
-      transform = `scale(${scale})`;
-      opacity = enterProgress;
-    }
+    opacity = interpolate(enterProgress, [0, 1], [0, 1], { extrapolateRight: "clamp" });
   }
 
-  // Exit animation
   if (isExiting && transition.type !== "none") {
     const exitProgress = (frame - (durationFrames - transitionDuration)) / transitionDuration;
-    if (transition.type === "fade") {
-      opacity = interpolate(exitProgress, [0, 1], [1, 0]);
-    } else if (transition.type === "slide-left") {
-      const x = interpolate(exitProgress, [0, 1], [0, -100]);
-      transform = `translateX(${x}px)`;
-      opacity = 1 - exitProgress;
-    } else if (transition.type === "slide-up") {
-      const y = interpolate(exitProgress, [0, 1], [0, -80]);
-      transform = `translateY(${y}px)`;
-      opacity = 1 - exitProgress;
-    } else if (transition.type === "zoom-out") {
-      const scale = interpolate(exitProgress, [0, 1], [1, 0.9]);
-      transform = `scale(${scale})`;
-      opacity = 1 - exitProgress;
-    }
+    opacity = interpolate(exitProgress, [0, 1], [1, 0], { extrapolateRight: "clamp" });
   }
 
   const bgColor = resolveColor(background.color || "brand.background", brand);
@@ -88,6 +69,18 @@ export const SceneTransition: React.FC<Props> = ({
   const orb2X = 70 + Math.cos((frame / 50)) * 12;
   const orb2Y = 65 + Math.sin((frame / 50)) * 14;
 
+  const isLight = brand.theme === "editorial-light" || bgColor === "#F8F7F3" || bgColor === "#FFFFFF" || bgColor === "#F8FAFC";
+
+  // Asset Bank background styling properties
+  const bgAsset = backgroundAssetId ? getAsset(backgroundAssetId) : undefined;
+  const bgProps = bgAsset?.properties;
+  const hasPaperGrain = bgProps?.hasPaperGrain ?? isLight;
+  const hasStudioLight = bgProps?.hasStudioLight ?? isLight;
+  const dotGridOpacity = bgProps?.dotGridOpacity ?? (isLight ? 0.05 : 0.08);
+
+  const isShader = bgAsset?.mediaType === "shader" || bgAsset?.category === "shader";
+  const isVideo = bgAsset?.mediaType === "video";
+
   return (
     <div
       style={{
@@ -100,8 +93,85 @@ export const SceneTransition: React.FC<Props> = ({
         ...bgStyle,
       }}
     >
-      {/* Dynamic Ambient Background Glow Orbs */}
-      {background.glowOrb && (
+      {/* Real-time Mathematical Shader Gradient */}
+      {isShader && (
+        <ShaderGradient
+          preset={bgProps?.shaderPreset || bgProps?.preset || "aurora"}
+          speed={bgProps?.speed ?? 1.0}
+          opacity={bgProps?.opacity ?? 0.9}
+          brand={brand}
+          blendMode={bgAsset?.blendMode || "normal"}
+        />
+      )}
+
+      {/* Cinematic High-Depth Video Loop */}
+      {isVideo && (
+        <VideoBackground
+          src={bgAsset?.src}
+          opacity={bgProps?.opacity ?? 0.85}
+          playbackRate={bgAsset?.playbackRate ?? 1.0}
+          blendMode={bgAsset?.blendMode || "normal"}
+          fallbackColor={bgProps?.fallbackColor || bgColor}
+        />
+      )}
+
+      {/* Subtle paper / tech dot grid texture */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: isLight
+            ? `radial-gradient(rgba(0, 0, 0, ${dotGridOpacity}) 1px, transparent 1px)`
+            : `radial-gradient(rgba(255, 255, 255, ${dotGridOpacity}) 1px, transparent 1px)`,
+          backgroundSize: "32px 32px",
+          opacity: isLight ? 0.8 : 0.4,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Physical Paper / Studio Micro-Grain Overlay */}
+      {hasPaperGrain && (
+        <svg
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            opacity: isLight ? 0.038 : 0.025,
+            pointerEvents: "none",
+            zIndex: 1,
+            mixBlendMode: isLight ? "multiply" : "screen",
+          }}
+        >
+          <filter id="adcraft-paper-grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#adcraft-paper-grain)" />
+        </svg>
+      )}
+
+      {/* Editorial Roving Studio Light */}
+      {hasStudioLight && (
+        <div
+          style={{
+            position: "absolute",
+            left: `${45 + Math.sin(frame / 60) * 8}%`,
+            top: `${40 + Math.cos(frame / 60) * 6}%`,
+            width: "900px",
+            height: "900px",
+            borderRadius: "50%",
+            transform: "translate(-50%, -50%)",
+            background: `radial-gradient(circle, rgba(255, 255, 255, 0.75) 0%, rgba(248, 247, 243, 0) 65%)`,
+            filter: "blur(40px)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        />
+      )}
+
+      {/* Dynamic Ambient Background Glow Orbs for Dark Mode */}
+      {background.glowOrb && !isLight && (
         <>
           <div
             style={{
@@ -128,17 +198,6 @@ export const SceneTransition: React.FC<Props> = ({
               transform: "translate(-50%, -50%)",
               background: `radial-gradient(circle, ${accentColor}18 0%, transparent 60%)`,
               filter: "blur(70px)",
-              pointerEvents: "none",
-            }}
-          />
-          {/* Subtle tech grid texture */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)`,
-              backgroundSize: "36px 36px",
-              opacity: 0.4,
               pointerEvents: "none",
             }}
           />

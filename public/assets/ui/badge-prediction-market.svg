@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 72" width="340" height="72">
+  <rect x="2" y="2" width="336" height="68" rx="16" fill="#14161C" stroke="#F59E0B" stroke-width="1.8"/>
+  <text x="24" y="32" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" font-weight="600" text-transform="uppercase" letter-spacing="1">Fed Rate Cut Prob</text>
+  <text x="24" y="54" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="800">84.2% YES</text>
+  <rect x="236" y="18" width="84" height="36" rx="8" fill="#F59E0B" fill-opacity="0.18" stroke="#F59E0B" stroke-width="1.2"/>
+  <text x="278" y="41" fill="#F59E0B" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">+14.6%</text>
+</svg>

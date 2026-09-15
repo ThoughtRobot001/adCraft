@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64">
+  <rect x="2" y="2" width="276" height="60" rx="30" fill="#0B1528" stroke="#2775CA" stroke-width="1.8"/>
+  <circle cx="32" cy="32" r="18" fill="#2775CA"/>
+  <path d="M 28 22 C 34 22 37 25 37 28 C 37 32 32 33 28 34 C 24 35 23 37 23 39 C 23 42 26 44 32 44 C 36 44 38 43 40 41" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="18" x2="32" y2="22" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="44" x2="32" y2="48" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="64" y="38" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">USDC Instant</text>
+  <circle cx="246" cy="32" r="5" fill="#10B981"/>
+</svg>

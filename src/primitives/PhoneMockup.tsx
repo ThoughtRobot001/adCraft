@@ -304,6 +304,76 @@ export const PhoneMockup: React.FC<Props> = ({ props, brand }) => {
                   </div>
                 </div>
               </>
+            ) : screenType === "deposit-flow" ? (
+              <>
+                {/* Deposit Flow Screen (Video 4 BlinkCash Parity) */}
+                <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "12px", color: mutedColor, fontWeight: 700, textTransform: "uppercase" }}>
+                      Instant Deposit
+                    </span>
+                    <span style={{ fontSize: "11px", backgroundColor: `${accentColor}25`, color: accentColor, padding: "2px 8px", borderRadius: "6px", fontWeight: 700 }}>
+                      ⚡ Zero Fee
+                    </span>
+                  </div>
+
+                  {/* Big Number Input */}
+                  <div style={{ textAlign: "center", padding: "12px 0" }}>
+                    <div style={{ fontSize: "38px", fontWeight: 900, color: textColor, letterSpacing: "-0.04em" }}>
+                      {value || "$1,000.00"}
+                    </div>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", backgroundColor: cardBg, border: `1px solid ${cardBorder}`, padding: "4px 12px", borderRadius: "999px", marginTop: "6px" }}>
+                      <span style={{ fontSize: "12px" }}>🔵</span>
+                      <span style={{ fontSize: "12px", fontWeight: 700, color: textColor }}>USDC</span>
+                      <span style={{ fontSize: "10px", color: mutedColor }}>Solana</span>
+                    </div>
+                  </div>
+
+                  {/* Sliding Bottom Confirmation Card */}
+                  <div
+                    style={{
+                      backgroundColor: cardBg,
+                      border: `1px solid ${cardBorder}`,
+                      borderRadius: "20px",
+                      padding: "16px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px" }}>
+                      <span style={{ color: mutedColor }}>Est. Annual Yield</span>
+                      <span style={{ fontWeight: 800, color: accentColor }}>+$54.00 / yr</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px" }}>
+                      <span style={{ color: mutedColor }}>Settlement Time</span>
+                      <span style={{ fontWeight: 700, color: textColor }}>Instant (400ms)</span>
+                    </div>
+
+                    {/* Face ID Confirmed Button */}
+                    <div
+                      style={{
+                        marginTop: "6px",
+                        backgroundColor: primaryColor,
+                        color: "#FFFFFF",
+                        borderRadius: "14px",
+                        padding: "12px 0",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "8px",
+                        fontWeight: 800,
+                        fontSize: "13px",
+                        boxShadow: `0 6px 18px ${primaryColor}55`,
+                      }}
+                    >
+                      <span>✓</span>
+                      <span>Face ID Confirmed</span>
+                    </div>
+                  </div>
+                </div>
+              </>
             ) : screenType === "learning" ? (
               <>
                 {/* Language / Gamified Screen */}

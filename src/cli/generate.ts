@@ -34,6 +34,8 @@ async function main() {
   const maxRevisions = flags.revisions ? parseInt(flags.revisions, 10) : 2;
   const customOut = flags.out || flags.output;
   const verbose = flags.verbose === "true";
+  const aspectRatio = (flags.format || flags.ratio || flags.aspectRatio || "16:9") as "16:9" | "9:16" | "1:1";
+  const theme = flags.theme as "dark-saas" | "editorial-light" | "consumer-vibrant" | undefined;
 
   const features = flags.features
     ? flags.features.split(",").map((f) => f.trim())
@@ -47,6 +49,7 @@ async function main() {
         name: brandName,
         websiteUrl,
         tagline,
+        theme,
         colors: {
           primary: primaryColor,
           accent: accentColor,
@@ -57,6 +60,8 @@ async function main() {
         productDescription: flags.desc || tagline,
         websiteUrl,
         goal,
+        aspectRatio,
+        targetDurationSeconds: (flags.duration ? parseInt(flags.duration, 10) : 30) as 15 | 20 | 30,
         keyFeatures: features,
         metricsOrSocialProof: {
           metric: flags.metric || "10x",

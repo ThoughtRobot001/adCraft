@@ -15,7 +15,10 @@ export const BrandSchema = z.object({
   logo: z.string().optional(),
   colors: BrandColorSchema.default({}),
   font: z.string().default("Inter, system-ui, sans-serif"),
+  serifFont: z.string().optional().default("'Newsreader', 'Playfair Display', Georgia, serif"),
+  theme: z.enum(["dark-saas", "editorial-light", "consumer-vibrant"]).optional().default("dark-saas"),
 });
 
 export type Brand = z.infer<typeof BrandSchema>;
 export type BrandColors = z.infer<typeof BrandColorSchema>;
+

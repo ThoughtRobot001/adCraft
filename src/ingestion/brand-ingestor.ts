@@ -5,6 +5,8 @@ export interface BrandInput {
   websiteUrl?: string;
   tagline?: string;
   logo?: string;
+  theme?: "dark-saas" | "editorial-light" | "consumer-vibrant";
+  serifFont?: string;
   colors?: {
     primary?: string;
     secondary?: string;
@@ -36,21 +38,26 @@ export class BrandIngestor {
     const tagline = input.tagline || extractedDetails.tagline;
     const logo = input.logo || extractedDetails.logo;
 
+    const isEditorial = input.theme === "editorial-light" || /wordsmith|legal|contract|policy|editorial/i.test(brandName);
+    const theme = input.theme || (isEditorial ? "editorial-light" : "dark-saas");
+
     const brandColors = {
-      primary: input.colors?.primary || extractedDetails.colors?.primary || "#6366F1",
-      secondary: input.colors?.secondary || extractedDetails.colors?.secondary || "#4338CA",
+      primary: input.colors?.primary || extractedDetails.colors?.primary || (isEditorial ? "#1E293B" : "#6366F1"),
+      secondary: input.colors?.secondary || extractedDetails.colors?.secondary || (isEditorial ? "#334155" : "#4338CA"),
       accent: input.colors?.accent || extractedDetails.colors?.accent || "#10B981",
-      background: input.colors?.background || extractedDetails.colors?.background || "#090D16",
-      text: input.colors?.text || extractedDetails.colors?.text || "#F8FAFC",
-      muted: input.colors?.muted || extractedDetails.colors?.muted || "#94A3B8",
+      background: input.colors?.background || extractedDetails.colors?.background || (isEditorial ? "#F8F7F3" : "#090D16"),
+      text: input.colors?.text || extractedDetails.colors?.text || (isEditorial ? "#0F172A" : "#F8FAFC"),
+      muted: input.colors?.muted || extractedDetails.colors?.muted || (isEditorial ? "#64748B" : "#94A3B8"),
     };
 
-    const font = input.font || extractedDetails.font || "system-ui, -apple-system, sans-serif";
+    const font = input.font || extractedDetails.font || (isEditorial ? "'Newsreader', 'Playfair Display', Georgia, serif" : "system-ui, -apple-system, sans-serif");
 
     return BrandSchema.parse({
       name: brandName,
       tagline,
       logo,
+      theme,
+      serifFont: input.serifFont || "'Newsreader', 'Playfair Display', Georgia, serif",
       colors: brandColors,
       font,
     });

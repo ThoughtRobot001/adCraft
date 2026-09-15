@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="glare-ray" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+      <stop offset="35%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="60%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+  <path d="M 0 0 L 960 0 L 480 1080 L 0 1080 Z" fill="url(#glare-ray)"/>
+</svg>

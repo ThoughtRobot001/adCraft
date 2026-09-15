@@ -1,13 +1,15 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { Brand, CTAButtonProps, resolveColor } from "../schema";
+import { getAsset } from "../asset-bank";
 
 interface Props {
   props: CTAButtonProps;
   brand: Brand;
+  buttonStyleId?: string;
 }
 
-export const CTAButton: React.FC<Props> = ({ props, brand }) => {
+export const CTAButton: React.FC<Props> = ({ props, brand, buttonStyleId: propButtonStyleId }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -29,6 +31,11 @@ export const CTAButton: React.FC<Props> = ({ props, brand }) => {
   const secondaryColor = resolveColor("brand.secondary", brand);
   const mutedColor = resolveColor("brand.muted", brand);
 
+  // Asset Bank Resolution
+  const resolvedButtonStyleId = (props as any).buttonStyleId || propButtonStyleId;
+  const btnAsset = resolvedButtonStyleId ? getAsset(resolvedButtonStyleId) : undefined;
+  const btnProps = btnAsset?.properties;
+
   const spr = spring({
     frame: currentFrame,
     fps,
@@ -40,10 +47,52 @@ export const CTAButton: React.FC<Props> = ({ props, brand }) => {
     extrapolateRight: "clamp",
   });
 
+  const shouldPulse = btnProps?.hasPulse !== undefined ? btnProps.hasPulse : pulse;
+
   // Micro pulse after spring finishes
-  const pulseFactor = pulse && currentFrame > 20
+  const pulseFactor = shouldPulse && currentFrame > 20
     ? 1 + Math.sin((currentFrame / fps) * 4) * 0.03
     : 1;
+
+  const isLight =
+    brand.theme === "editorial-light" ||
+    brand.colors.background === "#F8F7F3" ||
+    brand.colors.background === "#FFFFFF" ||
+    brand.colors.background === "#F8FAFC";
+
+  // Resolved dynamic styles from asset bank or defaults
+  const padding = btnProps?.padding || "24px 64px";
+  const borderRadius = btnProps?.borderRadius || "9999px";
+  const fontSize = btnProps?.fontSize || "28px";
+  const fontWeight = btnProps?.fontWeight || 700;
+  const borderSheen = btnProps?.borderSheen || (isLight ? "1px solid rgba(255, 255, 255, 0.15)" : "1.5px solid rgba(255, 255, 255, 0.3)");
+  const backdropFilter = btnProps?.backdropFilter || "none";
+
+  let backgroundStyle: string;
+  let textColor: string;
+  let shadowStyle: string;
+
+  if (btnAsset?.id === "btn-ghost-glass") {
+    backgroundStyle = isLight ? "rgba(255, 255, 255, 0.75)" : "rgba(255, 255, 255, 0.08)";
+    textColor = isLight ? "#0F172A" : "#FFFFFF";
+    shadowStyle = isLight
+      ? "0 14px 30px rgba(0, 0, 0, 0.06)"
+      : "0 18px 40px rgba(0, 0, 0, 0.4)";
+  } else if (btnAsset?.id === "btn-minimal-editorial") {
+    backgroundStyle = isLight ? "#0F172A" : "#FFFFFF";
+    textColor = isLight ? "#FFFFFF" : "#0F172A";
+    shadowStyle = isLight
+      ? "0 20px 40px rgba(15, 23, 42, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08)"
+      : "0 20px 40px rgba(0, 0, 0, 0.4)";
+  } else {
+    // btn-glow-primary or default
+    const bloom = btnProps?.shadowBloomIntensity || 35;
+    backgroundStyle = isLight ? "#0F172A" : `linear-gradient(135deg, ${bgColor} 0%, ${secondaryColor} 100%)`;
+    textColor = "#FFFFFF";
+    shadowStyle = isLight
+      ? "0 20px 40px rgba(15, 23, 42, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08)"
+      : `0 24px 50px ${bgColor}77, 0 0 ${bloom}px ${bgColor}44, inset 0 1px 2px rgba(255,255,255,0.45)`;
+  }
 
   return (
     <div
@@ -61,16 +110,17 @@ export const CTAButton: React.FC<Props> = ({ props, brand }) => {
     >
       <div
         style={{
-          background: `linear-gradient(135deg, ${bgColor} 0%, ${secondaryColor} 100%)`,
-          color,
-          padding: "24px 64px",
-          borderRadius: "9999px",
+          background: backgroundStyle,
+          color: textColor,
+          padding,
+          borderRadius,
           fontFamily: brand.font,
-          fontSize: "28px",
-          fontWeight: 700,
+          fontSize,
+          fontWeight,
           letterSpacing: "-0.01em",
-          boxShadow: `0 24px 50px ${bgColor}77, 0 0 35px ${bgColor}44, inset 0 1px 2px rgba(255,255,255,0.45)`,
-          border: "1.5px solid rgba(255, 255, 255, 0.3)",
+          boxShadow: shadowStyle,
+          border: borderSheen,
+          backdropFilter,
           display: "flex",
           alignItems: "center",
           gap: "14px",
@@ -78,7 +128,9 @@ export const CTAButton: React.FC<Props> = ({ props, brand }) => {
         }}
       >
         <span>{text}</span>
-        <span style={{ fontSize: "28px", transform: "translateX(4px)" }}>→</span>
+        {!text.trim().endsWith("→") && !text.trim().endsWith("->") && (
+          <span style={{ fontSize, transform: "translateX(4px)" }}>→</span>
+        )}
       </div>
 
       {subtext && (

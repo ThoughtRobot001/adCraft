@@ -1,5 +1,5 @@
 import React from "react";
-import { Img, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Brand, LogoRevealProps, resolveColor } from "../schema";
 
 interface Props {
@@ -21,12 +21,20 @@ export const LogoReveal: React.FC<Props> = ({ props, brand }) => {
     delay = 0,
   } = props;
 
+  const resolvedLogoSrc = !logoUrl
+    ? ""
+    : logoUrl.startsWith("data:") || logoUrl.startsWith("http://") || logoUrl.startsWith("https://")
+    ? logoUrl
+    : staticFile(logoUrl.replace(/^\/+/, ""));
+
   const currentFrame = Math.max(0, frame - delay);
   if (frame < delay) return null;
 
   const primaryColor = resolveColor("brand.primary", brand);
   const textColor = resolveColor("brand.text", brand);
   const mutedColor = resolveColor("brand.muted", brand);
+  const isEditorial = brand.theme === "editorial-light";
+  const brandFont = isEditorial ? (brand.serifFont || brand.font) : brand.font;
 
   const springConfig =
     animation === "bounce-in"
@@ -87,14 +95,15 @@ export const LogoReveal: React.FC<Props> = ({ props, brand }) => {
       />
 
       {/* Logo Icon or Monogram */}
-      {logoUrl ? (
+      {resolvedLogoSrc ? (
         <Img
-          src={logoUrl}
+          src={resolvedLogoSrc}
           style={{
-            width: `${size}px`,
+            width: `${size * 2.2}px`,
+            maxWidth: "85vw",
             height: `${size}px`,
             objectFit: "contain",
-            filter: `drop-shadow(0 10px 25px ${primaryColor}66)`,
+            filter: `drop-shadow(0 12px 30px ${primaryColor}77)`,
           }}
         />
       ) : (
@@ -124,19 +133,21 @@ export const LogoReveal: React.FC<Props> = ({ props, brand }) => {
         </div>
       )}
 
-      {/* Brand Name */}
-      <div
-        style={{
-          fontSize: `${size * 0.45}px`,
-          fontWeight: 800,
-          color: textColor,
-          fontFamily: brand.font,
-          letterSpacing: "-0.03em",
-          textAlign: "center",
-        }}
-      >
-        {brandName}
-      </div>
+      {/* Brand Name (only if specified and not empty) */}
+      {brandName ? (
+        <div
+          style={{
+            fontSize: `${size * 0.45}px`,
+            fontWeight: 800,
+            color: textColor,
+            fontFamily: brandFont,
+            letterSpacing: "-0.03em",
+            textAlign: "center",
+          }}
+        >
+          {brandName}
+        </div>
+      ) : null}
 
       {/* Tagline */}
       {tagline && (

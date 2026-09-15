@@ -1,8 +1,11 @@
 import { Config } from "@remotion/cli/config";
 import fs from "fs";
+import path from "path";
 
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
+Config.setPublicDir(path.resolve(process.cwd(), "public"));
+
 
 // Dynamically resolve Chrome binary across environments (CI, macOS, Linux, Windows)
 const envBrowser = process.env.CHROME_PATH || process.env.PUPPETEER_EXECUTABLE_PATH;

@@ -23,11 +23,15 @@ export const KineticText: React.FC<Props> = ({ props, brand }) => {
     maxWidth = 90,
     highlightWords = [],
     letterSpacing = "-0.02em",
+    fontFamily,
+    opacity: targetOpacity = 1,
   } = props;
 
   const currentFrame = Math.max(0, frame - delay);
   const resolvedColor = resolveColor(color, brand);
   const primaryColor = resolveColor("brand.primary", brand);
+  const activeFontFamily = fontFamily || (brand.theme === "editorial-light" ? (brand.serifFont || brand.font) : brand.font);
+
 
   // Position transform styles
   const left = `${position.x}%`;
@@ -54,7 +58,7 @@ export const KineticText: React.FC<Props> = ({ props, brand }) => {
           transformOrigin,
           width: maxWidth ? `${maxWidth}%` : "auto",
           textAlign: align,
-          fontFamily: brand.font,
+          fontFamily: activeFontFamily,
           fontSize: `${fontSize}px`,
           fontWeight,
           letterSpacing,
@@ -146,6 +150,26 @@ export const KineticText: React.FC<Props> = ({ props, brand }) => {
     });
     const glowIntensity = interpolate(currentFrame, [0, 10, 25], [0, 40, 15]);
     textShadow = `0 0 ${glowIntensity}px ${primaryColor}`;
+  } else if (animation === "cinematic-scale") {
+    // Starts as a massive environmental visual element, snaps into position, and drifts continuously
+    const cinematicSpr = spring({
+      frame: currentFrame,
+      fps,
+      config: { damping: 12, mass: 0.8, stiffness: 140 },
+    });
+    const introScale = interpolate(cinematicSpr, [0, 1], [4.5, 1]);
+    // Continuous subtle camera push
+    const driftScale = 1 + (currentFrame / 180) * 0.04;
+    const totalScale = introScale * driftScale;
+    const blur = interpolate(cinematicSpr, [0, 0.7, 1], [12, 2, 0]);
+    animTransform = `scale(${totalScale})`;
+    animOpacity = interpolate(currentFrame, [0, 5], [0, 1], {
+      extrapolateRight: "clamp",
+    });
+    const glow = interpolate(currentFrame, [0, 6, 20], [0, 25, 0], {
+      extrapolateRight: "clamp",
+    });
+    textShadow = glow > 0 ? `0 0 ${glow}px ${primaryColor}88` : undefined;
   }
 
   const renderContent = () => {
@@ -185,13 +209,13 @@ export const KineticText: React.FC<Props> = ({ props, brand }) => {
         transformOrigin,
         width: maxWidth ? `${maxWidth}%` : "auto",
         textAlign: align,
-        fontFamily: brand.font,
+        fontFamily: activeFontFamily,
         fontSize: `${fontSize}px`,
         fontWeight,
         letterSpacing,
         lineHeight: 1.15,
         color: resolvedColor,
-        opacity: animOpacity,
+        opacity: animOpacity * targetOpacity,
         textShadow,
       }}
     >

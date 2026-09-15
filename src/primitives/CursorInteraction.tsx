@@ -16,8 +16,9 @@ export const CursorInteraction: React.FC<Props> = ({ props, brand }) => {
     to = { x: 50, y: 50 },
     clickAtFrame = 35,
     clickRipple = true,
-    cursorType = "pointer",
-    color = "#FFFFFF",
+    cursorType = "macos-arrow",
+    agentTag,
+    color = "#000000",
     delay = 0,
     durationFrames = 50,
   } = props;
@@ -25,44 +26,49 @@ export const CursorInteraction: React.FC<Props> = ({ props, brand }) => {
   const currentFrame = Math.max(0, frame - delay);
   if (frame < delay) return null;
 
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
   const primaryColor = resolveColor("brand.primary", brand);
   const accentColor = resolveColor("brand.accent", brand);
 
-  // Smooth travel progress (ease-in-out curve)
+  // Smooth cubic-bezier travel progress
   const travelProgress = interpolate(
     currentFrame,
     [0, clickAtFrame],
     [0, 1],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
-  // Quadratic easing for organic human movement
+
+  // Smooth acceleration & deceleration (smooth human curve)
   const easedTravel = travelProgress < 0.5
     ? 2 * travelProgress * travelProgress
     : 1 - Math.pow(-2 * travelProgress + 2, 2) / 2;
 
-  // Compute slight curved arc in travel (control point perpendicular to trajectory)
+  // Curvature arc for organic trajectory
   const dx = to.x - from.x;
   const dy = to.y - from.y;
-  const arcHeight = Math.sin(travelProgress * Math.PI) * 5; // 5% curved trajectory
+  const arcHeight = Math.sin(travelProgress * Math.PI) * 4;
 
   const currentX = from.x + dx * easedTravel - (dy / 100) * arcHeight;
   const currentY = from.y + dy * easedTravel + (dx / 100) * arcHeight;
 
-  // Click bounce spring
+  // Refined click depression bounce
   const clickRelFrame = Math.max(0, currentFrame - clickAtFrame);
   const clickSpr = spring({
     frame: clickRelFrame,
     fps,
-    config: { damping: 14, mass: 0.4, stiffness: 220 },
-    from: 0.82,
+    config: { damping: 16, mass: 0.35, stiffness: 260 },
+    from: 0.88,
     to: 1.0,
   });
 
   const cursorScale = currentFrame < clickAtFrame ? 1 : clickSpr;
 
-  // Expanding ripple ring
-  const rippleScale = interpolate(clickRelFrame, [0, 24], [0.3, 2.6], { extrapolateRight: "clamp" });
-  const rippleOpacity = interpolate(clickRelFrame, [0, 20], [0.85, 0], { extrapolateRight: "clamp" });
+  // Refined subtle haptic ripple ring (agency standard, non-neon)
+  const rippleScale = interpolate(clickRelFrame, [0, 22], [0.5, 2.2], { extrapolateRight: "clamp" });
+  const rippleOpacity = interpolate(clickRelFrame, [0, 18], [0.45, 0], { extrapolateRight: "clamp" });
+
+  const isTouchMode = cursorType === "touch" || cursorType === "hand";
+  const isAgentTag = cursorType === "agent-tag" || Boolean(agentTag);
 
   return (
     <div
@@ -73,61 +79,94 @@ export const CursorInteraction: React.FC<Props> = ({ props, brand }) => {
         zIndex: 60,
       }}
     >
-      {/* Click Ripple Effect */}
-      {clickRipple && currentFrame >= clickAtFrame && clickRelFrame <= 26 && (
+      {/* Refined Haptic Click Ripple */}
+      {clickRipple && currentFrame >= clickAtFrame && clickRelFrame <= 22 && (
         <div
           style={{
             position: "absolute",
             left: `${to.x}%`,
             top: `${to.y}%`,
-            width: "56px",
-            height: "56px",
+            width: "44px",
+            height: "44px",
             borderRadius: "50%",
             transform: `translate(-50%, -50%) scale(${rippleScale})`,
-            backgroundColor: `${accentColor}35`,
-            border: `2px solid ${accentColor}`,
-            boxShadow: `0 0 20px ${accentColor}`,
+            backgroundColor: isLight ? "rgba(15, 23, 42, 0.06)" : `${accentColor}25`,
+            border: isLight ? "1.5px solid rgba(15, 23, 42, 0.25)" : `1.5px solid ${accentColor}88`,
             opacity: rippleOpacity,
           }}
         />
       )}
 
-      {/* Cursor Body */}
-      <div
-        style={{
-          position: "absolute",
-          left: `${currentX}%`,
-          top: `${currentY}%`,
-          transform: `scale(${cursorScale})`,
-          transformOrigin: "top left",
-          filter: "drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6))",
-        }}
-      >
-        {cursorType === "pointer" || cursorType === "arrow" ? (
-          /* Sleek macOS Arrow Cursor */
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+      {/* Touch Disc Indicator (iOS Authentic Haptic) */}
+      {isTouchMode ? (
+        <div
+          style={{
+            position: "absolute",
+            left: `${currentX}%`,
+            top: `${currentY}%`,
+            transform: "translate(-50%, -50%)",
+            width: currentFrame >= clickAtFrame ? "42px" : "36px",
+            height: currentFrame >= clickAtFrame ? "42px" : "36px",
+            borderRadius: "50%",
+            backgroundColor: isLight ? "rgba(15, 23, 42, 0.16)" : "rgba(255, 255, 255, 0.32)",
+            backdropFilter: "blur(4px)",
+            border: isLight ? "1px solid rgba(15, 23, 42, 0.2)" : "1px solid rgba(255, 255, 255, 0.5)",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+            transition: "all 0.1s ease-out",
+          }}
+        />
+      ) : (
+        /* Precision macOS Vector Pointer & Multiplayer Agent Tag */
+        <div
+          style={{
+            position: "absolute",
+            left: `${currentX}%`,
+            top: `${currentY}%`,
+            transform: `scale(${cursorScale})`,
+            transformOrigin: "top left",
+            filter: "drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35))",
+            display: "flex",
+            alignItems: "flex-start",
+          }}
+        >
+          {/* Authentic macOS Vector Arrow */}
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <path
-              d="M3 3L10.07 20.97L13.58 13.58L20.97 10.07L3 3Z"
-              fill={color}
-              stroke="#090D16"
-              strokeWidth="2"
+              d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.86a.5.5 0 0 0-.85.35Z"
+              fill={color === "#FFFFFF" && isLight ? "#000000" : color}
+              stroke="#FFFFFF"
+              strokeWidth="1.5"
               strokeLinejoin="round"
             />
           </svg>
-        ) : (
-          /* Mobile Touch Hand Pointer */
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M9 11V4C9 2.89543 9.89543 2 11 2C12.1046 2 13 2.89543 13 4V10M13 10V6C13 4.89543 13.8954 4 15 4C16.1046 4 17 4.89543 17 6V11M17 11V8C17 6.89543 17.8954 6 19 6C20.1046 6 21 6.89543 21 8V14C21 18.4183 17.4183 22 13 22C8.58172 22 5 18.4183 5 14V11.5C5 10.6716 5.67157 10 6.5 10C7.32843 10 8 10.6716 8 11.5V11"
-              stroke="#090D16"
-              strokeWidth="2.5"
-              fill={color}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </div>
+
+          {/* Multiplayer / Collaborative Agent Tag (Figma / Linear agency style) */}
+          {isAgentTag && (
+            <div
+              style={{
+                marginLeft: "8px",
+                marginTop: "16px",
+                backgroundColor: primaryColor,
+                color: "#FFFFFF",
+                borderRadius: "6px",
+                padding: "3px 8px",
+                fontSize: "12px",
+                fontWeight: 700,
+                fontFamily: brand.font,
+                letterSpacing: "-0.01em",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ fontSize: "11px" }}>✦</span>
+              <span>{agentTag || `${brand.name} AI`}</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
