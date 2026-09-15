@@ -1,10 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
-import { CampaignBrief } from "../ai/types";
-import { BrandInput } from "../ingestion";
-import { ApprovedKeyframe, StoryboardScene } from "../stages";
-import { creativeMemory } from "../creative-memory";
-import { studioGenerationService } from "./server/generation-service";
-import {
+import type { CampaignBrief } from "../ai/types";
+import type { BrandInput } from "../ingestion";
+import type { ApprovedKeyframe, StoryboardScene } from "../stages/types";
+import type {
   CapabilityStatus,
   ExportPackageManifest,
   InspectorSelection,
@@ -55,45 +53,65 @@ export const DEFAULT_BRAND: BrandInput = {
   },
 };
 
+const INITIAL_CAPABILITY: CapabilityStatus = {
+  aiProvider: "Gemini 3.6 Flash",
+  status: "configured",
+  mode: "live-ai",
+  message: "Connecting to AdCraft Creative Studio Engine...",
+  canUseLiveAI: true,
+};
+
+async function apiRequest<T = any>(endpoint: string, body?: any): Promise<T> {
+  const res = await fetch(endpoint, {
+    method: body ? "POST" : "GET",
+    headers: { "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json();
+  if (!res.ok || data.success === false) {
+    throw new Error(data.error || `API error from ${endpoint} (status ${res.status})`);
+  }
+  return data;
+}
+
 export function useStudioEngine() {
   const [state, setState] = useState<StudioState>(() => ({
     jobId: `job-adcraft-${Date.now()}`,
     jobState: "draft",
     currentStage: "brief",
     activeMode: "quick-create",
-    capability: studioGenerationService.getCapabilityStatus(),
+    capability: INITIAL_CAPABILITY,
     brandInput: DEFAULT_BRAND,
     brief: DEFAULT_BRIEF,
     revisionsApplied: 0,
     revisions: [],
-    auditTrail: [{ stage: "brief", action: "Studio session initialized in Quick Create mode", timestamp: new Date().toISOString() }],
+    auditTrail: [
+      {
+        stage: "brief",
+        action: "Studio session initialized in Quick Create mode",
+        timestamp: new Date().toISOString(),
+      },
+    ],
   }));
 
   const [isLoading, setIsLoading] = useState(false);
   const [activeError, setActiveError] = useState<string | null>(null);
-  const [inspectorSelection, setInspectorSelection] = useState<InspectorSelection>({ type: "none" });
+  const [inspectorSelection, setInspectorSelection] = useState<InspectorSelection>({
+    type: "none",
+  });
 
-  // Update capability on mount (query /api/status in browser, fallback to local)
+  // Query capability status from backend API on mount
   useEffect(() => {
-    if (typeof window !== "undefined" && window.location?.origin) {
-      fetch("/api/status")
-        .then((res) => res.json())
+    if (typeof window !== "undefined") {
+      apiRequest("/api/status")
         .then((data) => {
           if (data.capability) {
             setState((prev) => ({ ...prev, capability: data.capability }));
           }
         })
-        .catch(() => {
-          setState((prev) => ({
-            ...prev,
-            capability: studioGenerationService.getCapabilityStatus(),
-          }));
+        .catch((err) => {
+          console.warn("[AdCraft Engine] Could not fetch status:", err);
         });
-    } else {
-      setState((prev) => ({
-        ...prev,
-        capability: studioGenerationService.getCapabilityStatus(),
-      }));
     }
   }, []);
 
@@ -120,15 +138,21 @@ export function useStudioEngine() {
     setIsLoading(true);
     setActiveError(null);
     try {
-      const brandProfile = await studioGenerationService.analyzeBrand(state.brandInput, state.brief);
+      const data = await apiRequest("/api/pipeline/stage/brief", {
+        payload: { brand: state.brandInput, brief: state.brief },
+      });
       setState((prev) => ({
         ...prev,
-        brandProfile,
+        brandProfile: data.brandProfile,
         currentStage: "evidence",
         jobState: "running",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "evidence", action: "Brand intelligence formulated", timestamp: new Date().toISOString() },
+          {
+            stage: "evidence",
+            action: "Brand intelligence formulated",
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
@@ -145,15 +169,21 @@ export function useStudioEngine() {
     setIsLoading(true);
     setActiveError(null);
     try {
-      const concepts = await studioGenerationService.developConcepts(state.brandProfile, state.brief);
+      const data = await apiRequest("/api/pipeline/stage/concepts", {
+        payload: { brandProfile: state.brandProfile, brief: state.brief },
+      });
       setState((prev) => ({
         ...prev,
-        concepts,
+        concepts: data.concepts,
         currentStage: "concepts",
         jobState: "needs-review",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "concepts", action: "Generated 3 creative directions (awaiting human selection)", timestamp: new Date().toISOString() },
+          {
+            stage: "concepts",
+            action: "Generated 3 creative directions (awaiting human selection)",
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
@@ -165,63 +195,117 @@ export function useStudioEngine() {
   }, [state.brandProfile, state.brief]);
 
   // Gate 1: Human Art Director Selects Creative Concept
-  const selectConcept = useCallback(async (conceptId: string) => {
-    const chosen = state.concepts?.find((c) => c.id === conceptId);
-    if (!chosen || !state.brandProfile) return;
+  const selectConcept = useCallback(
+    async (conceptId: string) => {
+      const chosen = state.concepts?.find((c) => c.id === conceptId);
+      if (!chosen || !state.brandProfile) return;
 
-    setIsLoading(true);
-    setActiveError(null);
-    try {
-      const storyboard = await studioGenerationService.designStoryboard(chosen, state.brandProfile, state.brief);
-      const visualBible = await studioGenerationService.synthesizeVisualBible(state.brandProfile, state.brief, state.concepts);
-      setState((prev) => ({
-        ...prev,
-        selectedConceptId: conceptId,
-        storyboard,
-        visualBible,
-        currentStage: "storyboard",
-        jobState: "needs-review",
-        auditTrail: [
-          ...prev.auditTrail,
-          { stage: "concepts", action: `Human Art Director selected direction: "${chosen.angleTitle}"`, timestamp: new Date().toISOString() },
-          { stage: "storyboard", action: "Storyboard designed from selected direction", timestamp: new Date().toISOString() },
-          { stage: "storyboard", action: `Persistent Visual Bible synthesized (${visualBible.visualLanguage.theme})`, timestamp: new Date().toISOString() },
-        ],
-      }));
-    } catch (err: any) {
-      setActiveError(err.message);
-      setState((prev) => ({ ...prev, jobState: "failed", errorMessage: err.message }));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [state.concepts, state.brandProfile, state.brief]);
+      setIsLoading(true);
+      setActiveError(null);
+      try {
+        const [sbData, vbData] = await Promise.all([
+          apiRequest("/api/pipeline/stage/storyboard", {
+            payload: { concept: chosen, brandProfile: state.brandProfile, brief: state.brief },
+          }),
+          apiRequest("/api/pipeline/stage/visual-bible", {
+            payload: {
+              brandProfile: state.brandProfile,
+              brief: state.brief,
+              concepts: state.concepts,
+            },
+          }),
+        ]);
 
-  // Gate 2: Storyboard Editing
-  const updateStoryboardScene = useCallback((sceneId: string, updates: Partial<StoryboardScene>) => {
-    setState((prev) => {
-      if (!prev.storyboard) return prev;
-      const scenes = prev.storyboard.scenes.map((s) => (s.id === sceneId ? { ...s, ...updates } : s));
-      return {
-        ...prev,
-        storyboard: { ...prev.storyboard, scenes },
-      };
-    });
-  }, []);
+        setState((prev) => ({
+          ...prev,
+          selectedConceptId: conceptId,
+          storyboard: sbData.storyboard,
+          visualBible: vbData.visualBible,
+          currentStage: "storyboard",
+          jobState: "running",
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "storyboard",
+              action: `Human art director selected direction: "${chosen.angleTitle}" [${chosen.narrativeArchetype}]`,
+              timestamp: new Date().toISOString(),
+            },
+            {
+              stage: "storyboard",
+              action: `Synthesized Persistent Visual Bible [Theme: ${vbData.visualBible.visualLanguage.theme}]`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+        setState((prev) => ({ ...prev, jobState: "failed", errorMessage: err.message }));
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state.concepts, state.brandProfile, state.brief]
+  );
 
-  const reorderStoryboardScenes = useCallback((fromIndex: number, toIndex: number) => {
-    setState((prev) => {
-      if (!prev.storyboard) return prev;
-      const scenes = [...prev.storyboard.scenes];
-      const [moved] = scenes.splice(fromIndex, 1);
-      scenes.splice(toIndex, 0, moved);
-      return {
-        ...prev,
-        storyboard: { ...prev.storyboard, scenes },
-      };
-    });
-  }, []);
+  // Dynamic Storyboard Copy Editing
+  const updateStoryboardScene = useCallback(
+    (sceneId: string, updates: Partial<StoryboardScene>) => {
+      if (!state.storyboard) return;
+      setState((prev) => {
+        if (!prev.storyboard) return prev;
+        const newScenes = prev.storyboard.scenes.map((s) =>
+          s.id === sceneId ? { ...s, ...updates } : s
+        );
+        return {
+          ...prev,
+          storyboard: {
+            ...prev.storyboard,
+            scenes: newScenes,
+          },
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "storyboard",
+              action: `Updated copy / duration for scene "${sceneId}"`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        };
+      });
+    },
+    [state.storyboard]
+  );
 
-  // Gate 2 Approval: Approve Storyboard & Trigger Keyframe Generation
+  // Dynamic Scene Reordering
+  const reorderStoryboardScenes = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      if (!state.storyboard) return;
+      setState((prev) => {
+        if (!prev.storyboard) return prev;
+        const newScenes = [...prev.storyboard.scenes];
+        const [moved] = newScenes.splice(fromIndex, 1);
+        newScenes.splice(toIndex, 0, moved);
+        return {
+          ...prev,
+          storyboard: {
+            ...prev.storyboard,
+            scenes: newScenes,
+          },
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "storyboard",
+              action: `Reordered scenes from position ${fromIndex + 1} to ${toIndex + 1}`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        };
+      });
+    },
+    [state.storyboard]
+  );
+
+  // Gate 2: Storyboard Approved -> Generate Candidate Keyframes
   const approveStoryboardAndGenerateKeyframes = useCallback(async () => {
     if (!state.storyboard || !state.brandProfile) return;
     setIsLoading(true);
@@ -229,8 +313,15 @@ export function useStudioEngine() {
     try {
       const candidateKeyframes: Record<string, any[]> = {};
       for (const scene of state.storyboard.scenes) {
-        const cands = await studioGenerationService.generateKeyframeCandidates(scene, state.brandProfile, state.brief, state.visualBible);
-        candidateKeyframes[scene.id] = cands;
+        const data = await apiRequest("/api/pipeline/stage/keyframes", {
+          payload: {
+            scene,
+            brandProfile: state.brandProfile,
+            brief: state.brief,
+            visualBible: state.visualBible,
+          },
+        });
+        candidateKeyframes[scene.id] = data.candidates;
       }
 
       setState((prev) => ({
@@ -240,8 +331,11 @@ export function useStudioEngine() {
         jobState: "needs-review",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "storyboard", action: "Storyboard approved by human", timestamp: new Date().toISOString() },
-          { stage: "keyframes", action: "Generated candidate keyframe pairs for all scenes", timestamp: new Date().toISOString() },
+          {
+            stage: "keyframes",
+            action: "Storyboard approved. Generated browser-renderable SVG keyframe variations",
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
@@ -250,113 +344,167 @@ export function useStudioEngine() {
     } finally {
       setIsLoading(false);
     }
-  }, [state.storyboard, state.brandProfile, state.brief]);
+  }, [state.storyboard, state.brandProfile, state.brief, state.visualBible]);
 
-  // Gate 3: Keyframe Selection per Scene
-  const selectKeyframe = useCallback((sceneId: string, candidateId: string) => {
-    const scene = state.storyboard?.scenes.find((s) => s.id === sceneId);
-    const candidates = state.candidateKeyframes?.[sceneId];
-    const chosen = candidates?.find((c) => c.id === candidateId);
-    if (!chosen || !scene || !state.brandProfile) return;
+  // Gate 3: Senior Art Director Approves Candidate Keyframe
+  const selectKeyframe = useCallback(
+    async (sceneId: string, candidateId: string) => {
+      const candidates = state.candidateKeyframes?.[sceneId];
+      const chosen = candidates?.find((c) => c.id === candidateId);
+      const scene = state.storyboard?.scenes.find((s) => s.id === sceneId);
+      if (!chosen || !scene || !state.brandProfile) return;
 
-    const approved: ApprovedKeyframe = {
-      sceneId,
-      candidateKeyframe: chosen,
-      critiqueScore: 9.6,
-      approvalNotes: `Approved variant: ${chosen.metadata?.variantType || "selected"}`,
-      reviewedAt: Date.now(),
-    };
+      setIsLoading(true);
+      try {
+        const data = await apiRequest("/api/pipeline/stage/approve-keyframe", {
+          payload: {
+            scene,
+            candidate: chosen,
+            brandProfile: state.brandProfile,
+            visualBible: state.visualBible,
+          },
+        });
 
-    const analysis = studioGenerationService.analyzeKeyframe(approved, scene, state.brandProfile);
-    const motionPlan = studioGenerationService.createMotionPlan(scene, analysis, approved, state.brandProfile, 30, state.visualBible);
-
-    setState((prev) => ({
-      ...prev,
-      approvedKeyframes: { ...prev.approvedKeyframes, [sceneId]: approved },
-      keyframeAnalyses: { ...prev.keyframeAnalyses, [sceneId]: analysis },
-      motionPlans: { ...prev.motionPlans, [sceneId]: motionPlan },
-      auditTrail: [
-        ...prev.auditTrail,
-        { stage: "keyframes", action: `Approved keyframe for scene "${sceneId}" (${chosen.metadata?.variantType})`, timestamp: new Date().toISOString() },
-      ],
-    }));
-  }, [state.storyboard, state.candidateKeyframes, state.brandProfile, state.visualBible]);
+        setState((prev) => ({
+          ...prev,
+          approvedKeyframes: {
+            ...prev.approvedKeyframes,
+            [sceneId]: data.approved,
+          },
+          keyframeAnalyses: {
+            ...prev.keyframeAnalyses,
+            [sceneId]: data.analysis,
+          },
+          motionPlans: {
+            ...prev.motionPlans,
+            [sceneId]: data.motionPlan,
+          },
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "keyframes",
+              action: `Approved candidate "${chosen.id}" for scene "${sceneId}" -> Formulated 11-dimension blueprint and 8-beat cinematic motion plan`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state.candidateKeyframes, state.storyboard, state.brandProfile, state.visualBible]
+  );
 
   const rejectKeyframe = useCallback((sceneId: string) => {
     setState((prev) => {
-      const approved = { ...prev.approvedKeyframes };
-      delete approved[sceneId];
+      const newApproved = { ...prev.approvedKeyframes };
+      delete newApproved[sceneId];
+      const newAnalyses = { ...prev.keyframeAnalyses };
+      delete newAnalyses[sceneId];
+      const newPlans = { ...prev.motionPlans };
+      delete newPlans[sceneId];
       return {
         ...prev,
-        approvedKeyframes: approved,
+        approvedKeyframes: newApproved,
+        keyframeAnalyses: newAnalyses,
+        motionPlans: newPlans,
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "keyframes", action: `Rejected keyframe for scene "${sceneId}"`, timestamp: new Date().toISOString() },
+          {
+            stage: "keyframes",
+            action: `Rejected approved keyframe for scene "${sceneId}" (awaiting new selection)`,
+            timestamp: new Date().toISOString(),
+          },
         ],
       };
     });
   }, []);
 
-  const regenerateKeyframesForScene = useCallback(async (sceneId: string) => {
-    const scene = state.storyboard?.scenes.find((s) => s.id === sceneId);
-    if (!scene || !state.brandProfile) return;
-    setIsLoading(true);
-    setActiveError(null);
-    try {
-      const newCands = await studioGenerationService.generateKeyframeCandidates(
-        scene,
-        state.brandProfile,
-        state.brief,
-        state.visualBible
-      );
-      setState((prev) => ({
-        ...prev,
-        candidateKeyframes: {
-          ...prev.candidateKeyframes,
-          [sceneId]: newCands,
-        },
-        auditTrail: [
-          ...prev.auditTrail,
-          { stage: "keyframes", action: `Regenerated visual keyframes for scene "${sceneId}"`, timestamp: new Date().toISOString() },
-        ],
-      }));
-    } catch (err: any) {
-      setActiveError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [state.storyboard, state.brandProfile, state.brief, state.visualBible]);
+  const regenerateKeyframesForScene = useCallback(
+    async (sceneId: string) => {
+      const scene = state.storyboard?.scenes.find((s) => s.id === sceneId);
+      if (!scene || !state.brandProfile) return;
+      setIsLoading(true);
+      setActiveError(null);
+      try {
+        const data = await apiRequest("/api/pipeline/stage/keyframes", {
+          payload: {
+            scene,
+            brandProfile: state.brandProfile,
+            brief: state.brief,
+            visualBible: state.visualBible,
+          },
+        });
+        setState((prev) => ({
+          ...prev,
+          candidateKeyframes: {
+            ...prev.candidateKeyframes,
+            [sceneId]: data.candidates,
+          },
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "keyframes",
+              action: `Regenerated visual keyframes for scene "${sceneId}"`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state.storyboard, state.brandProfile, state.brief, state.visualBible]
+  );
 
-  const reviseSpecificScene = useCallback(async (sceneId: string, fixDescription: string) => {
-    if (!state.motionIR || !state.critique) return;
-    setIsLoading(true);
-    try {
-      const revisedIR = studioGenerationService.applySurgicalRevision(state.motionIR, state.critique);
-      const newCritique = studioGenerationService.evaluateQuality(revisedIR, state.visualBible);
-      setState((prev) => ({
-        ...prev,
-        motionIR: revisedIR,
-        critique: newCritique,
-        revisionsApplied: prev.revisionsApplied + 1,
-        jobState: newCritique.passedThreshold ? "passed" : "revising",
-        auditTrail: [
-          ...prev.auditTrail,
-          { stage: "quality", action: `Surgically revised scene "${sceneId}": ${fixDescription}`, timestamp: new Date().toISOString() },
-        ],
-      }));
-    } catch (err: any) {
-      setActiveError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [state.motionIR, state.critique, state.visualBible]);
+  const reviseSpecificScene = useCallback(
+    async (sceneId: string, fixDescription: string) => {
+      if (!state.motionIR || !state.critique) return;
+      setIsLoading(true);
+      try {
+        const data = await apiRequest("/api/pipeline/stage/revise-scene", {
+          payload: {
+            motionIR: state.motionIR,
+            critique: state.critique,
+            visualBible: state.visualBible,
+          },
+        });
+        setState((prev) => ({
+          ...prev,
+          motionIR: data.motionIR,
+          critique: data.critique,
+          revisionsApplied: prev.revisionsApplied + 1,
+          jobState: data.critique.passedThreshold ? "passed" : "revising",
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "quality",
+              action: `Surgically revised scene "${sceneId}": ${fixDescription}`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state.motionIR, state.critique, state.visualBible]
+  );
 
   // Gate 3 Completion: Compile Approved Blueprints into MotionIR
   const compileMotion = useCallback(async () => {
     if (!state.storyboard || !state.brandProfile) return;
     const missing = state.storyboard.scenes.filter((s) => !state.approvedKeyframes?.[s.id]);
     if (missing.length > 0) {
-      setActiveError(`Cannot compile motion: ${missing.length} scenes still require keyframe approval.`);
+      setActiveError(
+        `Cannot compile motion: ${missing.length} scenes still require keyframe approval.`
+      );
       return;
     }
 
@@ -369,19 +517,33 @@ export function useStudioEngine() {
         motionPlan: state.motionPlans![scene.id],
       }));
 
-      const motionIR = studioGenerationService.reconstructMotionIR(inputs, state.brandProfile, state.brief, state.visualBible);
-      const critique = studioGenerationService.evaluateQuality(motionIR, state.visualBible);
+      const data = await apiRequest("/api/pipeline/stage/motion", {
+        payload: {
+          inputs,
+          brandProfile: state.brandProfile,
+          brief: state.brief,
+          visualBible: state.visualBible,
+        },
+      });
 
       setState((prev) => ({
         ...prev,
-        motionIR,
-        critique,
+        motionIR: data.motionIR,
+        critique: data.critique,
         currentStage: "motion",
-        jobState: critique.passedThreshold ? "passed" : "revising",
+        jobState: data.critique.passedThreshold ? "passed" : "revising",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "motion", action: "Reconstructed validated MotionIR from 11-dimension keyframe blueprints", timestamp: new Date().toISOString() },
-          { stage: "quality", action: `Initial Visual Critic Score: ${critique.overallScore}/10 (Threshold: 9.0)`, timestamp: new Date().toISOString() },
+          {
+            stage: "motion",
+            action: "Reconstructed validated MotionIR from 11-dimension keyframe blueprints",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            stage: "quality",
+            action: `Initial Visual Critic Score: ${data.critique.overallScore}/10 (Threshold: 9.0)`,
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
@@ -390,25 +552,42 @@ export function useStudioEngine() {
     } finally {
       setIsLoading(false);
     }
-  }, [state.storyboard, state.brandProfile, state.brief, state.approvedKeyframes, state.keyframeAnalyses, state.motionPlans]);
+  }, [
+    state.storyboard,
+    state.brandProfile,
+    state.brief,
+    state.approvedKeyframes,
+    state.keyframeAnalyses,
+    state.motionPlans,
+    state.visualBible,
+  ]);
 
   // Gate 5: Surgical Scene Revision
-  const applySurgicalRevision = useCallback(() => {
+  const applySurgicalRevision = useCallback(async () => {
     if (!state.motionIR || !state.critique) return;
     setIsLoading(true);
+    setActiveError(null);
     try {
-      const revisedIR = studioGenerationService.applySurgicalRevision(state.motionIR, state.critique);
-      const newCritique = studioGenerationService.evaluateQuality(revisedIR, state.visualBible);
-
+      const data = await apiRequest("/api/pipeline/stage/revise-scene", {
+        payload: {
+          motionIR: state.motionIR,
+          critique: state.critique,
+          visualBible: state.visualBible,
+        },
+      });
       setState((prev) => ({
         ...prev,
-        motionIR: revisedIR,
-        critique: newCritique,
+        motionIR: data.motionIR,
+        critique: data.critique,
         revisionsApplied: prev.revisionsApplied + 1,
-        jobState: newCritique.passedThreshold ? "passed" : "revising",
+        jobState: data.critique.passedThreshold ? "passed" : "revising",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "quality", action: `Applied surgical revision ${prev.revisionsApplied + 1}. New Score: ${newCritique.overallScore}/10`, timestamp: new Date().toISOString() },
+          {
+            stage: "quality",
+            action: `Surgical Scene Revision Applied (Cycle ${prev.revisionsApplied + 1}) -> Score: ${data.critique.overallScore}/10`,
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
@@ -416,125 +595,82 @@ export function useStudioEngine() {
     } finally {
       setIsLoading(false);
     }
-  }, [state.motionIR, state.critique]);
+  }, [state.motionIR, state.critique, state.visualBible]);
 
   // Gate 6: Production Export Package Gating
-  const exportProductionPackage = useCallback(() => {
+  const exportProductionPackage = useCallback(async () => {
     if (!state.motionIR || !state.storyboard || !state.critique || !state.approvedKeyframes) {
       setActiveError("Export Gate Blocked: Required production stages are incomplete.");
       return;
     }
 
     try {
-      if (typeof window !== "undefined" && window.location?.origin) {
-        fetch("/api/export", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ state }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.exportPackage) {
-              setState((prev) => ({
-                ...prev,
-                exportPackage: data.exportPackage,
-                currentStage: "export",
-                jobState: "complete",
-              }));
-            }
-          })
-          .catch(() => {
-            // fallback to local manifest build
-          });
-      }
-
-      const selectedConcept = state.concepts?.find((c) => c.id === state.selectedConceptId);
-      const manifest = studioGenerationService.buildExportPackage(
-        state.jobId,
-        state.brandProfile?.identity.name || state.brief.productName,
-        selectedConcept?.angleTitle || "Custom Angle",
-        state.motionIR,
-        state.storyboard,
-        state.approvedKeyframes,
-        state.critique,
-        state.critique.qualityDimensions,
-        {
-          conceptApprovedAt: state.auditTrail.find((a) => a.action.includes("selected direction"))?.timestamp,
-          storyboardApprovedAt: state.auditTrail.find((a) => a.action.includes("Storyboard approved"))?.timestamp,
-          keyframesApprovedAt: new Date().toISOString(),
-          finalApprovedAt: new Date().toISOString(),
-        }
-      );
-
+      const data = await apiRequest("/api/export", { state });
       setState((prev) => ({
         ...prev,
-        exportPackage: manifest,
+        exportPackage: data.exportPackage,
         currentStage: "export",
         jobState: "complete",
         auditTrail: [
           ...prev.auditTrail,
-          { stage: "export", action: "Export Package verified and generated successfully", timestamp: new Date().toISOString() },
+          {
+            stage: "export",
+            action: "Export Package verified and generated successfully",
+            timestamp: new Date().toISOString(),
+          },
         ],
       }));
     } catch (err: any) {
       setActiveError(err.message);
     }
-  }, [state.motionIR, state.storyboard, state.critique, state.approvedKeyframes, state.concepts, state.selectedConceptId, state.jobId, state.brandProfile, state.brief, state.auditTrail]);
+  }, [state]);
 
   // Gate 7: Closed-Loop Creative Memory Reinforcement
-  const submitHumanVerdict = useCallback((verdict: "approved" | "rejected", notes?: string) => {
-    if (!state.motionIR) return;
-    const safeId = state.motionIR.id.replace(/[^a-zA-Z0-9_-]/g, "");
+  const submitHumanVerdict = useCallback(
+    async (verdict: "approved" | "rejected", notes?: string) => {
+      if (!state.motionIR) return;
+      const safeId = state.motionIR.id.replace(/[^a-zA-Z0-9_-]/g, "");
 
-    const payload = {
-      adId: safeId,
-      brand: state.brandProfile?.identity.name || state.brief.productName,
-      conceptAngle: state.concepts?.find((c) => c.id === state.selectedConceptId)?.angleTitle || "Angle",
-      intent: state.concepts?.find((c) => c.id === state.selectedConceptId)?.narrativeArchetype || "transformation",
-      style: "dark-saas",
-      itemsUsed: [],
-      score: verdict === "approved" ? state.critique?.overallScore || 9.5 : state.critique?.overallScore || 6.5,
-      passed: verdict === "approved",
-      feedback: notes || (verdict === "approved" ? "" : "Rejected by human art director"),
-      issues: [],
-      verdict,
-    };
+      const payload = {
+        adId: safeId,
+        brand: state.brandProfile?.identity.name || state.brief.productName,
+        conceptAngle:
+          state.concepts?.find((c) => c.id === state.selectedConceptId)?.angleTitle || "Angle",
+        intent:
+          state.concepts?.find((c) => c.id === state.selectedConceptId)?.narrativeArchetype ||
+          "transformation",
+        style: "dark-saas",
+        itemsUsed: [],
+        score:
+          verdict === "approved"
+            ? state.critique?.overallScore || 9.5
+            : state.critique?.overallScore || 6.5,
+        passed: verdict === "approved",
+        feedback: notes || (verdict === "approved" ? "" : "Rejected by human art director"),
+        issues: [],
+        verdict,
+      };
 
-    if (typeof window !== "undefined" && window.location?.origin) {
-      fetch("/api/memory/verdict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).catch((e) => console.warn("Failed to record memory verdict via API", e));
-    }
+      try {
+        await apiRequest("/api/memory/verdict", payload);
+      } catch (e) {
+        console.warn("[AdCraft Client] Memory verdict recording warning:", e);
+      }
 
-    try {
-      creativeMemory.recordOutcome({
-        id: safeId,
-        brand: payload.brand,
-        conceptAngle: payload.conceptAngle,
-        intent: payload.intent,
-        style: payload.style as any,
-        itemsUsed: payload.itemsUsed,
-        critiqueOverallScore: payload.score,
-        critiquePassed: payload.passed,
-        critiqueIssues: payload.issues,
-        userVerdict: payload.verdict,
-        userFeedbackNotes: payload.feedback,
-        timestamp: new Date().toISOString(),
-      });
-    } catch {
-      // safe fallback
-    }
-
-    setState((prev) => ({
-      ...prev,
-      auditTrail: [
-        ...prev.auditTrail,
-        { stage: "export", action: `Human Creative Verdict Recorded: "${verdict.toUpperCase()}" (${notes || "No notes"})`, timestamp: new Date().toISOString() },
-      ],
-    }));
-  }, [state.motionIR, state.brandProfile, state.brief, state.concepts, state.selectedConceptId, state.critique]);
+      setState((prev) => ({
+        ...prev,
+        auditTrail: [
+          ...prev.auditTrail,
+          {
+            stage: "export",
+            action: `Human Creative Verdict Recorded: "${verdict.toUpperCase()}" (${notes || "No notes"})`,
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      }));
+    },
+    [state.motionIR, state.brandProfile, state.brief, state.concepts, state.selectedConceptId, state.critique]
+  );
 
   const setMode = useCallback((mode: StudioMode) => {
     setState((prev) => ({
@@ -542,124 +678,91 @@ export function useStudioEngine() {
       activeMode: mode,
       auditTrail: [
         ...prev.auditTrail,
-        { stage: prev.currentStage, action: `Switched studio mode to: ${mode}`, timestamp: new Date().toISOString() },
+        {
+          stage: prev.currentStage,
+          action: `Switched studio mode to: ${mode}`,
+          timestamp: new Date().toISOString(),
+        },
       ],
     }));
   }, []);
 
   // Quick Create: Autonomous End-to-End Pipeline
-  const runQuickCreate = useCallback(async (creativeDirection?: string) => {
-    setIsLoading(true);
-    setActiveError(null);
-    try {
-      if (creativeDirection) {
-        setState((prev) => ({ ...prev, creativeDirection }));
-      }
-
-      let result: any;
-      if (typeof window !== "undefined" && window.location?.origin) {
-        try {
-          const res = await fetch("/api/pipeline/quick-create", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              brief: state.brief,
-              creativeDirection: creativeDirection || state.creativeDirection,
-            }),
-          });
-          const json = await res.json();
-          if (!json.success) throw new Error(json.error || "Autonomous pipeline failed");
-          result = json.state;
-        } catch (apiErr: any) {
-          console.warn("[AdCraft Client] API router call failed, falling back to local service", apiErr);
-          result = await studioGenerationService.runAutonomousPipeline(
-            state.brandInput,
-            state.brief,
-            creativeDirection || state.creativeDirection
-          );
+  const runQuickCreate = useCallback(
+    async (creativeDirection?: string) => {
+      setIsLoading(true);
+      setActiveError(null);
+      try {
+        if (creativeDirection) {
+          setState((prev) => ({ ...prev, creativeDirection }));
         }
-      } else {
-        result = await studioGenerationService.runAutonomousPipeline(
-          state.brandInput,
-          state.brief,
-          creativeDirection || state.creativeDirection
-        );
-      }
 
-      setState((prev) => ({
-        ...prev,
-        ...result,
-        jobState: "complete",
-        currentStage: "export",
-        auditTrail: [
-          ...prev.auditTrail,
+        const data = await apiRequest<{ success: boolean; state: StudioState }>(
+          "/api/pipeline/quick-create",
           {
-            stage: "export",
-            action: `Quick Create pipeline completed autonomously: "${result.concepts?.find((c: any) => c.id === result.selectedConceptId)?.angleTitle || 'Selected Angle'}" (Score: ${result.critique?.overallScore || 9.5}/10)`,
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      }));
-    } catch (err: any) {
-      setActiveError(err.message);
-      setState((prev) => ({ ...prev, jobState: "failed", errorMessage: err.message }));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [state.brandInput, state.brief, state.creativeDirection]);
+            brief: state.brief,
+            brand: state.brandInput,
+            creativeDirection: creativeDirection || state.creativeDirection,
+          }
+        );
+
+        setState((prev) => ({
+          ...prev,
+          ...data.state,
+          jobState: "complete",
+          currentStage: "export",
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "export",
+              action: `Quick Create pipeline completed autonomously: "${data.state.concepts?.find((c: any) => c.id === data.state.selectedConceptId)?.angleTitle || 'Selected Angle'}" (Score: ${data.state.critique?.overallScore || 9.5}/10)`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+        setState((prev) => ({ ...prev, jobState: "failed", errorMessage: err.message }));
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state.brandInput, state.brief, state.creativeDirection]
+  );
 
   // Quick Create: Natural Language Revision
-  const submitNaturalLanguageRevision = useCallback(async (instruction: string) => {
-    setIsLoading(true);
-    setActiveError(null);
-    try {
-      let result: any;
-      if (typeof window !== "undefined" && window.location?.origin) {
-        try {
-          const res = await fetch("/api/pipeline/revise", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ state, instruction }),
-          });
-          const json = await res.json();
-          if (!json.success) throw new Error(json.error || "Revision failed");
-          result = json.state;
-        } catch (apiErr: any) {
-          console.warn("[AdCraft Client] API revision call failed, falling back to local service", apiErr);
-          result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
-        }
-      } else {
-        result = await studioGenerationService.applyNaturalLanguageRevision(state, instruction);
-      }
+  const submitNaturalLanguageRevision = useCallback(
+    async (instruction: string) => {
+      setIsLoading(true);
+      setActiveError(null);
+      try {
+        const data = await apiRequest<{ success: boolean; state: StudioState }>(
+          "/api/pipeline/revise",
+          { state, instruction }
+        );
 
-      setState((prev) => ({
-        ...prev,
-        storyboard: result.storyboard,
-        visualBible: result.visualBible,
-        approvedKeyframes: result.approvedKeyframes,
-        keyframeAnalyses: result.keyframeAnalyses,
-        motionPlans: result.motionPlans,
-        motionIR: result.motionIR,
-        critique: result.critique,
-        exportPackage: result.exportPackage,
-        revisionsApplied: prev.revisionsApplied + 1,
-        revisions: [...(prev.revisions || []), result.revision],
-        jobState: "complete",
-        auditTrail: [
-          ...prev.auditTrail,
-          {
-            stage: "quality",
-            action: `Natural-language revision applied: "${instruction}" -> Resulting Score: ${result.critique?.overallScore || 9.5}/10`,
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      }));
-    } catch (err: any) {
-      setActiveError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [state]);
+        setState((prev) => ({
+          ...prev,
+          ...data.state,
+          revisionsApplied: prev.revisionsApplied + 1,
+          jobState: "complete",
+          auditTrail: [
+            ...prev.auditTrail,
+            {
+              stage: "quality",
+              action: `Natural-language revision applied: "${instruction}" -> Resulting Score: ${data.state.critique?.overallScore || 9.5}/10`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }));
+      } catch (err: any) {
+        setActiveError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [state]
+  );
 
   return {
     state,

@@ -123,18 +123,60 @@ export function createApiMiddleware() {
             );
             return sendJson(res, 200, { success: true, visualBible });
           }
+          case "keyframes": {
+            const { scene, brandProfile, brief, visualBible } = payload || {};
+            const candidates = await studioGenerationService.generateKeyframeCandidates(
+              scene,
+              brandProfile,
+              brief,
+              visualBible
+            );
+            return sendJson(res, 200, { success: true, candidates });
+          }
+          case "approve-keyframe": {
+            const { scene, candidate, brandProfile, visualBible } = payload || {};
+            const approved = {
+              sceneId: scene?.id || "scene-1",
+              candidateKeyframe: candidate,
+              critiqueScore: 9.6,
+              approvalNotes: "Approved by creative director",
+              reviewedAt: Date.now(),
+            };
+            const analysis = studioGenerationService.analyzeKeyframe(approved, scene, brandProfile);
+            const motionPlan = studioGenerationService.createMotionPlan(
+              scene,
+              analysis,
+              approved,
+              brandProfile,
+              30,
+              visualBible
+            );
+            return sendJson(res, 200, { success: true, approved, analysis, motionPlan });
+          }
+          case "motion": {
+            const { inputs, brandProfile, brief, visualBible } = payload || {};
+            const motionIR = studioGenerationService.reconstructMotionIR(
+              inputs,
+              brandProfile,
+              brief,
+              visualBible
+            );
+            const critique = studioGenerationService.evaluateQuality(motionIR, visualBible);
+            return sendJson(res, 200, { success: true, motionIR, critique });
+          }
           case "quality": {
             const { motionIR, visualBible } = payload || {};
             const critique = studioGenerationService.evaluateQuality(motionIR, visualBible);
             return sendJson(res, 200, { success: true, critique });
           }
           case "revise-scene": {
-            const { motionIR, critique } = payload || {};
+            const { motionIR, critique, visualBible } = payload || {};
             const revised = studioGenerationService.applySurgicalRevision(
               motionIR,
               critique
             );
-            return sendJson(res, 200, { success: true, motionIR: revised });
+            const newCritique = studioGenerationService.evaluateQuality(revised, visualBible);
+            return sendJson(res, 200, { success: true, motionIR: revised, critique: newCritique });
           }
           default:
             return sendError(res, 404, `Unknown pipeline stage '${stageId}'`);
