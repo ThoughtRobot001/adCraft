@@ -56,6 +56,7 @@ export type StudioStageId =
   | "brief"
   | "evidence"
   | "concepts"
+  | "visual-bible"
   | "storyboard"
   | "keyframes"
   | "motion"
