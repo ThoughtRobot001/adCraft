@@ -51,8 +51,8 @@ export class ArtDirector {
         : "precision-craft";
 
     // Theme detection: light-mode and editorial paper support
-    const isEditorial = brand.theme === "editorial-light" || (brand.colors?.background && brand.colors?.background.toLowerCase() === "#f8f7f3");
-    const isLightTheme = isEditorial || (brand.colors?.background && (brand.colors?.background.toLowerCase() === "#ffffff" || brand.colors?.background.toLowerCase() === "#f8fafc" || brand.colors?.background.toLowerCase() === "#f1f5f9")) || profile.voice.tone === "minimalist";
+    const isEditorial = brand.theme === "editorial-light" || (brand.colors.background && brand.colors.background.toLowerCase() === "#f8f7f3");
+    const isLightTheme = isEditorial || (brand.colors.background && (brand.colors.background.toLowerCase() === "#ffffff" || brand.colors.background.toLowerCase() === "#f8fafc" || brand.colors.background.toLowerCase() === "#f1f5f9")) || profile.voice.tone === "minimalist";
     const isRestrained = (comp?.negativeSpaceRatio ?? 0) >= 0.50 || archetype === "editorial-manifesto" || profile.voice.tone === "minimalist";
 
     // 0. Creative Memory Intent Retrieval
@@ -77,7 +77,7 @@ export class ArtDirector {
     // Background selection based on curated Asset Bank kit
     const background: SceneBackground = {
       type: (bgAsset?.properties?.type as any) || "gradient",
-      color: bgAsset?.properties?.color || (isEditorial ? "#F8F7F3" : isLightTheme ? (brand.colors?.background || "#F8FAFC") : (brand.colors?.background || "#090D16")),
+      color: bgAsset?.properties?.color || (isEditorial ? "#F8F7F3" : isLightTheme ? (brand.colors.background || "#F8FAFC") : (brand.colors.background || "#090D16")),
       gradientTo: bgAsset?.properties?.gradientTo || (isEditorial ? "#F1EFE9" : isLightTheme ? (isFirst ? "#F1F5F9" : isLast ? "#E2E8F0" : "#F8FAFC") : (isFirst ? "#0F172A" : isLast ? "#1E1B4B" : "#064E3B")),
       angle: bgAsset?.properties?.angle || 135,
       glowOrb: bgAsset?.properties?.glowOrb ?? !isLightTheme,

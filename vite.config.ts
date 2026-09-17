@@ -2,17 +2,22 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { createApiMiddleware } from "./src/studio/server/api-router";
 
 export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
+    {
+      name: "adcraft-api-router",
+      configureServer(server) {
+        server.middlewares.use(createApiMiddleware());
+      },
+    },
   ],
   server: {
     port: 3000,
-    host: '0.0.0.0',
-    allowedHosts: true,
-    hmr: process.env.DISABLE_HMR === "true" ? false : undefined,
+    host: true,
   },
   publicDir: "public",
   resolve: {

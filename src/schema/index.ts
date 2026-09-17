@@ -10,14 +10,14 @@ export * from "./composition";
  * to their actual hex values from the composition's brand settings.
  */
 export function resolveColor(colorStr: string, brand: Brand): string {
-  const isLight = brand.theme === "editorial-light" || brand.colors?.background === "#F8F7F3" || brand.colors?.background === "#FFFFFF" || brand.colors?.background === "#F8FAFC";
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
 
-  if (!colorStr) return isLight ? "#0F172A" : (brand.colors?.text || "#F9FAFB");
+  if (!colorStr) return isLight ? "#0F172A" : (brand.colors.text || "#F9FAFB");
   
   if (colorStr.startsWith("brand.")) {
     const key = colorStr.replace("brand.", "") as keyof typeof brand.colors;
-    if (brand.colors && brand.colors[key as keyof typeof brand.colors]) {
-      const val = brand.colors[key as keyof typeof brand.colors];
+    if (brand.colors && brand.colors[key]) {
+      const val = brand.colors[key];
       // Auto-correct white/pale text on light backgrounds
       if (key === "text" && isLight && (val === "#F9FAFB" || val === "#F8FAFC" || val === "#FFFFFF" || val.toLowerCase() === "#fff")) {
         return "#0F172A";
@@ -28,12 +28,12 @@ export function resolveColor(colorStr: string, brand: Brand): string {
       return val;
     }
     // Fallback if key doesn't match
-    if (key === "primary") return brand.colors?.primary || (isLight ? "#1E293B" : "#6366F1");
-    if (key === "secondary") return brand.colors?.secondary || (isLight ? "#334155" : "#4F46E5");
-    if (key === "accent") return brand.colors?.accent || (isLight ? "#0284C7" : "#10B981");
-    if (key === "background") return isLight ? "#F8F7F3" : (brand.colors?.background || "#0B0F19");
-    if (key === "text") return isLight ? "#0F172A" : (brand.colors?.text || "#F9FAFB");
-    if (key === "muted") return isLight ? "#64748B" : (brand.colors?.muted || "#9CA3AF");
+    if (key === "primary") return brand.colors.primary || (isLight ? "#1E293B" : "#6366F1");
+    if (key === "secondary") return brand.colors.secondary || (isLight ? "#334155" : "#4F46E5");
+    if (key === "accent") return brand.colors.accent || (isLight ? "#0284C7" : "#10B981");
+    if (key === "background") return isLight ? "#F8F7F3" : (brand.colors.background || "#0B0F19");
+    if (key === "text") return isLight ? "#0F172A" : (brand.colors.text || "#F9FAFB");
+    if (key === "muted") return isLight ? "#64748B" : (brand.colors.muted || "#9CA3AF");
   }
 
   // Prevent white text on light canvas if explicitly passed
@@ -48,7 +48,7 @@ export function resolveColor(colorStr: string, brand: Brand): string {
  * Returns theme-safe typography and surface design tokens.
  */
 export function getThemeTokens(brand: Brand) {
-  const isLight = brand.theme === "editorial-light" || brand.colors?.background === "#F8F7F3" || brand.colors?.background === "#FFFFFF" || brand.colors?.background === "#F8FAFC";
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
 
   return {
     isLight,

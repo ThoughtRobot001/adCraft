@@ -1,0 +1,137 @@
+{
+  "id": "linear-studio-ad-1789079849943",
+  "meta": {
+    "title": "Linear - free_trial Campaign",
+    "fps": 30,
+    "width": 1080,
+    "height": 1920
+  },
+  "brand": {
+    "name": "Linear",
+    "tagline": "The Issue Tracker Built for High-Performance Teams",
+    "colors": {
+      "primary": "#5E6AD2",
+      "secondary": "#4338CA",
+      "accent": "#38BDF8",
+      "background": "#090D16",
+      "text": "#F8FAFC",
+      "muted": "#94A3B8"
+    },
+    "font": "system-ui, -apple-system, sans-serif"
+  },
+  "scenes": [
+    {
+      "id": "scene-1",
+      "name": "The Legacy Pain Hook",
+      "durationFrames": 90,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#0F172A",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "scene-1-headline",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Still losing 15+ hours every week to manual linear tasks?",
+            "fontSize": 68,
+            "fontWeight": 800,
+            "color": "brand.text",
+            "position": {
+              "x": 50,
+              "y": 38
+            },
+            "align": "center",
+            "animation": "word-by-word",
+            "delay": 0,
+            "maxWidth": 90,
+            "highlightWords": [
+              "manually?",
+              "broken",
+              "losing",
+              "15+"
+            ]
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    },
+    {
+      "id": "scene-2",
+      "name": "The Linear Solution",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#1E1B4B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    },
+    {
+      "id": "scene-3",
+      "name": "The Velocity & Trust Proof",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#064E3B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "scene-3-counter",
+          "type": "metric-counter",
+          "props": {
+            "label": "ISSUE TRIAGE VELOCITY",
+            "value": 10,
+            "suffix": "x",
+            "decimals": 0,
+            "color": "brand.accent",
+            "position": {
+              "x": 50,
+              "y": 48
+            },
+            "delay": 10,
+            "durationFrames": 35,
+            "trend": "up",
+            "subtext": "Used by the world's best product engineering teams"
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    },
+    {
+      "id": "scene-4",
+      "name": "The High-Velocity Call to Action",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#1E1B4B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    }
+  ]
+}

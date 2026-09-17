@@ -1,0 +1,213 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "Vercel",
+      "tagline": "Develop. Preview. Ship.",
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#4338CA",
+        "accent": "#0070F3",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "authoritative",
+      "personality": "Confident, highly refined, and focused on tangible velocity for modern teams.",
+      "avoidWords": [
+        "all-in-one platform",
+        "game changer",
+        "synergistic",
+        "disruption"
+      ]
+    },
+    "positioning": {
+      "category": "Vercel Cloud Architecture",
+      "competitors": [
+        "Legacy Manual Tools",
+        "Fragmented Scripts"
+      ],
+      "differentiator": "Edge Functions"
+    },
+    "audience": {
+      "primary": "Tech founders, developers, ops managers",
+      "painPoints": [
+        "Wasting 15+ hours weekly maintaining manual setups",
+        "Unpredictable downtime and configuration drift",
+        "High friction when onboarding new team members"
+      ],
+      "motivations": [
+        "10x faster execution without operational complexity",
+        "Enterprise peace of mind with continuous reliability"
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-speedrun",
+    "angle": "velocity-speedrun",
+    "angleTitle": "Zero to Production Velocity",
+    "hook": "What if your database provisioned in 48 milliseconds?",
+    "narrative": "Pure adrenaline speedrun: shows code running live, instant branch deployment, zero cold starts, and immediate proof numbers.",
+    "emotionalArc": "Curiosity → Kinetic Surprise → Urgency to Adopt",
+    "visualMood": "High-contrast IDE terminal aesthetic with electric neon highlights.",
+    "estimatedSceneCount": 4,
+    "strategicScore": 9.6,
+    "reasoning": "Engineers and technical buyers convert fastest when shown raw speed metrics and code execution."
+  },
+  "storyboard": {
+    "concept": {
+      "id": "concept-speedrun",
+      "angle": "velocity-speedrun",
+      "angleTitle": "Zero to Production Velocity",
+      "hook": "What if your database provisioned in 48 milliseconds?",
+      "narrative": "Pure adrenaline speedrun: shows code running live, instant branch deployment, zero cold starts, and immediate proof numbers.",
+      "emotionalArc": "Curiosity → Kinetic Surprise → Urgency to Adopt",
+      "visualMood": "High-contrast IDE terminal aesthetic with electric neon highlights.",
+      "estimatedSceneCount": 4,
+      "strategicScore": 9.6,
+      "reasoning": "Engineers and technical buyers convert fastest when shown raw speed metrics and code execution."
+    },
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Disrupt → Demonstrate → Prove → Convert",
+    "pacingStrategy": "Fast hook (3s) → Deep product showcase (4s) → Proof punch (4s) → Decisive CTA (4s)",
+    "scenes": [
+      {
+        "id": "scene-1-hook",
+        "sceneIndex": 1,
+        "name": "The Disruptive Hook",
+        "intent": "Seize viewer attention within 800ms by framing the cost of legacy habits.",
+        "durationSeconds": 3,
+        "emotionalBeat": "Friction & Tension",
+        "headlineCopy": "What if your database provisioned in 48 milliseconds?",
+        "visualDescription": "Deep obsidian backdrop with glowing red constraint badges appearing under kinetic copy.",
+        "pacingNotes": "Word-by-word reveal with fast 3-frame stagger; badges arrive at frame 20.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Bold kinetic headline",
+            "importance": "hero"
+          },
+          {
+            "role": "problem-badge",
+            "description": "Friction pill badges",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2-showcase",
+        "sceneIndex": 2,
+        "name": "The Velocity Discovery",
+        "intent": "Show Vercel replacing friction with effortless modern execution.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Relief & Breakthrough",
+        "headlineCopy": "Instant infrastructure with zero configuration.",
+        "visualDescription": "3D developer window showing live SDK code provisioning instant branches in 48ms.",
+        "pacingNotes": "Headline reveals at 0f; 3D perspective window glides in at 10f with floating physics.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Solution headline",
+            "importance": "hero"
+          },
+          {
+            "role": "product-mockup",
+            "description": "Code editor window",
+            "importance": "hero"
+          },
+          {
+            "role": "status-badge",
+            "description": "Floating operational status pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-3-proof",
+        "sceneIndex": 3,
+        "name": "The Quantitative Anchor",
+        "intent": "Anchor credibility with concrete, verifiable performance numbers.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Confidence & Certainty",
+        "headlineCopy": "Proven impact at high-growth scale.",
+        "visualDescription": "Giant 124px glowing metric counter surging from zero, flanked by security trust badges.",
+        "pacingNotes": "Headline at 0f; counter animates over 35 frames with smooth cubic ease-out.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Proof headline",
+            "importance": "supporting"
+          },
+          {
+            "role": "metric-hero",
+            "description": "Big bold animated counter",
+            "importance": "hero"
+          },
+          {
+            "role": "trust-signal",
+            "description": "SOC2 and enterprise certification pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-4-close",
+        "sceneIndex": 4,
+        "name": "The Decisive Action",
+        "intent": "Compel immediate conversion with minimal friction reassurance.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Empowerment & Action",
+        "headlineCopy": "Vercel",
+        "supportingCopy": "Develop. Preview. Ship.",
+        "visualDescription": "Glowing brand monogram scale-in with glowing ambient backlight and a pulsing CTA button.",
+        "pacingNotes": "Monogram lands at 0f; CTA button arrives at 12f with continuous breathing pulse.",
+        "elementIntents": [
+          {
+            "role": "brand-monogram",
+            "description": "Brand logo reveal with radial glow",
+            "importance": "hero"
+          },
+          {
+            "role": "call-to-action",
+            "description": "Pulsing primary action button",
+            "importance": "hero"
+          }
+        ]
+      }
+    ]
+  },
+  "critique": {
+    "overallScore": 9.5,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1-hook",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2-showcase",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-3-proof",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4-close",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}

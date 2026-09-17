@@ -105,14 +105,14 @@ export class VisualKeyframeGenerator {
     const allowPaletteDeparture = isTransform && departures.includes("palette");
     const primaryColor =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) ||
-      brand.colors?.primary || "#6366F1";
+      brand.colors.primary;
     const secondaryColor =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.secondaryBrand) ||
-      brand.colors?.secondary ||
+      brand.colors.secondary ||
       "#8B7CFF";
     const bgColor =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.backgroundBase) ||
-      brand.colors?.background ||
+      brand.colors.background ||
       "#08080B";
 
     // Typography
@@ -205,18 +205,18 @@ export class VisualKeyframeGenerator {
     const allowPaletteDeparture = isTransform && departures.includes("palette");
     const primary =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) ||
-      brand.colors?.primary || "#6366F1";
+      brand.colors.primary;
     const secondary =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.secondaryBrand) ||
-      brand.colors?.secondary ||
+      brand.colors.secondary ||
       "#8B7CFF";
     const accent =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) ||
-      brand.colors?.accent ||
+      brand.colors.accent ||
       "#B7AEFF";
     const bg =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.backgroundBase) ||
-      brand.colors?.background ||
+      brand.colors.background ||
       "#08080B";
 
     // Typography: harmonize with Visual Bible

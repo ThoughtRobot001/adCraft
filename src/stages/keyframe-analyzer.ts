@@ -126,7 +126,7 @@ export class KeyframeAnalyzer {
       background: {
         atmosphericHaze: 0.12,
         lightBloom: true,
-        colorGradient: `radial-gradient(circle at 50% 50%, ${brand.colors?.primary || "#6366F1"}33 0%, ${brand.colors?.background || "#08080B"} 100%)`,
+        colorGradient: `radial-gradient(circle at 50% 50%, ${brand.colors.primary}33 0%, ${brand.colors.background || "#08080B"} 100%)`,
       },
       vanishingPoint: { x: 50, y: 55 },
     };
@@ -155,15 +155,15 @@ export class KeyframeAnalyzer {
 
     // 9. Color Distribution
     const colorDistribution = {
-      dominantBackgroundHex: brand.colors?.background || "#08080B",
-      surfaceHex: (brand.colors as any)?.surface || "#111116",
+      dominantBackgroundHex: brand.colors.background || "#08080B",
+      surfaceHex: (brand.colors as any).surface || "#111116",
       accentHighlights: [
-        brand.colors?.primary || "#6366F1",
-        brand.colors?.secondary || "#8B7CFF",
-        brand.colors?.accent || "#B7AEFF",
+        brand.colors.primary,
+        brand.colors.secondary || "#8B7CFF",
+        brand.colors.accent || "#B7AEFF",
       ],
       atmosphericGlow: {
-        color: brand.colors?.primary || "#6366F1",
+        color: brand.colors.primary,
         center: { x: focalX, y: focalY },
         radius: 45,
         intensity: 0.25,

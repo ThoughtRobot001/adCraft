@@ -21,16 +21,13 @@ import { CreativeDirection, Project, CampaignObjective } from "../types";
 import { CAMPAIGN_OBJECTIVES, CREATIVE_DIRECTIONS } from "../data/mockData";
 import { useStudioEngine } from "../adapter";
 import { CreativeWorkspace } from "./CreativeWorkspace";
-import { Skeleton } from "./Skeleton";
 
 interface AdHeroCreatorProps {
-  isLoading?: boolean;
   onAdCreated: (project: Project) => void;
   onWorkspaceStateChange?: (isActive: boolean) => void;
 }
 
 export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
-  isLoading,
   onAdCreated,
   onWorkspaceStateChange,
 }) => {
@@ -130,32 +127,22 @@ export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
     setActiveMode(mode);
   };
 
-  const readFileAsDataUrl = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const newFiles = await Promise.all(
-        Array.from(e.target.files).map(async (file) => ({
-          name: file.name,
-          url: await readFileAsDataUrl(file),
-          type: file.type,
-        }))
-      );
+      const newFiles = Array.from(e.target.files).map((file) => ({
+        name: file.name,
+        url: URL.createObjectURL(file),
+        type: file.type,
+      }));
       setAttachedFiles((prev) => [...prev, ...newFiles]);
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handlePaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
     const items = e.clipboardData.items;
     const newFiles: { name: string; url: string; type: string }[] = [];
+
     for (let i = 0; i < items.length; i++) {
       if (items[i].type.indexOf("image") !== -1) {
         const file = items[i].getAsFile();
@@ -163,12 +150,13 @@ export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
           const fileName = file.name === "image.png" ? `pasted_image_${Date.now()}.png` : file.name;
           newFiles.push({
             name: fileName,
-            url: await readFileAsDataUrl(file),
+            url: URL.createObjectURL(file),
             type: file.type,
           });
         }
       }
     }
+
     if (newFiles.length > 0) {
       setAttachedFiles((prev) => [...prev, ...newFiles]);
     }
@@ -179,14 +167,10 @@ export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
       prompt.trim() || "High-performance technical all-weather outdoor gear";
 
     try {
-      const brandMatch = finalPrompt.match(/for\s+([A-Z][a-zA-Z0-9\s]*?)(?:[,.]|\s+(?:a|an|the|an|modern|premium))/i);
-      const extractedBrand = brandMatch ? brandMatch[1].trim() : "Your Brand";
-      
-      const initialBrief = { productName: extractedBrand, productDescription: finalPrompt, goal: selectedObjective.id as any };
-      const initialBrand = { name: extractedBrand, ...(attachedFiles.length > 0 ? { logo: attachedFiles[0].url } : {}) };
+      updateBrief({ productDescription: finalPrompt, goal: selectedObjective.id as any });
       
       const dir = customDirection.trim() || selectedDirection.label;
-      const engineState = await runPipelineStepByStep(dir, initialBrief, initialBrand);
+      const engineState = await runPipelineStepByStep(dir);
       
       if (engineState) {
         // Trigger celebratory confetti
@@ -271,22 +255,9 @@ export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
       </p>
 
       {/* Master Ad Generator Card - Modern AI Prompt Capsule matching reference image */}
-      {isLoading ? (
-        <div className="card-capsule p-4 sm:p-5 relative w-full text-left">
-          <Skeleton className="w-full h-16 mb-4 rounded-xl" />
-          <div className="flex items-center justify-between">
-            <Skeleton className="w-8 h-8 rounded-full" />
-            <div className="flex gap-2">
-              <Skeleton className="w-24 h-8 rounded-full" />
-              <Skeleton className="w-8 h-8 rounded-full" />
-              <Skeleton className="w-8 h-8 rounded-full" />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="card-capsule p-4 sm:p-5 pb-3.5 relative w-full text-left">
-          {/* Hidden File Input */}
-          <input
+      <div className="card-capsule p-4 sm:p-5 pb-3.5 relative w-full text-left">
+        {/* Hidden File Input */}
+        <input
           ref={fileInputRef}
           type="file"
           className="hidden"
@@ -487,7 +458,6 @@ export const AdHeroCreator: React.FC<AdHeroCreatorProps> = ({
           </div>
         </div>
       </div>
-      )}
 
       {/* Campaign Objective Modal */}
       {isObjectiveModalOpen && (

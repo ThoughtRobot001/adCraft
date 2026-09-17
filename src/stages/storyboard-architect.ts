@@ -80,8 +80,8 @@ Return valid JSON:
 Archetype: ${concept.narrativeArchetype}
 Hook: "${concept.hook}"
 Narrative: ${concept.narrative}
-Brand: ${profile.identity.name} (${profile.identity.colors?.primary || "#6366F1"})
-Tone: ${profile.voice?.tone || "professional"}
+Brand: ${profile.identity.name} (${profile.identity.colors.primary})
+Tone: ${profile.voice.tone}
 Product: ${brief.productName}
 Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocialProof?.label || "Speedup"}`;
 
@@ -98,25 +98,20 @@ Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocia
     const brandName = profile.identity.name;
     const archetype = concept.narrativeArchetype;
 
-    // Archetype 1: Editorial Manifesto (e.g. Linear, Aesop, Morrow Coffee, minimal luxury)
+    // Archetype 1: Editorial Manifesto (e.g. Linear, Aesop, minimal luxury)
     if (archetype === "editorial-manifesto") {
       const isBotanical = Boolean(`${brandName} ${brief.productName || ""} ${brief.productDescription || ""}`.toLowerCase().match(/aesop|botanical|luxury|apothecary|fragrance|skincare/i));
-      const isCoffee = Boolean(`${brandName} ${brief.productName || ""} ${brief.productDescription || ""}`.toLowerCase().match(/coffee|beans|roast|brew|ritual|morning|cafe|espresso|pourover|barista/i));
       const scenes: StoryboardScene[] = [
         {
           id: "scene-1-manifesto",
           sceneIndex: 1,
           act: "manifesto",
-          name: isCoffee ? "The First Great Cup" : "The Quiet Provocation",
-          intent: isCoffee
-            ? "Capture the anticipation and reverence of the morning ritual with restrained editorial typography."
-            : "Disrupt sensory overload through radical typographic restraint and vast negative space.",
+          name: "The Quiet Provocation",
+          intent: "Disrupt sensory overload through radical typographic restraint and vast negative space.",
           durationSeconds: 4.5,
-          emotionalBeat: isCoffee ? "Warmth & Anticipation" : "Reverence & Intrigue",
+          emotionalBeat: "Reverence & Intrigue",
           headlineCopy: concept.hook,
-          visualDescription: isCoffee
-            ? "Soft dawn morning light casting gentle shadows across a warm linen canvas with refined serif typography."
-            : isBotanical
+          visualDescription: isBotanical
             ? "Warm linen editorial canvas with restrained serif typography anchored to bottom-left."
             : "Deep obsidian editorial canvas with monumental lowercase typography anchored to bottom-left.",
           visualComposition: {
@@ -129,11 +124,11 @@ Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocia
               scaleContrast: "monumental",
             },
             depthPlanes: {
-              background: isCoffee ? "Warm linen and espresso-hued gradient with soft morning luminescence" : isBotanical ? "Warm linen canvas with subtle paper grain" : "Pure obsidian void with 4% micro-texture",
+              background: isBotanical ? "Warm linen canvas with subtle paper grain" : "Pure obsidian void with 4% micro-texture",
               hero: "Monumental restrained typography block",
-              foreground: isCoffee ? "Subtle steam and aroma drift" : "Subtle hairline coordinate accent",
+              foreground: "Subtle hairline coordinate accent",
             },
-            staticClimaxFrame: isCoffee ? "Refined editorial layout framing the first cup with vast negative space." : "Quiet luxury editorial print layout with 62% negative space and razor-sharp typographic scale.",
+            staticClimaxFrame: "Quiet luxury editorial print layout with 62% negative space and razor-sharp typographic scale.",
           },
           pacingNotes: "Slow deliberate micro-letterspacing expansion over 45 frames; total stillness thereafter.",
           elementIntents: [
@@ -144,17 +139,13 @@ Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocia
           id: "scene-2-artifact",
           sceneIndex: 2,
           act: "solution",
-          name: isCoffee ? "The Product Hero" : isBotanical ? "The Botanical Integrity" : "The Monolithic Craft",
-          intent: isCoffee
-            ? "Establish the beautifully packaged coffee beans as the tactile, sculptural hero of the morning ritual."
-            : isBotanical ? "Showcase the immaculate purity and poetic formulation." : "Showcase the immaculate beauty and raw precision of the interface.",
+          name: isBotanical ? "The Botanical Integrity" : "The Monolithic Craft",
+          intent: isBotanical ? "Showcase the immaculate purity and poetic formulation." : "Showcase the immaculate beauty and raw precision of the interface.",
           durationSeconds: 5.5,
-          emotionalBeat: isCoffee ? "Sensory Elevation & Craft" : "Aesthetic Elevation",
-          headlineCopy: isCoffee ? "Curated beans. Roasted with intention." : isBotanical ? `Botanical precision in every formulation.` : `Every interaction calibrated for speed.`,
-          supportingCopy: isCoffee ? "A morning ritual worth slowing down for." : isBotanical ? `Cold-pressed botanical extracts. Zero synthetic noise.` : `Zero latency. Zero decorative noise.`,
-          visualDescription: isCoffee
-            ? "Sculptural hero presentation of the bespoke Morrow Coffee package, textured paper details, and golden morning warmth."
-            : isBotanical
+          emotionalBeat: "Aesthetic Elevation",
+          headlineCopy: isBotanical ? `Botanical precision in every formulation.` : `Every interaction calibrated for speed.`,
+          supportingCopy: isBotanical ? `Cold-pressed botanical extracts. Zero synthetic noise.` : `Zero latency. Zero decorative noise.`,
+          visualDescription: isBotanical
             ? "Architectural amber formulation canvas with razor-sharp serif typography and natural linen textures."
             : "Floating 3D perspective application canvas with razor-sharp typography and pristine glass reflection.",
           visualComposition: {
@@ -167,31 +158,29 @@ Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocia
               scaleContrast: "editorial-restrained",
             },
             depthPlanes: {
-              background: isCoffee ? "Warm umber studio wash with soft directional rim light" : isBotanical ? "Warm sand gradient with soft organic ambient rim" : "Deep gradient with subtle directional ambient rim",
-              hero: isCoffee ? "Sculptural coffee package product hero" : isBotanical ? "Centered bespoke amber formulation canvas" : "Centered high-precision application canvas floating in 3D perspective",
-              foreground: isCoffee ? "Soft golden highlight catching package typography" : "Soft specular sheen passing across the upper rim",
+              background: isBotanical ? "Warm sand gradient with soft organic ambient rim" : "Deep gradient with subtle directional ambient rim",
+              hero: isBotanical ? "Centered bespoke amber formulation canvas" : "Centered high-precision application canvas floating in 3D perspective",
+              foreground: "Soft specular sheen passing across the upper rim",
             },
-            staticClimaxFrame: isCoffee ? "Monumental packaging hero centered in warm morning ambience." : "Pristine industrial monolith suspended with balanced negative margins.",
+            staticClimaxFrame: "Pristine industrial monolith suspended with balanced negative margins.",
           },
-          pacingNotes: "Product bag glides into focus with smooth hydraulic ease; warm rim light glows at 25f.",
+          pacingNotes: "Window elevates with smooth snappy ease; specular sheen sweeps across top rim at 30f.",
           elementIntents: [
             { role: "hook-headline", description: "Quiet title label", importance: "supporting" },
-            { role: "product-mockup", description: isCoffee ? "Artisan coffee packaging hero" : isBotanical ? "Bespoke formulation canvas" : "High-precision application canvas", importance: "hero" },
+            { role: "product-mockup", description: isBotanical ? "Bespoke formulation canvas" : "High-precision application canvas", importance: "hero" },
           ],
         },
         {
           id: "scene-3-signature",
           sceneIndex: 3,
           act: "cta",
-          name: isCoffee ? "The Brand Moment" : "The Quiet Signature",
+          name: "The Quiet Signature",
           intent: "Seal the brand authority with an unforgettable, confident brand mark.",
           durationSeconds: 5.0,
           emotionalBeat: "Conviction & Lasting Authority",
           headlineCopy: brandName,
-          supportingCopy: profile.identity.tagline || (isCoffee ? "Refined morning ritual" : isBotanical ? "Quiet sensory elevation" : "Engineered for clarity"),
-          visualDescription: isCoffee
-            ? "Morrow Coffee brand signature emerging with warm amber luminescence, tactile serif typography, and clear call to action."
-            : "Minimalist brand monogram emerging with subtle radial glow and razor-sharp call-to-action.",
+          supportingCopy: profile.identity.tagline || (isBotanical ? "Quiet sensory elevation" : "Engineered for clarity"),
+          visualDescription: "Minimalist brand monogram emerging with subtle radial glow and razor-sharp call-to-action.",
           visualComposition: {
             framing: "monumental-centered",
             focalPoint: { x: 50, y: 48 },
@@ -202,7 +191,7 @@ Key Proof: ${brief.metricsOrSocialProof?.metric || "10x"} ${brief.metricsOrSocia
               scaleContrast: "bold-punch",
             },
             depthPlanes: {
-              background: isCoffee ? "Deep roast canvas with warm amber center bloom" : "Deep dark canvas with ultra-soft center luminescence",
+              background: "Deep dark canvas with ultra-soft center luminescence",
               hero: "Precision brand monogram and sharp tagline",
               foreground: "Subtle primary CTA button with tactile border",
             },

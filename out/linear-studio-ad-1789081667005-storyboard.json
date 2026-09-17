@@ -1,0 +1,221 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "Linear",
+      "tagline": "The Issue Tracker Built for High-Performance Teams",
+      "colors": {
+        "primary": "#5E6AD2",
+        "secondary": "#4338CA",
+        "accent": "#38BDF8",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "authoritative",
+      "personality": "Confident, highly refined, and focused on tangible velocity for modern teams.",
+      "avoidWords": [
+        "all-in-one platform",
+        "game changer",
+        "synergistic",
+        "disruption"
+      ]
+    },
+    "positioning": {
+      "category": "Linear Cloud Architecture",
+      "competitors": [
+        "Legacy Manual Tools",
+        "Fragmented Scripts"
+      ],
+      "differentiator": "Cycles & Roadmaps"
+    },
+    "audience": {
+      "primary": "Tech founders, developers, ops managers",
+      "painPoints": [
+        "Wasting 15+ hours weekly maintaining manual setups",
+        "Unpredictable downtime and configuration drift",
+        "High friction when onboarding new team members"
+      ],
+      "motivations": [
+        "10x faster execution without operational complexity",
+        "Enterprise peace of mind with continuous reliability"
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-1",
+    "angle": "pain-agitate-solve",
+    "angleTitle": "The 15-Hour Engineering Tax",
+    "hook": "You didn't hire senior engineers to spend 15 hours a week configuring issue trackers.",
+    "narrative": "A frustrated engineering lead struggles through slow UI clicks, configuration drift, and broken workflows in legacy software. Cut to a sleek, keyboard-driven environment powered by Linear Cycles and Roadmaps, eliminating triage bottleneck and boosting issue triage velocity by 10x instantly.",
+    "emotionalArc": "Exhaustion -> Aggravation -> Precision -> Total Command",
+    "visualMood": "Brutalist obsidian with high-contrast UI accents and tactile keypress motion blur",
+    "estimatedSceneCount": 4,
+    "strategicScore": 9.4,
+    "reasoning": "Directly attacks the primary pain point of lost engineering hours while establishing an authoritative standard that modern engineering leaders feel compelled to adopt."
+  },
+  "storyboard": {
+    "concept": {
+      "id": "concept-1",
+      "angle": "pain-agitate-solve",
+      "angleTitle": "The 15-Hour Engineering Tax",
+      "hook": "You didn't hire senior engineers to spend 15 hours a week configuring issue trackers.",
+      "narrative": "A frustrated engineering lead struggles through slow UI clicks, configuration drift, and broken workflows in legacy software. Cut to a sleek, keyboard-driven environment powered by Linear Cycles and Roadmaps, eliminating triage bottleneck and boosting issue triage velocity by 10x instantly.",
+      "emotionalArc": "Exhaustion -> Aggravation -> Precision -> Total Command",
+      "visualMood": "Brutalist obsidian with high-contrast UI accents and tactile keypress motion blur",
+      "estimatedSceneCount": 4,
+      "strategicScore": 9.4,
+      "reasoning": "Directly attacks the primary pain point of lost engineering hours while establishing an authoritative standard that modern engineering leaders feel compelled to adopt."
+    },
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Disrupt → Demonstrate → Prove → Convert",
+    "pacingStrategy": "Fast hook (3s) → Deep product showcase (4s) → Proof punch (4s) → Decisive CTA (4s)",
+    "scenes": [
+      {
+        "id": "scene-1-hook",
+        "sceneIndex": 1,
+        "name": "The Disruptive Hook",
+        "intent": "Seize viewer attention within 800ms by framing the cost of legacy habits.",
+        "durationSeconds": 3,
+        "emotionalBeat": "Friction & Tension",
+        "headlineCopy": "You didn't hire senior engineers to spend 15 hours a week configuring issue trackers.",
+        "visualDescription": "Deep obsidian backdrop with glowing red constraint badges appearing under kinetic copy.",
+        "pacingNotes": "Word-by-word reveal with fast 3-frame stagger; badges arrive at frame 20.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Bold kinetic headline",
+            "importance": "hero"
+          },
+          {
+            "role": "problem-badge",
+            "description": "Friction pill badges",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2-showcase",
+        "sceneIndex": 2,
+        "name": "The Velocity Discovery",
+        "intent": "Show Linear replacing friction with effortless modern execution.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Relief & Breakthrough",
+        "headlineCopy": "One unified platform for modern linear.",
+        "visualDescription": "3D glassmorphic command center with real-time analytics curve and live status badges.",
+        "pacingNotes": "Headline reveals at 0f; 3D perspective window glides in at 10f with floating physics.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Solution headline",
+            "importance": "hero"
+          },
+          {
+            "role": "product-mockup",
+            "description": "Analytics dashboard window",
+            "importance": "hero"
+          },
+          {
+            "role": "status-badge",
+            "description": "Floating operational status pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-3-proof",
+        "sceneIndex": 3,
+        "name": "The Quantitative Anchor",
+        "intent": "Anchor credibility with concrete, verifiable performance numbers.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Confidence & Certainty",
+        "headlineCopy": "Proven impact at high-growth scale.",
+        "visualDescription": "Giant 124px glowing metric counter surging from zero, flanked by security trust badges.",
+        "pacingNotes": "Headline at 0f; counter animates over 35 frames with smooth cubic ease-out.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Proof headline",
+            "importance": "supporting"
+          },
+          {
+            "role": "metric-hero",
+            "description": "Big bold animated counter",
+            "importance": "hero"
+          },
+          {
+            "role": "trust-signal",
+            "description": "SOC2 and enterprise certification pills",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-4-close",
+        "sceneIndex": 4,
+        "name": "The Decisive Action",
+        "intent": "Compel immediate conversion with minimal friction reassurance.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Empowerment & Action",
+        "headlineCopy": "Linear",
+        "supportingCopy": "The Issue Tracker Built for High-Performance Teams",
+        "visualDescription": "Glowing brand monogram scale-in with glowing ambient backlight and a pulsing CTA button.",
+        "pacingNotes": "Monogram lands at 0f; CTA button arrives at 12f with continuous breathing pulse.",
+        "elementIntents": [
+          {
+            "role": "brand-monogram",
+            "description": "Brand logo reveal with radial glow",
+            "importance": "hero"
+          },
+          {
+            "role": "call-to-action",
+            "description": "Pulsing primary action button",
+            "importance": "hero"
+          }
+        ]
+      }
+    ]
+  },
+  "critique": {
+    "overallScore": 9.1,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1-hook",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2-showcase",
+        "score": 7.7,
+        "notes": "1 design issues flagged.",
+        "issues": [
+          {
+            "sceneId": "scene-2-showcase",
+            "category": "visual-hierarchy",
+            "severity": "critical",
+            "description": "Elements at Y:58% and Y:50% are dangerously close, risking overlap.",
+            "suggestedFix": "Separate element Y positions by at least 18%."
+          }
+        ]
+      },
+      {
+        "sceneId": "scene-3-proof",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4-close",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}

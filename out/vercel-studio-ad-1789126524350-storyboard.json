@@ -1,0 +1,212 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "Vercel",
+      "tagline": "Develop. Preview. Ship.",
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#4338CA",
+        "accent": "#0070F3",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "technical",
+      "personality": "Obsessively engineered and precise, yet sleek and minimalist. Speaks with the quiet confidence of an essential developer tool that prioritizes speed, efficiency, and flawless execution.",
+      "avoidWords": [
+        "synergy",
+        "disruptive",
+        "clunky",
+        "bloated"
+      ]
+    },
+    "positioning": {
+      "category": "Frontend Cloud Platform",
+      "competitors": [
+        "Netlify",
+        "AWS Amplify",
+        "Cloudflare Pages"
+      ],
+      "differentiator": "Frictionless developer workflow featuring instant preview deployments and optimized framework performance out of the box."
+    },
+    "audience": {
+      "primary": "Frontend engineers, full-stack developers, and engineering leads at modern technology companies.",
+      "painPoints": [
+        "Complex DevOps configuration and CI/CD pipeline maintenance",
+        "Slow feedback loops and build times during feature iteration",
+        "Inconsistencies between local, staging, and production environments"
+      ],
+      "motivations": [
+        "Shipping high-performance web applications effortlessly",
+        "Streamlining team collaboration through instant preview links"
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-speedrun",
+    "angle": "velocity-speedrun",
+    "angleTitle": "Zero to Production Velocity",
+    "hook": "What if your database provisioned in 48 milliseconds?",
+    "narrative": "Pure adrenaline speedrun: shows code running live, instant branch deployment, zero cold starts, and immediate proof numbers.",
+    "emotionalArc": "Curiosity → Kinetic Surprise → Urgency to Adopt",
+    "visualMood": "High-contrast IDE terminal aesthetic with electric neon highlights.",
+    "estimatedSceneCount": 4,
+    "strategicScore": 9.6,
+    "reasoning": "Engineers and technical buyers convert fastest when shown raw speed metrics and code execution."
+  },
+  "storyboard": {
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Tension -> Solution -> Proof -> Action",
+    "pacingStrategy": "Rapid-fire 48ms visual spark (3s), high-speed terminal deployment (4s), crisp telemetry metric anchor (4s), hyper-clean brand exit (4s)",
+    "scenes": [
+      {
+        "id": "scene-1",
+        "sceneIndex": 1,
+        "name": "The 48ms Challenge",
+        "intent": "Capture developer curiosity with an audacious speed latency claim",
+        "durationSeconds": 3,
+        "emotionalBeat": "Tension and intrigue",
+        "headlineCopy": "What if your database provisioned in 48 milliseconds?",
+        "supportingCopy": "Zero configuration. Instant spin-up.",
+        "visualDescription": "Monochrome, hyper-sleek UI canvas with glowing laser line typography. A millisecond timer rapidly counts up from 0 to 48ms, locking into place with a sharp tactile haptic flash.",
+        "pacingNotes": "Aggressive, frame-accurate cuts with fast staggered text entrance.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "Kinetic typography slamming into focus word-by-word",
+            "importance": "hero"
+          },
+          {
+            "role": "progress-bar",
+            "description": "Sub-millisecond speedrun ticker rapidly hitting 48ms mark",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2",
+        "sceneIndex": 2,
+        "name": "Live Speedrun Deploy",
+        "intent": "Demonstrate real-time preview branch generation via seamless git workflow",
+        "durationSeconds": 4,
+        "emotionalBeat": "Adrenaline and technical awe",
+        "headlineCopy": "Git push. Instant preview branch.",
+        "supportingCopy": "Isolated compute created on every single commit.",
+        "visualDescription": "A minimalist dark mode CLI / code terminal window streaming fast build logs, generating a live HTTPS preview link in real-time with green status badges.",
+        "pacingNotes": "Continuous fluid motion; code lines stream rapidly as preview card expands.",
+        "elementIntents": [
+          {
+            "role": "solution-headline",
+            "description": "High-contrast header above terminal window",
+            "importance": "hero"
+          },
+          {
+            "role": "app-window",
+            "description": "Animated terminal executing build command and spawning branch preview URL",
+            "importance": "hero"
+          }
+        ]
+      },
+      {
+        "id": "scene-3",
+        "sceneIndex": 3,
+        "name": "The Latency Benchmark",
+        "intent": "Anchor technical trust with unassailable global edge latency proof",
+        "durationSeconds": 4,
+        "emotionalBeat": "Absolute confidence and authority",
+        "headlineCopy": "350ms GLOBAL EDGE LATENCY",
+        "supportingCopy": "Zero cold starts across 300+ global edge locations.",
+        "visualDescription": "Massive kinetic metric counter zooming into focus with glowing network node connections pulsing globally in the background.",
+        "pacingNotes": "Heavy kinetic landing on the key metric '350ms' followed by floating feature tag reveals.",
+        "elementIntents": [
+          {
+            "role": "metric-hero",
+            "description": "Bold illuminated 350ms stat counter",
+            "importance": "hero"
+          },
+          {
+            "role": "feature-pills",
+            "description": "Floating badges for 'Zero Cold Starts' and '300+ Edge Regions'",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-4",
+        "sceneIndex": 4,
+        "name": "Ship Instant CTA",
+        "intent": "Drive immediate developer signups and instant project deployment",
+        "durationSeconds": 4,
+        "emotionalBeat": "Urgency and empowerment",
+        "headlineCopy": "Ship at the speed of thought.",
+        "supportingCopy": "Deploy your first database project in seconds.",
+        "visualDescription": "High-contrast monochrome exit. Iconic Vercel black-and-white triangle logo smoothly draws itself as the primary CTA button glows into full interactive state.",
+        "pacingNotes": "Slight rhythm snap into clean minimalist finish.",
+        "elementIntents": [
+          {
+            "role": "brand-monogram",
+            "description": "Animated stroke path reveal of the Vercel triangle mark",
+            "importance": "hero"
+          },
+          {
+            "role": "cta-headline",
+            "description": "Bold closing kinetic typography",
+            "importance": "hero"
+          },
+          {
+            "role": "cta-button",
+            "description": "High-contrast interactive 'Start Building Free' button",
+            "importance": "hero"
+          }
+        ]
+      }
+    ],
+    "concept": {
+      "id": "concept-speedrun",
+      "angle": "velocity-speedrun",
+      "angleTitle": "Zero to Production Velocity",
+      "hook": "What if your database provisioned in 48 milliseconds?",
+      "narrative": "Pure adrenaline speedrun: shows code running live, instant branch deployment, zero cold starts, and immediate proof numbers.",
+      "emotionalArc": "Curiosity → Kinetic Surprise → Urgency to Adopt",
+      "visualMood": "High-contrast IDE terminal aesthetic with electric neon highlights.",
+      "estimatedSceneCount": 4,
+      "strategicScore": 9.6,
+      "reasoning": "Engineers and technical buyers convert fastest when shown raw speed metrics and code execution."
+    }
+  },
+  "critique": {
+    "overallScore": 9.5,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-3",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}

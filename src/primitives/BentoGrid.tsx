@@ -27,7 +27,7 @@ export const BentoGrid: React.FC<Props> = ({ props, brand, cardStyleId: propCard
   const currentFrame = Math.max(0, frame - delay);
   if (frame < delay) return null;
 
-  const isLight = brand.theme === "editorial-light" || brand.colors?.background === "#F8F7F3" || brand.colors?.background === "#FFFFFF" || brand.colors?.background === "#F8FAFC";
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
   const primaryColor = resolveColor("brand.primary", brand);
   const accentColor = resolveColor("brand.accent", brand);
 

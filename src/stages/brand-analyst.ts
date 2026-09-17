@@ -55,17 +55,17 @@ Goal: ${brief.goal}`;
 
     return {
       identity: brand,
-      voice: aiAnalysis?.voice || {
+      voice: aiAnalysis.voice || {
         tone: "technical",
         personality: "Engineered for precision and high-velocity teams.",
         avoidWords: ["synergy", "disrupt", "leverage"],
       },
-      positioning: aiAnalysis?.positioning || {
+      positioning: aiAnalysis.positioning || {
         category: "Cloud Software",
         competitors: ["Legacy Solutions"],
         differentiator: brief.keyFeatures?.[0] || "Next-generation automation",
       },
-      audience: aiAnalysis?.audience || {
+      audience: aiAnalysis.audience || {
         primary: brief.targetAudience || "High-growth engineering and operations leaders",
         painPoints: ["Manual friction", "Slow iteration cycles"],
         motivations: ["Scale faster", "Eliminate errors"],
@@ -81,17 +81,13 @@ Goal: ${brief.goal}`;
     const isPowerTool = Boolean(textContext.match(/launcher|raycast|command palette|alfred|omnibar|command-bar/i));
     const isConsumer = brand.theme === "consumer-vibrant" || Boolean(textContext.match(/blinkcash|cash|wallet|crypto|savings|yield|mobile|game|learn|language/i));
 
-    if (!brand.colors) {
-      brand.colors = {};
-    }
-
     if (isEditorial && (!brand.theme || brand.theme === "dark-saas")) {
       if (textContext.match(/aesop|botanical|luxury|apothecary|fragrance|skincare/i) || brand.theme === "editorial-light") {
         brand.theme = "editorial-light";
-        if (!brand.colors?.background || brand.colors?.background === "#0B0F19") {
-          brand.colors!.background = "#F5F3EC";
-          brand.colors!.text = "#252525";
-          brand.colors!.muted = "#7A736E";
+        if (!brand.colors.background || brand.colors.background === "#0B0F19") {
+          brand.colors.background = "#F5F3EC";
+          brand.colors.text = "#252525";
+          brand.colors.muted = "#7A736E";
         }
         brand.serifFont = "'Newsreader', 'Playfair Display', Georgia, serif";
       }
@@ -154,40 +150,6 @@ Goal: ${brief.goal}`;
           motivations: [
             "Restorative quietude and sensory elevation",
             "Immaculate botanical formulation in timeless amber glass",
-          ],
-        },
-      };
-    }
-
-    // 2b. Specialty Coffee, Artisan Goods & Refined Daily Ritual (e.g. Morrow Coffee)
-    if (textContext.match(/coffee|beans|roast|brew|ritual|morning|cafe|espresso|pourover|barista/i)) {
-      if (!brand.colors?.primary) brand.colors.primary = "#2B1810";
-      if (!brand.colors?.accent) brand.colors.accent = "#C89567";
-      if (!brand.colors?.secondary) brand.colors.secondary = "#1A0F0A";
-      brand.theme = "editorial-light";
-      brand.serifFont = "'Newsreader', 'Playfair Display', Georgia, serif";
-      return {
-        identity: brand,
-        voice: {
-          tone: "minimalist",
-          personality: "Warm, restrained, poetic, and obsessed with the quiet craft of morning ritual.",
-          avoidWords: ["grab-and-go", "caffeine rush", "synergistic", "disrupt", "productivity fuel"],
-        },
-        positioning: {
-          category: `${name} Modern Specialty Coffee`,
-          competitors: ["Stale Supermarket Commercial Beans", "Noisy Fast-Food Coffee Chains", "Generic Mass-Produced Blends"],
-          differentiator: brief.keyFeatures?.[0] || "Bespoke Packaged Single-Origin Micro-Roast",
-        },
-        audience: {
-          primary: brief.targetAudience || "Specialty coffee lovers, design-conscious morning ritualists, and craft purists",
-          painPoints: [
-            "Bitter, over-roasted commercial beans devoid of origin nuance",
-            "Rushed, mindless mornings with low-quality instant convenience",
-            "Lack of transparency in sourcing and freshness dates",
-          ],
-          motivations: [
-            "A transcendent sensory morning ritual worth slowing down for",
-            "Complex aromatic bloom, velvety mouthfeel, and pristine craft",
           ],
         },
       };

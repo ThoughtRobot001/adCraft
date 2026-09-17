@@ -133,9 +133,9 @@ export function selectVisualKit(
   const brand = profile.identity;
   const isEditorial =
     brand.theme === "editorial-light" ||
-    brand.colors?.background?.toLowerCase() === "#f8f7f3" ||
-    brand.colors?.background?.toLowerCase() === "#ffffff" ||
-    brand.colors?.background?.toLowerCase() === "#f8fafc";
+    brand.colors.background?.toLowerCase() === "#f8f7f3" ||
+    brand.colors.background?.toLowerCase() === "#ffffff" ||
+    brand.colors.background?.toLowerCase() === "#f8fafc";
 
   if (isEditorial) {
     return CURATED_VISUAL_KITS[0]; // kit-editorial-light

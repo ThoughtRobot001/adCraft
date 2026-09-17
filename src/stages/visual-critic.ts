@@ -22,9 +22,9 @@ export class VisualCritic {
 
     const isLight =
       motionIR.brand.theme === "editorial-light" ||
-      motionIR.brand.colors?.background === "#F8F7F3" ||
-      motionIR.brand.colors?.background === "#FFFFFF" ||
-      motionIR.brand.colors?.background === "#F8FAFC";
+      motionIR.brand.colors.background === "#F8F7F3" ||
+      motionIR.brand.colors.background === "#FFFFFF" ||
+      motionIR.brand.colors.background === "#F8FAFC";
 
     for (let idx = 0; idx < motionIR.scenes.length; idx++) {
       const scene = motionIR.scenes[idx];

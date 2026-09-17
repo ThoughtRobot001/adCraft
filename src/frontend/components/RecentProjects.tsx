@@ -6,10 +6,8 @@ import {
   MagicWandIcon,
 } from "@radix-ui/react-icons";
 import { Project } from "../types";
-import { Skeleton } from "./Skeleton";
 
 interface RecentProjectsProps {
-  isLoading?: boolean;
   projects: Project[];
   activeProjectId: string;
   onSelectProject: (project: Project) => void;
@@ -17,7 +15,6 @@ interface RecentProjectsProps {
 }
 
 export const RecentProjects: React.FC<RecentProjectsProps> = ({
-  isLoading,
   projects,
   activeProjectId,
   onSelectProject,
@@ -43,24 +40,8 @@ export const RecentProjects: React.FC<RecentProjectsProps> = ({
 
       {/* 4-Column Grid matching screenshot */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-        {isLoading
-          ? Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={`skeleton-${i}`}
-                className="group rounded-2xl glass-card p-3 relative overflow-hidden flex flex-col justify-between"
-              >
-                <Skeleton className="w-full aspect-video mb-3 rounded-xl" />
-                <div>
-                  <Skeleton className="h-4 w-3/4 mb-2 rounded" />
-                  <Skeleton className="h-3 w-1/2 mb-4 rounded" />
-                  <div className="pt-2.5 border-t border-slate-200 dark:border-white/[0.08]">
-                    <Skeleton className="h-3 w-1/3 rounded" />
-                  </div>
-                </div>
-              </div>
-            ))
-          : projects.slice(0, 4).map((project) => {
-              const isActive = project.id === activeProjectId;
+        {projects.slice(0, 4).map((project) => {
+          const isActive = project.id === activeProjectId;
           const isCompleted = project.status === "Completed";
 
           return (
@@ -117,6 +98,11 @@ export const RecentProjects: React.FC<RecentProjectsProps> = ({
 
                 <div className="flex items-center justify-between pt-2.5 border-t border-slate-200 dark:border-white/[0.08] text-[11px] text-slate-600 dark:text-slate-300">
                   <span>{project.createdAt}</span>
+                  {isActive && (
+                    <span className="text-[10px] text-[#00e575] font-semibold flex items-center gap-1 bg-emerald-500/15 px-2 py-0.5 rounded-md border border-emerald-500/30">
+                      <span>Active</span>
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

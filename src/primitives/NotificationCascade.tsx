@@ -66,9 +66,9 @@ export const NotificationCascade: React.FC<Props> = ({ props, brand, cardStyleId
   const mutedColor = resolveColor("brand.muted", brand);
   const isLight =
     brand.theme === "editorial-light" ||
-    brand.colors?.background === "#F8F7F3" ||
-    brand.colors?.background === "#FFFFFF" ||
-    brand.colors?.background === "#F8FAFC";
+    brand.colors.background === "#F8F7F3" ||
+    brand.colors.background === "#FFFFFF" ||
+    brand.colors.background === "#F8FAFC";
 
   // Resolve styling from Asset Bank if cardStyleId is present
   const resolvedCardStyleId = (props as any).cardStyleId || propCardStyleId;

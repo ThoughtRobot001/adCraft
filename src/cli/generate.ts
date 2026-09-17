@@ -80,8 +80,8 @@ async function main() {
     console.log("🏆 ADCRAFT CREATIVE STUDIO — PRODUCTION REPORT");
     console.log("============================================================");
     console.log(`Brand:              ${result.brandProfile.identity.name}`);
-    console.log(`Brand Voice:        ${result.brandProfile.voice?.tone.toUpperCase() || "PROFESSIONAL"} (${result.brandProfile.voice?.personality || "Professional"})`);
-    console.log(`Target Audience:    ${result.brandProfile.audience?.primary || "General Audience"}`);
+    console.log(`Brand Voice:        ${result.brandProfile.voice.tone.toUpperCase()} (${result.brandProfile.voice.personality})`);
+    console.log(`Target Audience:    ${result.brandProfile.audience.primary}`);
     console.log(`------------------------------------------------------------`);
     console.log(`Concept Candidates:`);
     result.conceptCandidates.forEach((c, idx) => {

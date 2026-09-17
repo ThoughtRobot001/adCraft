@@ -49,9 +49,9 @@ export const AppWindow: React.FC<Props> = ({
     props.theme === "light" ||
     (props.theme === undefined &&
       (brand.theme === "editorial-light" ||
-        brand.colors?.background === "#F8F7F3" ||
-        brand.colors?.background === "#FFFFFF" ||
-        brand.colors?.background === "#F8FAFC"));
+        brand.colors.background === "#F8F7F3" ||
+        brand.colors.background === "#FFFFFF" ||
+        brand.colors.background === "#F8FAFC"));
 
   // Asset Bank resolution
   const resolvedDeviceId = (props as any).deviceAssetId || propDeviceId;

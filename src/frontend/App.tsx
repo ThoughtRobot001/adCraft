@@ -19,7 +19,6 @@ export default function App() {
   const [activeNavTab, setActiveNavTab] = useState<NavTab>("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isWorkspaceActive, setIsWorkspaceActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -61,24 +60,17 @@ export default function App() {
 
   // Fetch initial projects from backend if available
   useEffect(() => {
-    // Simulate a brief loading state for visual feedback
-    const timer = setTimeout(() => {
-      fetch("/api/projects")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.projects && data.projects.length > 0) {
-            setProjects(data.projects);
-            setCurrentProject(data.projects[0]);
-          }
-        })
-        .catch((err) => {
-          console.warn("Using local mock projects:", err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }, 800);
-    return () => clearTimeout(timer);
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.projects && data.projects.length > 0) {
+          setProjects(data.projects);
+          setCurrentProject(data.projects[0]);
+        }
+      })
+      .catch((err) => {
+        console.warn("Using local mock projects:", err);
+      });
   }, []);
 
   const handleSelectProject = (project: Project) => {
@@ -164,14 +156,12 @@ export default function App() {
             {activeNavTab === "home" && (
               <div className={`mx-auto flex-1 w-full flex flex-col ${isWorkspaceActive ? "max-w-none h-full" : "max-w-5xl space-y-6"}`}>
                 <AdHeroCreator 
-                  isLoading={isLoading}
                   onAdCreated={handleAdCreated} 
                   onWorkspaceStateChange={setIsWorkspaceActive}
                 />
 
                 {!isWorkspaceActive && (
                   <RecentProjects
-                    isLoading={isLoading}
                     projects={projects}
                     activeProjectId={currentProject.id}
                     onSelectProject={handleSelectProject}

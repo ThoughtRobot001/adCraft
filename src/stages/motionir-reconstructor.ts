@@ -237,8 +237,8 @@ export class MotionIRReconstructor {
         parallax: 0.15,
         props: {
           delay: 0,
-          color: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) || brand.colors?.primary || "#6366F1",
-          accentColor: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) || brand.colors?.accent || "#B7AEFF",
+          color: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) || brand.colors.primary,
+          accentColor: (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) || brand.colors.accent || "#B7AEFF",
           speed: 1.2,
           density: 40,
           streakLength: 2.5,
@@ -290,10 +290,10 @@ export class MotionIRReconstructor {
 
     const primaryColor =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.primaryBrand) ||
-      brand.colors?.primary || "#6366F1";
+      brand.colors.primary;
     const accentColor =
       (!allowPaletteDeparture && bible?.visualLanguage.colorTokens.accentHighlight) ||
-      brand.colors?.accent ||
+      brand.colors.accent ||
       "#B7AEFF";
 
     if (primitiveType === "candidate-noise-field" || primitiveType === "perspective-card-field") {

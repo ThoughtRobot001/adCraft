@@ -7,21 +7,40 @@ import type {
 } from "../studio/types";
 
 export const DEFAULT_BRIEF: CampaignBrief = {
-  productName: "",
-  productDescription: "",
-  websiteUrl: "",
-  targetAudience: "",
+  productName: "RCRUT",
+  productDescription:
+    "AI-powered recruiting platform that eliminates repetitive screening, spreadsheets, and delays, helping modern companies hire exceptional talent 10x faster.",
+  websiteUrl: "https://rcrut.ai",
+  targetAudience: "Startup founders, hiring managers, and aggressive recruiting teams.",
   goal: "free_trial",
   targetDurationSeconds: 15,
   aspectRatio: "9:16",
-  keyFeatures: [],
-  tone: [],
+  keyFeatures: [
+    "AI Automated Resume Screening",
+    "Real-Time Candidate Scoring",
+    "Instant Multi-Channel Pipeline",
+  ],
+  metricsOrSocialProof: {
+    metric: "10x",
+    label: "FASTER CANDIDATE EVALUATION",
+    subtext: "From 14 days to 4 hours per hire",
+  },
+  constraints: [
+    "Avoid corporate stock photography",
+    "No generic template aesthetic",
+    "Maintain dark tech editorial precision",
+  ],
+  tone: ["Intelligent", "Precise", "Modern", "Confident", "Fast"],
+  cta: {
+    label: "Start Free Trial",
+    url: "https://rcrut.ai/signup",
+  },
   outputChannels: ["tiktok", "instagram-reels", "linkedin"],
 };
 
 export const DEFAULT_BRAND: BrandInput = {
-  name: "",
-  tagline: "",
+  name: "RCRUT",
+  tagline: "Discover. Evaluate. Hire.",
   colors: {
     primary: "#0B0D11",
     accent: "#8B5CF6",
@@ -30,7 +49,7 @@ export const DEFAULT_BRAND: BrandInput = {
 };
 
 const INITIAL_CAPABILITY: CapabilityStatus = {
-  aiProvider: "Gemini 2.5 Flash",
+  aiProvider: "Gemini 3.6 Flash",
   status: "configured",
   mode: "live-ai",
   message: "Connecting to AdCraft Creative Studio Engine...",
@@ -103,36 +122,18 @@ export function useStudioEngine() {
     }));
   }, []);
 
-  const updateBrand = useCallback((updates: Partial<BrandInput>) => {
-    setState((prev) => ({
-      ...prev,
-      brandInput: { ...prev.brandInput, ...updates },
-    }));
-  }, []);
-
   const runPipelineStepByStep = useCallback(
-    async (creativeDirection?: string, initialBrief?: Partial<CampaignBrief>, initialBrand?: Partial<BrandInput>) => {
+    async (creativeDirection?: string) => {
       setIsLoading(true);
       setActiveError(null);
       
       let currentState = { ...state };
-      if (initialBrief) {
-        currentState.brief = { ...currentState.brief, ...initialBrief };
-      }
-      if (initialBrand) {
-        currentState.brandInput = { ...currentState.brandInput, ...initialBrand };
-      }
       if (creativeDirection) {
         currentState.creativeDirection = creativeDirection;
       }
       
       try {
-        setState((prev) => ({ 
-          ...prev, 
-          jobState: "running",
-          brief: currentState.brief,
-          brandInput: currentState.brandInput
-        }));
+        setState((prev) => ({ ...prev, jobState: "running" }));
         pushLog("User", `Create an ad for ${currentState.brief.productName}: ${currentState.brief.productDescription}`);
         
         // 1. Brief
@@ -314,7 +315,6 @@ export function useStudioEngine() {
     runPipelineStepByStep,
     submitNaturalLanguageRevision,
     updateBrief,
-    updateBrand,
     resetEngine,
   };
 }

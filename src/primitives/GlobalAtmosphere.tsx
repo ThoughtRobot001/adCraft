@@ -40,9 +40,9 @@ export const GlobalAtmosphere: React.FC<Props> = ({
     propIsLight !== undefined
       ? propIsLight
       : brand.theme === "editorial-light" ||
-        brand.colors?.background === "#F8F7F3" ||
-        brand.colors?.background === "#FFFFFF" ||
-        brand.colors?.background === "#F8FAFC";
+        brand.colors.background === "#F8F7F3" ||
+        brand.colors.background === "#FFFFFF" ||
+        brand.colors.background === "#F8FAFC";
 
   const primaryColor = resolveColor("brand.primary", brand);
   const accentColor = resolveColor("brand.accent", brand);

@@ -29,7 +29,7 @@ export const PromptInput: React.FC<Props> = ({ props, brand }) => {
   const primaryColor = resolveColor("brand.primary", brand);
   const textColor = resolveColor("brand.text", brand);
   const mutedColor = resolveColor("brand.muted", brand);
-  const isLight = brand.theme === "editorial-light" || brand.colors?.background === "#F8F7F3" || brand.colors?.background === "#FFFFFF";
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF";
 
   // Box entrance spring
   const spr = spring({

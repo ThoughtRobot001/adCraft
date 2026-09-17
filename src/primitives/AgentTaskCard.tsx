@@ -40,7 +40,7 @@ export const AgentTaskCard: React.FC<Props> = ({ props, brand, cardStyleId: prop
   const accentColor = resolveColor("brand.accent", brand);
   const textColor = resolveColor("brand.text", brand);
   const mutedColor = resolveColor("brand.muted", brand);
-  const isLight = brand.theme === "editorial-light" || brand.colors?.background === "#F8F7F3" || brand.colors?.background === "#FFFFFF" || brand.colors?.background === "#F8FAFC";
+  const isLight = brand.theme === "editorial-light" || brand.colors.background === "#F8F7F3" || brand.colors.background === "#FFFFFF" || brand.colors.background === "#F8FAFC";
 
   // Resolve styling from Asset Bank
   const resolvedCardStyleId = (props as any).cardStyleId || propCardStyleId;

@@ -10,9 +10,9 @@ export class SceneReviser {
 
     const isLight =
       motionIR.brand.theme === "editorial-light" ||
-      motionIR.brand.colors?.background === "#F8F7F3" ||
-      motionIR.brand.colors?.background === "#FFFFFF" ||
-      motionIR.brand.colors?.background === "#F8FAFC";
+      motionIR.brand.colors.background === "#F8F7F3" ||
+      motionIR.brand.colors.background === "#FFFFFF" ||
+      motionIR.brand.colors.background === "#F8FAFC";
 
     const totalScenes = motionIR.scenes.length;
 

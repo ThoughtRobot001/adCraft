@@ -165,16 +165,16 @@ export const AdComposition: React.FC<AdCompositionProps> = (props) => {
 
   const isLight =
     brand.theme === "editorial-light" ||
-    brand.colors?.background === "#F8F7F3" ||
-    brand.colors?.background === "#FFFFFF" ||
-    brand.colors?.background === "#F8FAFC";
+    brand.colors.background === "#F8F7F3" ||
+    brand.colors.background === "#FFFFFF" ||
+    brand.colors.background === "#F8FAFC";
 
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: brand.colors?.background || "#0B0F19",
+        backgroundColor: brand.colors.background || "#0B0F19",
         position: "relative",
         overflow: "hidden",
         perspective: "1400px",

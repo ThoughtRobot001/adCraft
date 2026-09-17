@@ -73,13 +73,11 @@ Return valid JSON:
 }`;
 
     const userPrompt = `Brand: ${profile.identity.name}
-Tone: ${profile.voice?.tone || "professional"}
-Audience: ${profile.audience?.primary || "General Audience"}
-Category: ${profile.positioning?.category || "Software"}
-Core Differentiator: ${profile.positioning?.differentiator || "Quality"}
-Audience Pain Points: ${(profile.audience?.painPoints || []).join("; ")}
-Product Name: ${brief.productName}
-Product Description: ${brief.productDescription}
+Tone: ${profile.voice.tone}
+Audience: ${profile.audience.primary}
+Category: ${profile.positioning.category}
+Core Differentiator: ${profile.positioning.differentiator}
+Audience Pain Points: ${profile.audience.painPoints.join("; ")}
 Campaign Goal: ${brief.goal}
 Key Metric: ${brief.metricsOrSocialProof?.metric || "10x"} (${brief.metricsOrSocialProof?.label || "Speedup"})`;
 
@@ -190,73 +188,56 @@ Key Metric: ${brief.metricsOrSocialProof?.metric || "10x"} (${brief.metricsOrSoc
       ];
     }
 
-    // Archetype 3: Editorial / High-Craft (e.g. Linear, Aesop, Morrow Coffee, minimal premium)
+    // Archetype 3: Editorial / High-Craft (e.g. Linear, Aesop, minimal premium)
     const isBotanical = Boolean(textContext.match(/aesop|botanical|luxury|apothecary|fragrance|skincare/i));
-    const isCoffee = Boolean(textContext.match(/coffee|beans|roast|brew|ritual|morning|cafe|espresso|pourover|barista/i));
-    if (tone === "minimalist" || cat.includes("design") || cat.includes("luxury") || cat.includes("editorial") || cat.includes("craft") || isBotanical || isCoffee) {
+    if (tone === "minimalist" || cat.includes("design") || cat.includes("luxury") || cat.includes("editorial") || cat.includes("craft") || isBotanical) {
       return [
         {
           id: "concept-editorial-manifesto",
           angle: "product-hero",
-          angleTitle: isCoffee ? "The Morning Ritual" : "The Discipline of Craft",
+          angleTitle: "The Discipline of Craft",
           narrativeArchetype: "editorial-manifesto",
-          hook: isCoffee
-            ? `The first cup of the day is not an afterthought. It is a ritual.`
-            : isBotanical
+          hook: isBotanical
             ? `Formulations crafted for those who demand quiet sensory elevation.`
             : `Software built for the few who still care about speed.`,
-          narrative: isCoffee
-            ? `Opens with the sensory anticipation of dawn, frames ${brandName}'s beautifully packaged beans as the hero, and unfolds the meditative craft of brewing something worth slowing down for.`
-            : isBotanical
+          narrative: isBotanical
             ? `Opens with whisper-quiet typographic restraint, presents ${brandName}'s deliberate botanical precision, and closes on a timeless apothecary mark with vast negative space.`
             : `Opens with whisper-quiet typographic restraint, presents ${brandName}'s deliberate engineering precision, and closes on a timeless brand mark with vast negative space.`,
-          emotionalArc: isCoffee ? "Sensory Anticipation → Unhurried Craft → Refined Awakening" : "Reverence → Deep Alignment → Lasting Conviction",
-          visualMood: isCoffee
-            ? "Rich espresso tones, warm linen backdrop, editorial serif typography, and soft atmospheric morning light."
-            : isBotanical
+          emotionalArc: "Reverence → Deep Alignment → Lasting Conviction",
+          visualMood: isBotanical
             ? "Warm linen canvas, razor-sharp serif typography, and amber glass illumination."
             : "Deep obsidian backdrop, razor-sharp monochrome typography, generous breathing room.",
           estimatedSceneCount: 3,
-          strategicScore: 9.7,
-          reasoning: isCoffee
-            ? "Specialty coffee drinkers value unhurried morning rituals and tangible craft over noisy advertising."
-            : "High-discretion craft audiences reject noisy marketing; quiet confidence signals undisputed industry authority.",
+          strategicScore: 9.6,
+          reasoning: "High-discretion craft audiences reject noisy marketing; quiet confidence signals undisputed industry authority.",
         },
         {
           id: "concept-transformation-clarity",
           angle: "before-after",
-          angleTitle: isCoffee ? "The Mindful Morning" : "Subtraction as Superiority",
+          angleTitle: "Subtraction as Superiority",
           narrativeArchetype: "transformation",
-          hook: isCoffee
-            ? `Most coffee is made for rushing. ${brandName} is made for savoring.`
-            : isBotanical
+          hook: isBotanical
             ? `Most formulations add synthetic noise. ${brandName} eliminates it.`
             : `Most tools add clutter. ${brandName} eliminates it.`,
-          narrative: isCoffee
-            ? `Contrasts the chaotic, uninspired rush of generic commercial coffee with the rich, aromatic calm of ${brandName}'s single-origin craft.`
-            : `Demonstrates the quiet dissolution of superfluous clutter into a single, pure, restorative ritual.`,
+          narrative: `Demonstrates the quiet dissolution of superfluous clutter into a single, pure, restorative ritual.`,
           emotionalArc: "Relief → Clarity → Elevation",
-          visualMood: isCoffee ? "Warm terracotta and roasted umber with luminous morning highlights." : "Monochrome slate with subtle warm directional lighting.",
+          visualMood: "Monochrome slate with subtle warm directional lighting.",
           estimatedSceneCount: 3,
-          strategicScore: 9.4,
-          reasoning: isCoffee
-            ? "Direct contrast highlights the sensory superiority of specialty micro-roasting."
-            : "Contrasts the chaotic industry norm with the calm sanctuary of exceptional design.",
+          strategicScore: 9.2,
+          reasoning: "Contrasts the chaotic industry norm with the calm sanctuary of exceptional design.",
         },
         {
           id: "concept-visual-metaphor",
           angle: "curiosity-hook",
-          angleTitle: isCoffee ? "The Art of the Pour" : "Frictionless Momentum",
+          angleTitle: "Frictionless Momentum",
           narrativeArchetype: "visual-metaphor",
-          hook: isCoffee ? `What does craft taste like at dawn?` : `What does absolute purity feel like?`,
-          narrative: isCoffee
-            ? `A macro cinematic progression through aroma, whole bean texture, and deep rich extraction.`
-            : `Uses pure spatial geometry and restrained motion to demonstrate undisturbed clarity.`,
-          emotionalArc: "Intrigue → Sensory Bloom → Pure Satisfaction",
-          visualMood: isCoffee ? "Deep roast obsidian with golden crema accents." : "Minimalist dark canvas with crisp kinetic typography.",
+          hook: `What does absolute purity feel like?`,
+          narrative: `Uses pure spatial geometry and restrained motion to demonstrate undisturbed clarity.`,
+          emotionalArc: "Intrigue → Flow → Mastery",
+          visualMood: "Minimalist dark canvas with crisp kinetic typography.",
           estimatedSceneCount: 3,
-          strategicScore: 9.1,
-          reasoning: "Appeals directly to the connoisseur's sensory appreciation.",
+          strategicScore: 8.9,
+          reasoning: "Engages discerning audiences on an intellectual and aesthetic level.",
         },
       ];
     }

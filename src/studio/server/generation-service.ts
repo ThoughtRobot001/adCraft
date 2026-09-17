@@ -68,7 +68,7 @@ export class StudioGenerationService {
     }
 
     return {
-      aiProvider: "Gemini Flash",
+      aiProvider: "Gemini 3.6 Flash",
       status: "configured",
       mode: "live-ai",
       message: "Live Gemini AI connected and configured for creative intelligence.",

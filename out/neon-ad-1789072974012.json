@@ -1,0 +1,288 @@
+{
+  "id": "neon-ad-1789072974012",
+  "meta": {
+    "title": "Neon - free_trial Ad",
+    "fps": 30,
+    "width": 1080,
+    "height": 1920
+  },
+  "brand": {
+    "name": "Neon",
+    "tagline": "Serverless Postgres with Instant Branching",
+    "colors": {
+      "primary": "#00E599",
+      "secondary": "#4338CA",
+      "accent": "#6366F1",
+      "background": "#090D16",
+      "text": "#F8FAFC",
+      "muted": "#94A3B8"
+    },
+    "font": "system-ui, -apple-system, sans-serif"
+  },
+  "scenes": [
+    {
+      "id": "scene-1-hook",
+      "name": "Hook - Pain Point",
+      "durationFrames": 90,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#0F172A",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "hook-text",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Still handling neon tasks manually?",
+            "fontSize": 68,
+            "fontWeight": 800,
+            "color": "brand.text",
+            "position": {
+              "x": 50,
+              "y": 38
+            },
+            "align": "center",
+            "animation": "word-by-word",
+            "delay": 0,
+            "maxWidth": 88,
+            "highlightWords": [
+              "manually?"
+            ]
+          }
+        },
+        {
+          "id": "hook-badges",
+          "type": "feature-pills",
+          "props": {
+            "items": [
+              {
+                "text": "❌ Disconnected Tools",
+                "color": "#EF4444",
+                "highlight": false
+              },
+              {
+                "text": "❌ Slow Execution Cycles",
+                "color": "#EF4444",
+                "highlight": false
+              }
+            ],
+            "position": {
+              "x": 50,
+              "y": 64
+            },
+            "layout": "vertical",
+            "staggerFrames": 8,
+            "delay": 18
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 8
+      }
+    },
+    {
+      "id": "scene-2-product",
+      "name": "Product Showcase",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#1E1B4B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "product-headline",
+          "type": "kinetic-text",
+          "props": {
+            "text": "One intelligent platform for neon.",
+            "fontSize": 58,
+            "fontWeight": 800,
+            "color": "brand.text",
+            "position": {
+              "x": 50,
+              "y": 16
+            },
+            "align": "center",
+            "animation": "fade-up",
+            "delay": 0,
+            "maxWidth": 90,
+            "highlightWords": [
+              "neon"
+            ]
+          }
+        },
+        {
+          "id": "product-window",
+          "type": "app-window",
+          "props": {
+            "title": "Neon Command Center",
+            "url": "app.neon.io",
+            "mockType": "analytics",
+            "width": 92,
+            "position": {
+              "x": 50,
+              "y": 56
+            },
+            "tilt": true,
+            "shadow": true,
+            "delay": 10,
+            "animation": "float-up",
+            "badges": [
+              {
+                "text": "⚡ Branching like Git",
+                "color": "brand.primary",
+                "position": "top-right"
+              },
+              {
+                "text": "🔒 Autoscaling compute",
+                "color": "brand.primary",
+                "position": "bottom-left"
+              }
+            ]
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    },
+    {
+      "id": "scene-3-metrics",
+      "name": "Proof & Metrics",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#064E3B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "metrics-headline",
+          "type": "kinetic-text",
+          "props": {
+            "text": "Proven impact at high-growth scale.",
+            "fontSize": 56,
+            "fontWeight": 700,
+            "color": "brand.text",
+            "position": {
+              "x": 50,
+              "y": 16
+            },
+            "align": "center",
+            "animation": "fade-up",
+            "delay": 0,
+            "maxWidth": 88
+          }
+        },
+        {
+          "id": "main-counter",
+          "type": "metric-counter",
+          "props": {
+            "label": "COLD START LATENCY",
+            "value": 50,
+            "suffix": "x",
+            "decimals": 0,
+            "color": "brand.accent",
+            "position": {
+              "x": 50,
+              "y": 48
+            },
+            "delay": 10,
+            "durationFrames": 35,
+            "trend": "up",
+            "subtext": "Verified across 250+ enterprise tech companies"
+          }
+        },
+        {
+          "id": "social-proof-badges",
+          "type": "feature-pills",
+          "props": {
+            "items": [
+              {
+                "text": "Enterprise SOC2 Certified",
+                "icon": "🛡️",
+                "color": "brand.accent",
+                "highlight": true
+              },
+              {
+                "text": "Under 5-Min Setup",
+                "icon": "⚡",
+                "highlight": false
+              }
+            ],
+            "position": {
+              "x": 50,
+              "y": 76
+            },
+            "layout": "horizontal",
+            "staggerFrames": 6,
+            "delay": 25
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    },
+    {
+      "id": "scene-4-cta",
+      "name": "Outro & CTA",
+      "durationFrames": 120,
+      "background": {
+        "type": "gradient",
+        "color": "#090D16",
+        "gradientTo": "#1E1B4B",
+        "angle": 135,
+        "glowOrb": true
+      },
+      "elements": [
+        {
+          "id": "brand-logo",
+          "type": "logo-reveal",
+          "props": {
+            "brandName": "Neon",
+            "tagline": "Serverless Postgres with Instant Branching",
+            "size": 140,
+            "position": {
+              "x": 50,
+              "y": 36
+            },
+            "animation": "scale-in",
+            "delay": 0
+          }
+        },
+        {
+          "id": "cta-btn",
+          "type": "cta-button",
+          "props": {
+            "text": "Start Free Trial",
+            "subtext": "No credit card required • Instant setup",
+            "url": "neon.com",
+            "position": {
+              "x": 50,
+              "y": 68
+            },
+            "color": "#FFFFFF",
+            "backgroundColor": "brand.primary",
+            "pulse": true,
+            "delay": 12
+          }
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationFrames": 10
+      }
+    }
+  ]
+}

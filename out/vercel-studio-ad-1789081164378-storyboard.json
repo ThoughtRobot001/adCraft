@@ -1,0 +1,212 @@
+{
+  "brandProfile": {
+    "identity": {
+      "name": "Vercel",
+      "tagline": "Develop. Preview. Ship.",
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#4338CA",
+        "accent": "#0070F3",
+        "background": "#090D16",
+        "text": "#F8FAFC",
+        "muted": "#94A3B8"
+      },
+      "font": "system-ui, -apple-system, sans-serif"
+    },
+    "voice": {
+      "tone": "minimalist",
+      "personality": "Vercel speaks with crisp precision and developer-centric confidence. It values speed, clean architecture, and technical excellence over marketing fluff. Its tone is modern, empowering creators to build fast web experiences without infrastructure friction.",
+      "avoidWords": [
+        "clunky",
+        "synergy",
+        "legacy",
+        "bloated"
+      ]
+    },
+    "positioning": {
+      "category": "Frontend Cloud Platform",
+      "competitors": [
+        "Netlify",
+        "AWS Amplify",
+        "Cloudflare Pages"
+      ],
+      "differentiator": "Zero-configuration frontend platform offering seamless developer experience with instant preview deployments and global edge performance."
+    },
+    "audience": {
+      "primary": "Frontend developers, full-stack engineers, and modern web development teams",
+      "painPoints": [
+        "Complex DevOps overhead and server management",
+        "Slow build times and sluggish deployment feedback loops",
+        "Inconsistent staging environments between development and production"
+      ],
+      "motivations": [
+        "Maximizing developer velocity and iteration speed",
+        "Delivering ultra-fast, globally distributed web performance"
+      ]
+    }
+  },
+  "selectedConcept": {
+    "id": "concept-1",
+    "angle": "pain-agitate-solve",
+    "angleTitle": "The Sysadmin Trap",
+    "hook": "Stop acting like a part-time sysadmin just to ship a frontend feature.",
+    "narrative": "A developer gets buried under YAML configurations, failing docker builds, and broken staging pipelines. A single command switches the screen into pure zero-config clarity, instantly deploying globally.",
+    "emotionalArc": "Overwhelmed -> Exasperated -> Instant Relief -> Pure Velocity",
+    "visualMood": "High-contrast terminal dark mode with stark neon emerald accents and crisp micro-typography",
+    "estimatedSceneCount": 4,
+    "strategicScore": 9.4,
+    "reasoning": "Directly targets developer fatigue with traditional DevOps, presenting Vercel as the ultimate relief that frees engineers to focus on code rather than infrastructure."
+  },
+  "storyboard": {
+    "totalDurationSeconds": 15,
+    "narrativeArc": "Tension -> Solution -> Proof -> Action",
+    "pacingStrategy": "Aggressive glitch hook (3s), sleek monochromatic transition (4s), high-impact metric reveal (4s), sharp call-to-action (4s)",
+    "scenes": [
+      {
+        "id": "scene-1",
+        "sceneIndex": 1,
+        "name": "The Agitation Hook",
+        "intent": "Disrupt developers scrolling through feeds by highlighting the pain of DevOps overhead.",
+        "durationSeconds": 3,
+        "emotionalBeat": "Frustration and overload",
+        "headlineCopy": "Stop acting like a part-time sysadmin just to ship a frontend feature.",
+        "supportingCopy": "YAML chaos, failing docker builds, broken pipelines.",
+        "visualDescription": "Minimalist black background with frantic red-tinted terminal errors overlaying a chaotic avalanche of YAML file icons and Docker container fail logs.",
+        "pacingNotes": "Stagger elements rapidly every 4-6 frames to create visual friction.",
+        "elementIntents": [
+          {
+            "role": "hook-headline",
+            "description": "High-contrast kinetic typography with aggressive entry animation",
+            "importance": "hero"
+          },
+          {
+            "role": "problem-badge",
+            "description": "Floating red error badges highlighting YAML syntax errors and pipeline failures",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-2",
+        "sceneIndex": 2,
+        "name": "The Pivot to Simplicity",
+        "intent": "Introduce Vercel's zero-config experience as the instant cure to infrastructure friction.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Relief and clarity",
+        "headlineCopy": "One command. Zero config.",
+        "supportingCopy": "From local code to global production in a single keystroke.",
+        "visualDescription": "Terminal noise dissolves into pristine pure black (#000000). A single glow line types out `vercel` in a clean monospaced font, triggering an instantaneous UI expansion.",
+        "pacingNotes": "Hard visual cut on the beat drop, followed by a smooth 12-frame spring expansion.",
+        "elementIntents": [
+          {
+            "role": "solution-headline",
+            "description": "Clean white typography anchored at the top center",
+            "importance": "hero"
+          },
+          {
+            "role": "app-window",
+            "description": "Sleek monochrome terminal window resolving into a Vercel deployment preview card",
+            "importance": "hero"
+          }
+        ]
+      },
+      {
+        "id": "scene-3",
+        "sceneIndex": 3,
+        "name": "The Proof Anchor",
+        "intent": "Establish undeniable performance authority through concrete latency proof.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Confidence and speed",
+        "headlineCopy": "Deployed to the edge.",
+        "supportingCopy": "Global routing, instant rollbacks, zero cold starts.",
+        "visualDescription": "A glowing animated latency counter rapidly ticks down to 350ms next to an abstract wireframe vector globe expanding outward.",
+        "pacingNotes": "Counter ticks rapidly over 1.5s then locks smoothly into place with a subtle glow burst.",
+        "elementIntents": [
+          {
+            "role": "metric-hero",
+            "description": "Animated stat counter locking at 350ms with sub-text 'GLOBAL EDGE LATENCY'",
+            "importance": "hero"
+          },
+          {
+            "role": "feature-pills",
+            "description": "Minimalist dark pill badges showing 'Edge Network', 'Zero Config', and 'Instant Rollbacks'",
+            "importance": "supporting"
+          }
+        ]
+      },
+      {
+        "id": "scene-4",
+        "sceneIndex": 4,
+        "name": "High-Urgency Close",
+        "intent": "Drive immediate deployment action with strong brand visual anchor.",
+        "durationSeconds": 4,
+        "emotionalBeat": "Empowerment and call-to-action",
+        "headlineCopy": "Develop. Preview. Ship.",
+        "supportingCopy": "Start shipping faster today.",
+        "visualDescription": "Iconic Vercel triangle logo smoothly scales up from the center, revealing the brand wordmark and a sharp high-contrast CTA button.",
+        "pacingNotes": "Smooth inertia pull out on logo, snappy pulse effect on button hover state.",
+        "elementIntents": [
+          {
+            "role": "brand-monogram",
+            "description": "Precision vector animation of the iconic Vercel white triangle on black",
+            "importance": "hero"
+          },
+          {
+            "role": "cta-headline",
+            "description": "Bold trio headline: Develop. Preview. Ship.",
+            "importance": "hero"
+          },
+          {
+            "role": "cta-button",
+            "description": "High-contrast primary call-to-action button reading 'Deploy Now Free'",
+            "importance": "hero"
+          }
+        ]
+      }
+    ],
+    "concept": {
+      "id": "concept-1",
+      "angle": "pain-agitate-solve",
+      "angleTitle": "The Sysadmin Trap",
+      "hook": "Stop acting like a part-time sysadmin just to ship a frontend feature.",
+      "narrative": "A developer gets buried under YAML configurations, failing docker builds, and broken staging pipelines. A single command switches the screen into pure zero-config clarity, instantly deploying globally.",
+      "emotionalArc": "Overwhelmed -> Exasperated -> Instant Relief -> Pure Velocity",
+      "visualMood": "High-contrast terminal dark mode with stark neon emerald accents and crisp micro-typography",
+      "estimatedSceneCount": 4,
+      "strategicScore": 9.4,
+      "reasoning": "Directly targets developer fatigue with traditional DevOps, presenting Vercel as the ultimate relief that frees engineers to focus on code rather than infrastructure."
+    }
+  },
+  "critique": {
+    "overallScore": 9.5,
+    "passedThreshold": true,
+    "scenes": [
+      {
+        "sceneId": "scene-1",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-2",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-3",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      },
+      {
+        "sceneId": "scene-4",
+        "score": 9.5,
+        "notes": "Flawless hierarchy, pacing, and visual balance.",
+        "issues": []
+      }
+    ],
+    "summary": "Ad meets all motion design quality, typography readability, and pacing benchmarks.",
+    "revisionRequired": false
+  }
+}

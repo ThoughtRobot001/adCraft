@@ -56,9 +56,9 @@ export const CTAButton: React.FC<Props> = ({ props, brand, buttonStyleId: propBu
 
   const isLight =
     brand.theme === "editorial-light" ||
-    brand.colors?.background === "#F8F7F3" ||
-    brand.colors?.background === "#FFFFFF" ||
-    brand.colors?.background === "#F8FAFC";
+    brand.colors.background === "#F8F7F3" ||
+    brand.colors.background === "#FFFFFF" ||
+    brand.colors.background === "#F8FAFC";
 
   // Resolved dynamic styles from asset bank or defaults
   const padding = btnProps?.padding || "24px 64px";
