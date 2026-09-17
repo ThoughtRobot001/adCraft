@@ -1,0 +1,3823 @@
+{
+  "items": [
+    {
+      "id": "comp-perspective-conveyor-friction",
+      "name": "3D Perspective Friction Conveyor",
+      "type": "composition",
+      "whatItCommunicates": "An endless, overwhelming flood of pending tasks, alerts, or manual steps drowning the user.",
+      "creativeProblemSolved": "How to visually represent chaos, backlog fatigue, and fragmentation without looking like a generic bullet list or cheap stock illustration.",
+      "emotionalEffect": [
+        "tension",
+        "visual-overload",
+        "anxiety",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "diagonal-shear"
+      ],
+      "usefulCombinations": [
+        "tech-conveyor-belt-3d",
+        "bg-tension-shear-grid",
+        "typo-stagger-stress",
+        "sound-tension-hum",
+        "trans-whip-snap"
+      ],
+      "parameters": {
+        "perspectiveDegrees": 48,
+        "tiltY": -18,
+        "continuousScrollSpeed": 4.8,
+        "staggerDelayFrames": 6,
+        "ambientGlowColor": "#EF4444",
+        "vignetteIntensity": 0.55
+      },
+      "knownFailureModes": [
+        "Overlaps centered headline if headline posY > 30%",
+        "Card contrast disappears if cards don't have distinct 1px border (#ffffff15)",
+        "Motion sickness if scroll speed exceeds 6.5 px/frame",
+        "[Auto-Learned: spatial-collision] Cards clipped over centered headline when headline fontSize exceeded 60px",
+        "[User Rejected]: Cards moved too fast and collided with the subtext badge.",
+        "[Auto-Learned: spatial-collision-1789230462837] Cards clipped over centered headline at run 1789230462837",
+        "[User Rejected]: Cards moved too fast at run 1789230462837",
+        "[Auto-Learned: spatial-collision-1789231186391] Cards clipped over centered headline at run 1789231186391",
+        "[User Rejected]: Cards moved too fast at run 1789231186391",
+        "[Auto-Learned: spatial-collision-1789231231882] Cards clipped over centered headline at run 1789231231882",
+        "[User Rejected]: Cards moved too fast at run 1789231231882",
+        "[Auto-Learned: spatial-collision-1789231315700] Cards clipped over centered headline at run 1789231315700",
+        "[User Rejected]: Cards moved too fast at run 1789231315700",
+        "[Auto-Learned: spatial-collision-1789231571429] Cards clipped over centered headline at run 1789231571429",
+        "[User Rejected]: Cards moved too fast at run 1789231571429",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\".",
+        "[Auto-Learned: spatial-collision-1789250794264] Cards clipped over centered headline at run 1789250794264",
+        "[User Rejected]: Cards moved too fast at run 1789250794264",
+        "[Auto-Learned: spatial-collision-1789474255532] Cards clipped over centered headline at run 1789474255532",
+        "[User Rejected]: Cards moved too fast at run 1789474255532"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (365).png",
+        "codeSnippet": "<PerspectiveCardGrid cards={frictionItems} continuousScrollSpeed={4.8} tiltY={-18} />",
+        "description": "Infinite cascading cards flowing downwards in 3D perspective with ominous warning illumination."
+      },
+      "qualityScore": 7.5,
+      "tags": [
+        "tension",
+        "backlog",
+        "friction",
+        "conveyor",
+        "overload",
+        "3d"
+      ],
+      "provenIn": "Astra / Hedge Motion Benchmark (Act 1: Endless manual prediction tasks)"
+    },
+    {
+      "id": "comp-notification-cascade-barrage",
+      "name": "Staggered Incident Notification Barrage",
+      "type": "composition",
+      "whatItCommunicates": "Constant interruptions, critical alerts, and fragmented communications shattering developer focus.",
+      "creativeProblemSolved": "How to show enterprise urgency and cognitive interruption across multiple apps (Slack, Jira, PagerDuty, Teams) in a compact, aesthetic way.",
+      "emotionalEffect": [
+        "tension",
+        "visual-overload",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "broadcast-bold"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-grid",
+        "cascade-stack"
+      ],
+      "usefulCombinations": [
+        "tech-snappy-card-drop",
+        "bg-tension-shear-grid",
+        "sound-rapid-blips",
+        "trans-glitch-wipe"
+      ],
+      "parameters": {
+        "staggerFrames": 7,
+        "cardAngle": -5,
+        "scaleDrop": 0.98,
+        "severityBadgeColor": "#EF4444"
+      },
+      "knownFailureModes": [
+        "Obscures headline if placed higher than Y:45%",
+        "Text truncation inside notification pills if message > 55 characters",
+        "Feels too enterprise-stiff if applied to consumer or luxury lifestyle brands"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<NotificationCascade items={alertItems} staggerFrames={7} angle={-5} />",
+        "description": "4 staggered floating notification cards snapping in with spring overshoot and red urgency badges."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "alerts",
+        "notifications",
+        "incident",
+        "interruption",
+        "urgency"
+      ],
+      "provenIn": "Wordsmith Widescreen 16:9 Benchmark"
+    },
+    {
+      "id": "tech-conveyor-belt-3d",
+      "name": "3D Continuous Y-Axis Conveyor Glide",
+      "type": "motion-technique",
+      "whatItCommunicates": "Relentless continuous momentum; an inescapable conveyor belt of work.",
+      "creativeProblemSolved": "How to maintain smooth continuous motion in Remotion without jerky loops or sudden snap stops.",
+      "emotionalEffect": [
+        "tension",
+        "visual-overload",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "comp-perspective-conveyor-friction",
+        "bg-tension-shear-grid",
+        "sound-tension-hum"
+      ],
+      "parameters": {
+        "continuousScrollSpeed": 4.5,
+        "cameraGlide": {
+          "startY": 12,
+          "endY": -18
+        },
+        "easing": "cubic-bezier(0.16, 1.0, 0.3, 1.0)"
+      },
+      "knownFailureModes": [
+        "Stutter occurs if frame rate drops below 30fps",
+        "Disorienting if combined with rapid horizontal camera panning",
+        "[Auto-Learned: spatial-collision] Cards clipped over centered headline when headline fontSize exceeded 60px",
+        "[User Rejected]: Cards moved too fast and collided with the subtext badge.",
+        "[Auto-Learned: spatial-collision-1789230462837] Cards clipped over centered headline at run 1789230462837",
+        "[User Rejected]: Cards moved too fast at run 1789230462837",
+        "[Auto-Learned: spatial-collision-1789231186391] Cards clipped over centered headline at run 1789231186391",
+        "[User Rejected]: Cards moved too fast at run 1789231186391",
+        "[Auto-Learned: spatial-collision-1789231231882] Cards clipped over centered headline at run 1789231231882",
+        "[User Rejected]: Cards moved too fast at run 1789231231882",
+        "[Auto-Learned: spatial-collision-1789231315700] Cards clipped over centered headline at run 1789231315700",
+        "[User Rejected]: Cards moved too fast at run 1789231315700",
+        "[Auto-Learned: spatial-collision-1789231571429] Cards clipped over centered headline at run 1789231571429",
+        "[User Rejected]: Cards moved too fast at run 1789231571429",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\".",
+        "[Auto-Learned: spatial-collision-1789250794264] Cards clipped over centered headline at run 1789250794264",
+        "[User Rejected]: Cards moved too fast at run 1789250794264",
+        "[Auto-Learned: spatial-collision-1789474255532] Cards clipped over centered headline at run 1789474255532",
+        "[User Rejected]: Cards moved too fast at run 1789474255532"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (365).png",
+        "codeSnippet": "const yOffset = (frame * continuousScrollSpeed) % totalGridHeight;"
+      },
+      "qualityScore": 7.6,
+      "tags": [
+        "conveyor",
+        "scroll",
+        "glide",
+        "continuous",
+        "motion-physics"
+      ],
+      "provenIn": "Astra / Hedge Motion Benchmark"
+    },
+    {
+      "id": "bg-tension-shear-grid",
+      "name": "Sheared Obsidian Void with Warning Embers",
+      "type": "background",
+      "whatItCommunicates": "Critical tension, high stakes, late-night production outages.",
+      "creativeProblemSolved": "How to create a dark atmospheric void that feels active and dangerous rather than flat black.",
+      "emotionalEffect": [
+        "tension",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "comp-perspective-conveyor-friction",
+        "typo-stagger-stress",
+        "sound-tension-hum"
+      ],
+      "parameters": {
+        "primaryColor": "#0A0D14",
+        "glowColor": "#EF444433",
+        "shearAngle": 12,
+        "grainIntensity": 0.12
+      },
+      "knownFailureModes": [
+        "Red glow can look cheap if opacity exceeds 0.25",
+        "Clashes with serene brand palettes (e.g. mint, amber, light gray)",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "description": "Deep obsidian canvas with subtle angled micro-grid and low-frequency red-orange breathing glow."
+      },
+      "qualityScore": 9.15,
+      "tags": [
+        "background",
+        "dark",
+        "grid",
+        "warning",
+        "tension"
+      ]
+    },
+    {
+      "id": "typo-stagger-stress",
+      "name": "Staggered High-Stress Kinetic Punch",
+      "type": "typography-treatment",
+      "whatItCommunicates": "A sharp, provocative question that forces the viewer to acknowledge their acute problem.",
+      "creativeProblemSolved": "How to stop the viewer's scroll instantly with stark linguistic impact without looking like clickbait.",
+      "emotionalEffect": [
+        "tension",
+        "urgency",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "broadcast-bold"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-grid",
+        "diagonal-shear"
+      ],
+      "usefulCombinations": [
+        "comp-perspective-conveyor-friction",
+        "bg-tension-shear-grid",
+        "sound-heavy-thud"
+      ],
+      "parameters": {
+        "fontSize": 64,
+        "fontWeight": 800,
+        "staggerDelayFrames": 3,
+        "glowPunchColor": "#EF4444",
+        "letterSpacing": "-0.03em"
+      },
+      "knownFailureModes": [
+        "Text wrapping breaks if word contains more than 14 characters without hyphenation",
+        "Overlaps with 3D elements if posY is between 40% and 65%",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<KineticText animation='glow-punch' highlightWords={['losing', '15+', 'broken']} />"
+      },
+      "qualityScore": 9.35,
+      "tags": [
+        "typography",
+        "kinetic",
+        "stagger",
+        "punch",
+        "headline"
+      ]
+    },
+    {
+      "id": "trans-whip-snap",
+      "name": "Directional Whip-Pan Snap",
+      "type": "transition",
+      "whatItCommunicates": "Sudden escalation; an urgent shift in perspective.",
+      "creativeProblemSolved": "How to transition between problem scenes without letting the tension dissipate in a slow fade.",
+      "emotionalEffect": [
+        "tension",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "comp-perspective-conveyor-friction",
+        "typo-stagger-stress"
+      ],
+      "parameters": {
+        "durationFrames": 12,
+        "blurAmount": 16,
+        "direction": "from-right"
+      },
+      "knownFailureModes": [
+        "Can feel jarring if the incoming scene has a radically different luminance level",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "description": "12-frame high-velocity horizontal blur transition snapping into the next climax."
+      },
+      "qualityScore": 9.05,
+      "tags": [
+        "transition",
+        "whip-pan",
+        "snap",
+        "high-velocity"
+      ]
+    },
+    {
+      "id": "sound-tension-hum",
+      "name": "Sub-Bass Tension Drone with Micro-Clicks",
+      "type": "sound-cue",
+      "whatItCommunicates": "Underlying system stress; impending threshold breach.",
+      "creativeProblemSolved": "How to support visual chaos with sound without creating an unlistenable cacophony.",
+      "emotionalEffect": [
+        "tension",
+        "anxiety",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "comp-perspective-conveyor-friction",
+        "bg-tension-shear-grid"
+      ],
+      "parameters": {
+        "pitchHz": 55,
+        "rumbleVolume": 0.7,
+        "microClickIntervalFrames": 6
+      },
+      "knownFailureModes": [
+        "Drowns out voiceover if master gain > -12dB"
+      ],
+      "previewOrExample": {
+        "description": "55Hz sine sub-rumble with synced subtle tactile click ticks on each card pass."
+      },
+      "qualityScore": 9.4,
+      "tags": [
+        "audio",
+        "tension",
+        "sub-bass",
+        "drone"
+      ]
+    },
+    {
+      "id": "comp-monolithic-hardware",
+      "name": "Monolithic Hardware Studio Presentation",
+      "type": "composition",
+      "whatItCommunicates": "Museum-grade industrial design, physical permanence, and uncompromising manufacturing craft.",
+      "creativeProblemSolved": "How to showcase a physical product or high-precision developer tool as an architectural artifact rather than a cheap consumer gadget.",
+      "emotionalEffect": [
+        "precision",
+        "awe",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "macro-extreme",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "tech-pbr-titanium-pivot",
+        "bg-matte-graphite-specular",
+        "typo-monumental-clean-sans",
+        "sound-precision-click",
+        "trans-smooth-glide"
+      ],
+      "parameters": {
+        "negativeSpaceRatio": 0.54,
+        "cameraShot": "push-in",
+        "cameraIntensity": "subtle",
+        "lightingAngle": 45,
+        "specularSheenDelayFrames": 18
+      },
+      "knownFailureModes": [
+        "Cluttered by too many secondary floating badges (keep badges <= 2)",
+        "Ruined if bouncy spring curves are used instead of smooth deliberate glides",
+        "Text clipping if headline exceeds 2 lines with monumental font size"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (388).png",
+        "description": "Heroic 3D hardware device framed against matte graphite with grazing rim lighting and architectural typography."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "hardware",
+        "industrial",
+        "monolith",
+        "precision",
+        "macro",
+        "craft"
+      ],
+      "provenIn": "Teenage Engineering Industrial Monolith Benchmark"
+    },
+    {
+      "id": "tech-pbr-titanium-pivot",
+      "name": "PBR Titanium Chassis Y-Axis Pivot",
+      "type": "motion-technique",
+      "whatItCommunicates": "Tangible material honesty; light reacting to real metal bevels and tactile encoders.",
+      "creativeProblemSolved": "How to create high-end 3D hardware presence in Remotion without heavy external 3D engine lag.",
+      "emotionalEffect": [
+        "precision",
+        "delight",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "macro-extreme"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular",
+        "sound-precision-click"
+      ],
+      "parameters": {
+        "rotateYStart": -14,
+        "rotateYEnd": 8,
+        "perspective": 1400,
+        "specularSweepDurationFrames": 30,
+        "easing": "cubic-bezier(0.25, 1.0, 0.5, 1.0)"
+      },
+      "knownFailureModes": [
+        "Looks flat if specular rim gradient is omitted",
+        "Overlaps with side-anchored text if rotation exceeds 22 degrees",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (388).png",
+        "codeSnippet": "transform: `perspective(1400px) rotateY(${rotY}deg) rotateX(4deg)`;"
+      },
+      "qualityScore": 9.95,
+      "tags": [
+        "3d",
+        "titanium",
+        "pivot",
+        "hardware",
+        "specular",
+        "motion-technique"
+      ],
+      "provenIn": "Astra / Hedge Motion Benchmark (Act 2: iPhone 16 Pro 3D Showcase)"
+    },
+    {
+      "id": "tech-dof-floating-cards",
+      "name": "Multi-Plane Depth-of-Field Card Parallax",
+      "type": "motion-technique",
+      "whatItCommunicates": "Architectural spatial depth; primary interface elements floating in sharp focus over blurred technical layers.",
+      "creativeProblemSolved": "How to separate complex technical information into intelligible visual hierarchy using optical physics.",
+      "emotionalEffect": [
+        "precision",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-grid",
+        "macro-extreme"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "parameters": {
+        "heroZ": 48,
+        "supportingZ": -24,
+        "focalBlurPx": 6,
+        "differentialParallax": 0.14
+      },
+      "knownFailureModes": [
+        "Over-blurring background makes important brand identifiers unreadable",
+        "Text edge artifacts if filter blur is applied to text instead of card container"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "filter: `blur(${Math.abs(z - focalPlane) * 0.12}px)`;"
+      },
+      "qualityScore": 9.6,
+      "tags": [
+        "depth-of-field",
+        "parallax",
+        "spatial-depth",
+        "blur",
+        "optical"
+      ]
+    },
+    {
+      "id": "bg-matte-graphite-specular",
+      "name": "Matte Studio Graphite with Ambient Rim Luminescence",
+      "type": "background",
+      "whatItCommunicates": "Restrained studio sophistication; premium acoustics laboratory.",
+      "creativeProblemSolved": "How to provide maximum contrast for hardware metals and crisp technical typography without distraction.",
+      "emotionalEffect": [
+        "precision",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "macro-extreme",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "typo-monumental-clean-sans",
+        "tech-pbr-titanium-pivot"
+      ],
+      "parameters": {
+        "primaryColor": "#121316",
+        "gradientTo": "#1A1B20",
+        "rimGlowColor": "#FF440022",
+        "rimPosition": "top-right",
+        "subtleDustEmbers": true
+      },
+      "knownFailureModes": [
+        "If rim glow is too saturated, it looks like a gaming rig rather than precision audio equipment"
+      ],
+      "previewOrExample": {
+        "description": "Fine-grained matte studio graphite plate with delicate directional backlight rim."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "background",
+        "graphite",
+        "studio",
+        "matte",
+        "rim-light"
+      ]
+    },
+    {
+      "id": "typo-monumental-clean-sans",
+      "name": "Monumental Clean Sans with Razor Kerning",
+      "type": "typography-treatment",
+      "whatItCommunicates": "Absolute authority and clarity; zero marketing jargon.",
+      "creativeProblemSolved": "How to present bold product statements with supreme confidence without shouting or resorting to gimmicky animations.",
+      "emotionalEffect": [
+        "precision",
+        "prestige",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "macro-extreme"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular",
+        "sound-precision-click"
+      ],
+      "parameters": {
+        "fontSize": 66,
+        "fontWeight": 800,
+        "letterSpacing": "-0.035em",
+        "animation": "cinematic-scale",
+        "holdFrames": 45
+      },
+      "knownFailureModes": [
+        "Collides with top edge of 3D window if posY > 24% in composite layouts",
+        "Do not use colorful gradient text fills; stick to crisp pure off-white (#EDEDED)",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<KineticText text='Form follows emotion. Precision meets play.' fontSize={66} fontWeight={800} />"
+      },
+      "qualityScore": 9.65,
+      "tags": [
+        "typography",
+        "monumental",
+        "sans",
+        "clean",
+        "authority"
+      ],
+      "provenIn": "Teenage Engineering Benchmark Scene 1"
+    },
+    {
+      "id": "trans-smooth-glide",
+      "name": "Cinematic Push-In Glide Transition",
+      "type": "transition",
+      "whatItCommunicates": "Seamless continuity; drawing the viewer deeper into the physical details of the device.",
+      "creativeProblemSolved": "How to shift scenes without breaking visual immersion or feeling like a typical slide/wipe slideshow.",
+      "emotionalEffect": [
+        "precision",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "editorial-light"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "tech-pbr-titanium-pivot"
+      ],
+      "parameters": {
+        "durationFrames": 18,
+        "scaleFrom": 1,
+        "scaleTo": 1.08,
+        "crossfadeEase": "easeInOutCubic"
+      },
+      "knownFailureModes": [
+        "Must not have black dips; frames must overlap smoothly via TransitionSeries",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "description": "Smooth 18-frame push-in cross-glide with zero visual friction."
+      },
+      "qualityScore": 9.45,
+      "tags": [
+        "transition",
+        "glide",
+        "push-in",
+        "cinematic"
+      ]
+    },
+    {
+      "id": "sound-precision-click",
+      "name": "Tactile Mechanical Switch & Encoder Clicks",
+      "type": "sound-cue",
+      "whatItCommunicates": "Physical tactile gratification; the satisfaction of clicking a precision-milled aluminum knob.",
+      "creativeProblemSolved": "How to make software/hardware interactions feel physical and satisfying to the ear.",
+      "emotionalEffect": [
+        "precision",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "comp-monolithic-hardware",
+        "tech-pbr-titanium-pivot"
+      ],
+      "parameters": {
+        "frequencyHz": 3200,
+        "decayMs": 24,
+        "spatialPan": 0.1
+      },
+      "knownFailureModes": [
+        "Sounds like an annoying glitch if triggered more than 4 times per second"
+      ],
+      "previewOrExample": {
+        "description": "Crisp, dampened mechanical keyboard / dial click synced to element reveals."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "audio",
+        "tactile",
+        "switch",
+        "mechanical",
+        "click"
+      ]
+    },
+    {
+      "id": "comp-uncluttered-bento",
+      "name": "Uncluttered Bento Workspace",
+      "type": "composition",
+      "whatItCommunicates": "Chaos brought to total order; every workflow neatly contained and automated.",
+      "creativeProblemSolved": "How to transition from chaotic problem states into an organized, deeply satisfying interface showcase.",
+      "emotionalEffect": [
+        "relief",
+        "delight",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "tech-snappy-card-drop",
+        "tech-action-progress-modal",
+        "bg-clean-slate-fade",
+        "sound-chime-relief",
+        "trans-slide-left"
+      ],
+      "parameters": {
+        "columns": 3,
+        "gapPx": 16,
+        "cardBorderRadius": 18,
+        "negativeSpaceRatio": 0.48
+      },
+      "knownFailureModes": [
+        "Filling all bento cells with dense text destroys the sense of relief (keep 1 cell purely visual/metric)",
+        "Card clipping if overall bento width > 90% on mobile 9:16 aspect ratio",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<BentoGrid cards={solutionPanels} stagger={6} />",
+        "description": "Harmonious 3-column glassmorphic bento grid settling into place with smooth spring eases."
+      },
+      "qualityScore": 9.75,
+      "tags": [
+        "bento",
+        "relief",
+        "order",
+        "clean",
+        "workspace"
+      ]
+    },
+    {
+      "id": "tech-snappy-card-drop",
+      "name": "Snappy Bezier Drop-In Settlement",
+      "type": "motion-technique",
+      "whatItCommunicates": "Decisive solution falling into place; effortless resolution of friction.",
+      "creativeProblemSolved": "How to animate interface components entering the screen with crisp, satisfying weight.",
+      "emotionalEffect": [
+        "relief",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "comp-uncluttered-bento",
+        "sound-chime-relief"
+      ],
+      "parameters": {
+        "bezierCurve": [
+          0.16,
+          1,
+          0.3,
+          1
+        ],
+        "overshootPercent": 3.5,
+        "staggerDelayFrames": 6
+      },
+      "knownFailureModes": [
+        "Too much overshoot (> 8%) feels cartoonish instead of professional SaaS"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "transform: `translateY(${interpolate(progress, [0, 1], [-80, 0], { easing: Easing.bezier(0.16, 1.0, 0.3, 1.0) })}px)`;"
+      },
+      "qualityScore": 10,
+      "tags": [
+        "card-drop",
+        "snappy",
+        "bezier",
+        "settle",
+        "relief"
+      ],
+      "provenIn": "Linear High-Craft Benchmark Scene 2"
+    },
+    {
+      "id": "tech-action-progress-modal",
+      "name": "Spring-Loaded Progress Ring & Checkmark Pop",
+      "type": "motion-technique",
+      "whatItCommunicates": "Instant autonomous completion; the machine doing the work in milliseconds.",
+      "creativeProblemSolved": "How to visually prove that a complex process completed instantly without boring loading spinners.",
+      "emotionalEffect": [
+        "relief",
+        "delight",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "industrial-craft"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "comp-uncluttered-bento",
+        "sound-chime-relief"
+      ],
+      "parameters": {
+        "ringFillDurationFrames": 18,
+        "checkmarkPopFrame": 22,
+        "particleBurst": true
+      },
+      "knownFailureModes": [
+        "Checkmark popping too late (> 35 frames) slows down ad pacing",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "description": "Luminous circular progress ring fills in 18 frames, bursting into a crisp neon checkmark with micro-sparks."
+      },
+      "qualityScore": 9.65,
+      "tags": [
+        "progress",
+        "modal",
+        "checkmark",
+        "success",
+        "relief"
+      ]
+    },
+    {
+      "id": "bg-clean-slate-fade",
+      "name": "Subtle Studio Slate with Deep Cyan Aura",
+      "type": "background",
+      "whatItCommunicates": "Calm after the storm; breathing room; enterprise stability.",
+      "creativeProblemSolved": "How to shift atmosphere from danger/friction to confidence and clarity.",
+      "emotionalEffect": [
+        "relief",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "comp-uncluttered-bento",
+        "tech-snappy-card-drop"
+      ],
+      "parameters": {
+        "primaryColor": "#0A101D",
+        "gradientTo": "#0F1E36",
+        "auraColor": "#00D4FF18",
+        "angle": 135
+      },
+      "knownFailureModes": [
+        "If cyan aura is placed in the center, it washes out white headline text",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "description": "Deep midnight slate gradient with soft off-center cyan luminescence."
+      },
+      "qualityScore": 9.25,
+      "tags": [
+        "background",
+        "slate",
+        "cyan",
+        "aura",
+        "relief"
+      ]
+    },
+    {
+      "id": "typo-editorial-restrained-serif",
+      "name": "Restrained Editorial Serif Solution Headline",
+      "type": "typography-treatment",
+      "whatItCommunicates": "Sophisticated clarity; elevated brand maturity.",
+      "creativeProblemSolved": "How to introduce the solution with elegance rather than aggressive salesmanship.",
+      "emotionalEffect": [
+        "relief",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "dark-saas",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-editorial",
+        "wide-cinematic"
+      ],
+      "usefulCombinations": [
+        "comp-uncluttered-bento",
+        "bg-clean-slate-fade"
+      ],
+      "parameters": {
+        "fontSize": 52,
+        "fontWeight": 400,
+        "fontFamily": "'Newsreader', 'Playfair Display', Georgia, serif",
+        "letterSpacing": "-0.015em",
+        "animation": "fade-up"
+      },
+      "knownFailureModes": [
+        "Serif typography feels jarring if the product is a hardcore developer CLI terminal",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<KineticText text='One unified platform for modern treasury.' serifFont={true} />"
+      },
+      "qualityScore": 9.45,
+      "tags": [
+        "typography",
+        "serif",
+        "editorial",
+        "restraint",
+        "relief"
+      ]
+    },
+    {
+      "id": "sound-chime-relief",
+      "name": "Harmonic Warm Resolution Chime",
+      "type": "sound-cue",
+      "whatItCommunicates": "Instantaneous success; friction dissolving into harmony.",
+      "creativeProblemSolved": "How to give the ear a psychological sense of relief when the product arrives.",
+      "emotionalEffect": [
+        "relief",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "editorial-light"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "tech-action-progress-modal",
+        "comp-uncluttered-bento"
+      ],
+      "parameters": {
+        "rootNote": "Eb",
+        "warmReverbDecaySec": 1.8,
+        "volume": 0.75
+      },
+      "knownFailureModes": [
+        "Sounds like a generic elevator chime if reverb decay is less than 0.8s"
+      ],
+      "previewOrExample": {
+        "description": "Warm, rich musical chord resolving the low-frequency tension rumble."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "audio",
+        "chime",
+        "harmony",
+        "resolution",
+        "relief"
+      ]
+    },
+    {
+      "id": "comp-velocity-speedrun",
+      "name": "Keyboard-First Velocity Speedrun",
+      "type": "composition",
+      "whatItCommunicates": "Inhuman execution speed; power users never taking their hands off the keyboard.",
+      "creativeProblemSolved": "How to showcase lightning-fast dev tools and command palettes without losing the audience in blurred text.",
+      "emotionalEffect": [
+        "urgency",
+        "delight",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "cyber-terminal",
+        "dark-saas",
+        "broadcast-bold"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "tech-bezier-cursor-interaction",
+        "tech-metric-surge",
+        "bg-cyber-obsidian-glow",
+        "typo-kinetic-glow-punch",
+        "sound-fast-swoosh"
+      ],
+      "parameters": {
+        "actionIntervalFrames": 10,
+        "activeCardGlowIntensity": 0.8,
+        "hotkeyBadgeColor": "#FF6363"
+      },
+      "knownFailureModes": [
+        "If actions cycle faster than 8 frames per step, viewer cannot perceive what happened",
+        "Overcrowding with secondary tooltips makes the command palette feel messy",
+        "[Auto-Learned: creative-memory-violation] Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<AppWindow mockType='custom' url='raycast.com/store' codeSnippet={scriptExecution} />",
+        "description": "Floating command palette cycling script extensions at 10-frame intervals with crisp active selection rings."
+      },
+      "qualityScore": 9.55,
+      "tags": [
+        "velocity",
+        "speedrun",
+        "command-palette",
+        "keyboard",
+        "power-user"
+      ],
+      "provenIn": "Raycast Speedrun Benchmark Scene 2"
+    },
+    {
+      "id": "tech-bezier-cursor-interaction",
+      "name": "Cubic Bezier Pointer Trajectory with Spring Click",
+      "type": "motion-technique",
+      "whatItCommunicates": "Effortless, human-like interaction choreography; decisive action triggering instant automation.",
+      "creativeProblemSolved": "How to make automated software clicks look natural and intentional rather than robotic straight-line interpolations.",
+      "emotionalEffect": [
+        "delight",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "comp-velocity-speedrun",
+        "sound-fast-swoosh"
+      ],
+      "parameters": {
+        "startPoint": {
+          "x": 20,
+          "y": 85
+        },
+        "endPoint": {
+          "x": 62,
+          "y": 48
+        },
+        "controlPoint1": {
+          "x": 38,
+          "y": 55
+        },
+        "clickAtFrame": 28,
+        "rippleMaxRadiusPx": 44,
+        "cursorSqueezeScale": 0.86
+      },
+      "knownFailureModes": [
+        "Cursor target coordinates must align with an actual interactive button or tab, never dead space",
+        "Do not display an 'AI' label pill hovering behind the cursor unless the ad is explicitly an autonomous agent showcase"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<CursorInteraction from={{ x: 20, y: 85 }} to={{ x: 62, y: 48 }} clickAtFrame={28} clickRipple={true} />"
+      },
+      "qualityScore": 10,
+      "tags": [
+        "cursor",
+        "bezier",
+        "click",
+        "ripple",
+        "interaction"
+      ],
+      "provenIn": "Astra / Hedge Benchmark (Act 4: 1-Tap Execution)"
+    },
+    {
+      "id": "tech-metric-surge",
+      "name": "Spring-Damped Metric Counter Surge",
+      "type": "motion-technique",
+      "whatItCommunicates": "Quantifiable, verified superiority (10x faster, 99.999% uptime, 0ms latency).",
+      "creativeProblemSolved": "How to make numbers feel monumental and thrilling rather than boring spreadsheet statistics.",
+      "emotionalEffect": [
+        "awe",
+        "urgency",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "radial-bloom"
+      ],
+      "usefulCombinations": [
+        "comp-velocity-speedrun",
+        "bg-cyber-obsidian-glow"
+      ],
+      "parameters": {
+        "springDamping": 14,
+        "springStiffness": 120,
+        "trendArrowDelayFrames": 18,
+        "suffixGlow": true
+      },
+      "knownFailureModes": [
+        "CRITICAL: Center-anchored counter (Y:50%) collides violently with centered headlines if headline is also at Y:50%. Always place headline at Y:22% and counter at Y:52%"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<MetricCounter value={100} suffix='x' label='DAILY ACTIONS FIRED' trendBadge='4.8x Faster' />"
+      },
+      "qualityScore": 9.6,
+      "tags": [
+        "metric",
+        "counter",
+        "surge",
+        "spring",
+        "quantitative"
+      ],
+      "provenIn": "Raycast Benchmark Scene 3"
+    },
+    {
+      "id": "bg-cyber-obsidian-glow",
+      "name": "Cyber Obsidian with Electric Laser Rim",
+      "type": "background",
+      "whatItCommunicates": "Terminal-grade dark mode; high velocity power-user environment.",
+      "creativeProblemSolved": "How to make a deep black background feel electrified and modern.",
+      "emotionalEffect": [
+        "urgency",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "cyber-terminal",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "comp-velocity-speedrun",
+        "typo-kinetic-glow-punch"
+      ],
+      "parameters": {
+        "primaryColor": "#0F1117",
+        "accentGlowColor": "#FF636326",
+        "meshPoints": 4
+      },
+      "knownFailureModes": [
+        "Clashes with warm or pastel brand color palettes"
+      ],
+      "previewOrExample": {
+        "description": "Dense obsidian canvas with localized laser rim bloom highlighting interface edges."
+      },
+      "qualityScore": 9.5,
+      "tags": [
+        "background",
+        "cyber",
+        "obsidian",
+        "electric",
+        "dark"
+      ]
+    },
+    {
+      "id": "typo-kinetic-glow-punch",
+      "name": "Kinetic Word-by-Word Reveal with Blooming Glow Punch",
+      "type": "typography-treatment",
+      "whatItCommunicates": "Maximum verbal velocity; punchy cadence synced to rhythm.",
+      "creativeProblemSolved": "How to keep reading retention high during fast-paced ads.",
+      "emotionalEffect": [
+        "urgency",
+        "delight",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "broadcast-bold"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "comp-velocity-speedrun",
+        "sound-fast-swoosh"
+      ],
+      "parameters": {
+        "staggerDelayFrames": 4,
+        "glowPunchKeywords": [
+          "sub-50ms",
+          "instant",
+          "zero-latency",
+          "100x"
+        ],
+        "bloomIntensity": 1.6
+      },
+      "knownFailureModes": [
+        "Over-highlighting more than 2 words per sentence makes text look chaotic and uncoordinated"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<KineticText text='Speed that redefines your entire day.' highlightWords={['redefines']} />"
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "typography",
+        "kinetic",
+        "glow-punch",
+        "stagger",
+        "velocity"
+      ]
+    },
+    {
+      "id": "sound-fast-swoosh",
+      "name": "High-Velocity Air Whoosh with Mechanical Snap",
+      "type": "sound-cue",
+      "whatItCommunicates": "Lightning-fast movement; instantaneous execution.",
+      "creativeProblemSolved": "How to acoustically convey extreme speed during transitions and card entrances.",
+      "emotionalEffect": [
+        "urgency",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "broadcast-bold"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "comp-velocity-speedrun",
+        "tech-bezier-cursor-interaction"
+      ],
+      "parameters": {
+        "whooshDurationMs": 180,
+        "snapPitchHz": 4400,
+        "volume": 0.8
+      },
+      "knownFailureModes": [
+        "Harsh frequencies if high-pass filter is set above 8kHz"
+      ],
+      "previewOrExample": {
+        "description": "Clean, aerodynamic air displacement followed by a micro-switch snap."
+      },
+      "qualityScore": 9.6,
+      "tags": [
+        "audio",
+        "whoosh",
+        "swoosh",
+        "snap",
+        "velocity"
+      ]
+    },
+    {
+      "id": "comp-editorial-manifesto",
+      "name": "Quiet Editorial Manifesto Print Layout",
+      "type": "composition",
+      "whatItCommunicates": "Timeless luxury, sensory sanctuary, intellectual sophistication, zero synthetic noise.",
+      "creativeProblemSolved": "How to advertise high-end apothecary, luxury goods, or architectural products without looking like a loud hyperactive tech commercial.",
+      "emotionalEffect": [
+        "prestige",
+        "awe",
+        "relief"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-editorial",
+        "monumental-centered"
+      ],
+      "usefulCombinations": [
+        "tech-macro-letterspacing",
+        "bg-editorial-sand-grain",
+        "typo-newsreader-serif-monumental",
+        "sound-low-warm-pad",
+        "trans-monochrome-dissolve"
+      ],
+      "parameters": {
+        "negativeSpaceRatio": 0.64,
+        "paperGrainIntensity": 0.08,
+        "headlineMaxWidthPercent": 68,
+        "safeHorizontalMarginPercent": 16
+      },
+      "knownFailureModes": [
+        "CRITICAL: If text is left-anchored at 30% with width 74%, it overflows canvas (30+74=104%). Max width must be clamped to (90 - posX)",
+        "Destroyed if neon glow highlights, B2B SaaS pipeline charts, or emoji icons are introduced",
+        "Do not use hyperactive spring bounces; motion must be subtle micro-holds and calm dissolves"
+      ],
+      "previewOrExample": {
+        "referenceFile": "C:/Users/USER/.gemini/antigravity/brain/4a9f2cd9-0e38-4308-8594-b5d3eb044a46/aesop-scene-1.png",
+        "description": "Serene warm sand canvas with centered Newsreader serif statement, 64% negative space, and delicate paper texture."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "editorial",
+        "luxury",
+        "apothecary",
+        "skincare",
+        "manifesto",
+        "serif"
+      ],
+      "provenIn": "Aesop Editorial Benchmark Scene 1 & 3"
+    },
+    {
+      "id": "tech-macro-letterspacing",
+      "name": "Deliberate Micro-Letterspacing Expansion",
+      "type": "motion-technique",
+      "whatItCommunicates": "Architectural stillness; words breathing into existence with regal composure.",
+      "creativeProblemSolved": "How to animate text in luxury advertisements without cheesy word-by-word popups or bouncing letters.",
+      "emotionalEffect": [
+        "prestige",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "asymmetric-editorial",
+        "monumental-centered"
+      ],
+      "usefulCombinations": [
+        "comp-editorial-manifesto",
+        "bg-editorial-sand-grain"
+      ],
+      "parameters": {
+        "letterSpacingStartEm": 0.02,
+        "letterSpacingEndEm": 0.065,
+        "durationFrames": 50,
+        "ease": "easeOutCubic"
+      },
+      "knownFailureModes": [
+        "Excessive expansion (> 0.1em) impairs readability and looks amateurish"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "letterSpacing: `${interpolate(frame, [0, 50], [0.02, 0.065], { extrapolateRight: 'clamp' })}em`;"
+      },
+      "qualityScore": 9.6,
+      "tags": [
+        "letterspacing",
+        "typography",
+        "restraint",
+        "luxury",
+        "slow-motion"
+      ]
+    },
+    {
+      "id": "bg-editorial-sand-grain",
+      "name": "Tactile Archival Sand with Natural Paper Grain",
+      "type": "background",
+      "whatItCommunicates": "Physical heritage, tactile paper, organic purity.",
+      "creativeProblemSolved": "How to design a light-mode advertisement that doesn't look like an unstyled white Google Doc or blinding medical sterile sheet.",
+      "emotionalEffect": [
+        "prestige",
+        "relief"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "all"
+      ],
+      "usefulCombinations": [
+        "comp-editorial-manifesto",
+        "typo-newsreader-serif-monumental"
+      ],
+      "parameters": {
+        "primaryColor": "#F8F7F3",
+        "gradientTo": "#F1EFE9",
+        "grainAssetUrl": "assets/overlays/film-grain-35mm-tile.svg",
+        "vignetteStrength": 0.22
+      },
+      "knownFailureModes": [
+        "Grain opacity > 0.15 creates dirty pixel noise rather than refined tactile paper texture"
+      ],
+      "previewOrExample": {
+        "description": "Warm linen sand background plate with gentle ambient center elevation and 35mm micro-grain."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "background",
+        "sand",
+        "paper",
+        "grain",
+        "editorial",
+        "luxury"
+      ]
+    },
+    {
+      "id": "typo-newsreader-serif-monumental",
+      "name": "Newsreader Archival Serif Monumental Typography",
+      "type": "typography-treatment",
+      "whatItCommunicates": "Poetic clarity, timeless intellect, uncompromising sensory standards.",
+      "creativeProblemSolved": "How to craft headline typography that commands instant respect without shouting.",
+      "emotionalEffect": [
+        "prestige",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "comp-editorial-manifesto",
+        "bg-editorial-sand-grain"
+      ],
+      "parameters": {
+        "fontSize": 54,
+        "fontWeight": 400,
+        "fontFamily": "'Newsreader', 'Playfair Display', Georgia, serif",
+        "color": "#1E221E",
+        "lineHeight": 1.35
+      },
+      "knownFailureModes": [
+        "Never use bold heavy weights (> 500) for luxury serifs — it ruins the delicate stroke modulation"
+      ],
+      "previewOrExample": {
+        "codeSnippet": "<KineticText text='Formulations crafted for those who demand quiet sensory elevation.' serifFont={true} />"
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "typography",
+        "serif",
+        "newsreader",
+        "luxury",
+        "intellect"
+      ],
+      "provenIn": "Aesop Editorial Benchmark"
+    },
+    {
+      "id": "sound-low-warm-pad",
+      "name": "Understated Analogue Acoustic Atmosphere",
+      "type": "sound-cue",
+      "whatItCommunicates": "Tranquil stillness; entering an architectural sanctuary.",
+      "creativeProblemSolved": "How to sonically support quiet luxury without upbeat EDM or corporate tech synth arpeggios.",
+      "emotionalEffect": [
+        "prestige",
+        "relief"
+      ],
+      "compatibleStyles": [
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "comp-editorial-manifesto"
+      ],
+      "usefulCombinations": [
+        "comp-editorial-manifesto",
+        "bg-editorial-sand-grain"
+      ],
+      "parameters": {
+        "warmthHz": 280,
+        "reverbSpace": "cathedral-chamber",
+        "gain": -14
+      },
+      "knownFailureModes": [
+        "Sudden loud hits or synth sweeps ruin the contemplative atmosphere"
+      ],
+      "previewOrExample": {
+        "description": "Deep analogue cello / acoustic pad hold with delicate air breath."
+      },
+      "qualityScore": 9.5,
+      "tags": [
+        "audio",
+        "pad",
+        "analogue",
+        "warmth",
+        "sanctuary"
+      ]
+    },
+    {
+      "id": "ref-astra-prediction-conveyor",
+      "name": "Astra/Hedge 3D Prediction Card Stream",
+      "type": "reference",
+      "whatItCommunicates": "Limitless live market events, real-time betting probabilities, and high-frequency trading opportunities.",
+      "creativeProblemSolved": "How to showcase large volume of dynamic market data in continuous motion without visual stutter.",
+      "emotionalEffect": [
+        "tension",
+        "visual-overload",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "diagonal-shear"
+      ],
+      "usefulCombinations": [
+        "tech-conveyor-belt-3d",
+        "bg-tension-shear-grid",
+        "sound-tension-hum"
+      ],
+      "parameters": {
+        "perspectiveDegrees": 45,
+        "columns": 2,
+        "cardWidthPx": 380,
+        "continuousScrollSpeed": 4.8,
+        "oddsHighlightColor": "#F59E0B"
+      },
+      "knownFailureModes": [
+        "Odds percentage text will clash with card background if contrast is < 4.5:1",
+        "Overlapping cards if vertical margin gap is less than 18px"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (365).png",
+        "description": "Infinite cascading cards flowing downwards in 3D perspective with yellow glowing odds cards."
+      },
+      "qualityScore": 9.9,
+      "tags": [
+        "reference",
+        "astra",
+        "hedge",
+        "conveyor",
+        "prediction-markets",
+        "3d"
+      ],
+      "provenIn": "Astra Motion Reference Study (92-frame breakdown)"
+    },
+    {
+      "id": "ref-astra-phone-depth-lockup",
+      "name": "Astra/Hedge 3D Phone with Background Kinetic Typography",
+      "type": "reference",
+      "whatItCommunicates": "Unrivaled mobile leverage; high-stakes financial power at your fingertips.",
+      "creativeProblemSolved": "How to combine a physical mobile device mockup with massive typography without having the phone completely block the words.",
+      "emotionalEffect": [
+        "precision",
+        "awe",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas",
+        "industrial-craft"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "tech-pbr-titanium-pivot",
+        "bg-matte-graphite-specular",
+        "typo-monumental-clean-sans"
+      ],
+      "parameters": {
+        "phoneXPercent": 42,
+        "backgroundTextXPercent": 72,
+        "backgroundTextFontSize": 92,
+        "backgroundTextZIndex": -10
+      },
+      "knownFailureModes": [
+        "CRITICAL: If phone is placed directly at center (X:50%), background typography is 70% occluded and illegible. Always offset phone to X:38-44% and text to X:68-76%"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (388).png",
+        "description": "iPhone 16 Pro mockup showing live market UI with massive kinetic text 'the leverage' floating behind it on Z-depth plane."
+      },
+      "qualityScore": 9.9,
+      "tags": [
+        "reference",
+        "astra",
+        "phone-mockup",
+        "typography-layering",
+        "depth"
+      ],
+      "provenIn": "Astra Motion Reference Study (Frame 388)"
+    },
+    {
+      "id": "ref-astra-dark-web-platform",
+      "name": "Astra/Hedge 3D Web Platform with Golden Glow Rim",
+      "type": "reference",
+      "whatItCommunicates": "Institutional event trading; deep liquidity and high leverage executed on desktop.",
+      "creativeProblemSolved": "How to make a web dashboard look cinematic, dramatic, and sleek rather than boring flat SaaS.",
+      "emotionalEffect": [
+        "precision",
+        "prestige",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "macro-extreme"
+      ],
+      "usefulCombinations": [
+        "tech-dof-floating-cards",
+        "bg-matte-graphite-specular"
+      ],
+      "parameters": {
+        "headerGlowColor": "#F59E0B66",
+        "perspectiveDeg": 35,
+        "tiltDeg": 4,
+        "mountainBannerTexture": true
+      },
+      "knownFailureModes": [
+        "Golden glow rim can bleed into white chart lines if bloom blur radius > 32px"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (408).png",
+        "description": "Angled web app window floating in dark void with golden honey glow emanating from the top navigation bar."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "reference",
+        "astra",
+        "web-app",
+        "golden-glow",
+        "fintech"
+      ],
+      "provenIn": "Astra Motion Reference Study (Frame 408)"
+    },
+    {
+      "id": "ref-blinkcash-stablecoin-deposit",
+      "name": "BlinkCashX One-Tap Deposit Velocity",
+      "type": "reference",
+      "whatItCommunicates": "Frictionless global liquidity; converting cash to stablecoins in milliseconds with one tap.",
+      "creativeProblemSolved": "How to make financial crypto deposits feel completely safe, immediate, and as simple as sending a text message.",
+      "emotionalEffect": [
+        "delight",
+        "relief",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "tech-bezier-cursor-interaction",
+        "tech-action-progress-modal",
+        "sound-chime-relief"
+      ],
+      "parameters": {
+        "depositAmount": "$250.00",
+        "settlementTimeMs": 14,
+        "hapticPulseDurationFrames": 8
+      },
+      "knownFailureModes": [
+        "Must not look like a scam wallet; adhere strictly to clean corporate typography and verified lock badges"
+      ],
+      "previewOrExample": {
+        "description": "One-tap mobile payment flow with animated cursor tap, expanding confirmation ripple, and instant balance update."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "reference",
+        "blinkcash",
+        "stablecoin",
+        "fintech",
+        "mobile",
+        "deposit"
+      ],
+      "provenIn": "Motion Examples: One tap, Stablecoin deposits (BlinkCashX)"
+    },
+    {
+      "id": "ref-architectural-monolith-hook",
+      "name": "Stark Typographic Negative Space Hook",
+      "type": "reference",
+      "whatItCommunicates": "Unflinching confidence; commanding total silence before making an undeniable claim.",
+      "creativeProblemSolved": "How to start an ad with extreme emotional weight without any motion graphics clutter.",
+      "emotionalEffect": [
+        "prestige",
+        "tension",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "industrial-craft",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "typo-monumental-clean-sans",
+        "sound-precision-click"
+      ],
+      "parameters": {
+        "wordHoldFrames": 24,
+        "negativeSpaceRatio": 0.72,
+        "textColor": "#FFFFFF"
+      },
+      "knownFailureModes": [
+        "Fails completely if text copy is wordy or vague. Words must be short, punchy statements ('This is', 'Not the outcome', 'Trade the event')"
+      ],
+      "previewOrExample": {
+        "referenceFile": "c:/Users/USER/Documents/adcraft/your job/Screenshot (435).png",
+        "description": "Centered crisp off-white text on absolute dark void with 72% negative space and zero decorative elements."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "reference",
+        "typography",
+        "hook",
+        "negative-space",
+        "minimalist",
+        "hedge"
+      ],
+      "provenIn": "Astra / Hedge Reference Climax Progression"
+    },
+    {
+      "id": "bg-astra-dark-grid",
+      "name": "Astra 3D Sheared Grid Floor Plate",
+      "type": "background",
+      "whatItCommunicates": "An institutional market trading floor; vast, structured, and endlessly scalable.",
+      "creativeProblemSolved": "How to anchor floating 3D cards and mockups so they do not feel like they are floating in an empty black void.",
+      "emotionalEffect": [
+        "tension",
+        "precision",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "monolithic-vertical",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "tech-conveyor-belt-3d",
+        "ref-astra-prediction-conveyor",
+        "sound-sub-tension-drone"
+      ],
+      "parameters": {
+        "gridOpacity": 0.28,
+        "vignetteDepth": 0.65,
+        "horizonFadeStartPercent": 62
+      },
+      "knownFailureModes": [
+        "Collides with dark grey cards if card border is not explicitly set to >= #334155",
+        "Do not use with editorial light brands or serif typography"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/astra-dark-grid-plate.png",
+        "description": "Deep perspective 3D grid with dark obsidian gradient floor extracted from Astra broadcast reference."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "background",
+        "grid",
+        "astra",
+        "dark",
+        "fintech",
+        "plate"
+      ],
+      "provenIn": "Astra / Hedge Motion Benchmark (Act 1: Endless manual prediction tasks)"
+    },
+    {
+      "id": "bg-astra-horizon-glow",
+      "name": "Astra Amber Horizon Event Bloom",
+      "type": "background",
+      "whatItCommunicates": "High-stakes financial threshold; dawn of market opportunity and intense liquidity.",
+      "creativeProblemSolved": "How to inject warm emotional color into a cold dark fintech ad without looking like a rainbow gimmick.",
+      "emotionalEffect": [
+        "awe",
+        "urgency",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "wide-cinematic",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "ref-astra-dark-web-platform",
+        "typo-monumental-clean-sans",
+        "ui-badge-prediction-market"
+      ],
+      "parameters": {
+        "bloomColor": "#F59E0B",
+        "bloomIntensity": 0.35,
+        "verticalCenterY": 78
+      },
+      "knownFailureModes": [
+        "Bleeds out white text if text is placed directly over the amber horizon (maintain text Y <= 40%)",
+        "Overwhelms cool cyan or green brand accents if not tinted accordingly"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/astra-horizon-glow.png",
+        "description": "Warm amber horizon atmospheric bloom extracted from Astra Climax sequence."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "background",
+        "amber",
+        "bloom",
+        "horizon",
+        "astra",
+        "prestige"
+      ],
+      "provenIn": "Astra Reference Climax (00:14)"
+    },
+    {
+      "id": "bg-blinkcash-cyan-ambient",
+      "name": "BlinkCash Cyan Ambient Velocity Plate",
+      "type": "background",
+      "whatItCommunicates": "Effortless liquidity; crisp, modern, ultra-reliable digital cash movement.",
+      "creativeProblemSolved": "How to make financial transactions feel clean, safe, and lightning fast.",
+      "emotionalEffect": [
+        "delight",
+        "relief",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "cyber-terminal",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "ref-blinkcash-stablecoin-deposit",
+        "ui-badge-usdc-verified",
+        "sound-warm-resolution-chime"
+      ],
+      "parameters": {
+        "ambientCyanHex": "#06B6D4",
+        "vignetteDarkness": 0.45,
+        "radialFalloffPx": 720
+      },
+      "knownFailureModes": [
+        "Avoid red warning badges on cyan background (creates jarring vibration)",
+        "Do not combine with chaotic heavy grit film grain"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/blinkcash-cyan-ambient.png",
+        "description": "Electric cyan ambient fintech backdrop extracted from BlinkCashX broadcast video."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "background",
+        "cyan",
+        "fintech",
+        "blinkcash",
+        "liquidity"
+      ],
+      "provenIn": "BlinkCashX Broadcast Motion Benchmark (00:02)"
+    },
+    {
+      "id": "bg-supercool-bento-glass",
+      "name": "SuperCool Frosted Bento Backdrop",
+      "type": "background",
+      "whatItCommunicates": "Architectural software modularity; every capability perfectly compartmentalized.",
+      "creativeProblemSolved": "How to showcase multiple complementary features simultaneously without cognitive overload.",
+      "emotionalEffect": [
+        "precision",
+        "delight",
+        "relief"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "bento-grid",
+        "cascade-stack"
+      ],
+      "usefulCombinations": [
+        "tex-glass-frosted-refraction",
+        "tech-action-progress-modal",
+        "sound-tactile-mechanical-switch"
+      ],
+      "parameters": {
+        "backdropBlurPx": 28,
+        "cardBorderLuminance": 0.12,
+        "specularReflectionAngle": 45
+      },
+      "knownFailureModes": [
+        "Never put more than 4 primary bento tiles in a vertical 9:16 aspect ratio",
+        "Ensure body copy within bento tiles does not exceed 3 lines"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/supercool-bento-glass.png",
+        "description": "Frosted bento glass card layout extracted from SuperCool launch video."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "background",
+        "bento",
+        "glass",
+        "modular",
+        "launch"
+      ],
+      "provenIn": "We make super cool launch videos (00:04)"
+    },
+    {
+      "id": "bg-monolithic-graphite",
+      "name": "Monolithic Studio Graphite Dark Void",
+      "type": "background",
+      "whatItCommunicates": "Industrial supremacy; heavy engineered precision with zero digital superficiality.",
+      "creativeProblemSolved": "How to present hardware or deep-tech developer infrastructure with monumental weight.",
+      "emotionalEffect": [
+        "precision",
+        "prestige",
+        "hyper-focus"
+      ],
+      "compatibleStyles": [
+        "industrial-craft",
+        "dark-saas",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "monolithic-vertical",
+        "macro-extreme"
+      ],
+      "usefulCombinations": [
+        "tech-pbr-titanium-pivot",
+        "device-ipad-pro-m4",
+        "sound-impact"
+      ],
+      "parameters": {
+        "graphiteHex": "#111215",
+        "specularSheenIntensity": 0.18,
+        "rimLightingAngle": 315
+      },
+      "knownFailureModes": [
+        "Requires high-contrast white/silver typography (#F8FAFC) to avoid muddy readability",
+        "Avoid bouncy spring physics (must use overdamped or linear easing)"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/monolithic-graphite-dark.png",
+        "description": "Studio matte graphite dark surface plate extracted from 84-hour motion piece."
+      },
+      "qualityScore": 9.9,
+      "tags": [
+        "background",
+        "graphite",
+        "monolith",
+        "hardware",
+        "precision"
+      ],
+      "provenIn": "84 Hours No AI Benchmark (00:03)"
+    },
+    {
+      "id": "bg-kinetic-stream-lines",
+      "name": "Kinetic Velocity Stream Lines",
+      "type": "background",
+      "whatItCommunicates": "Blistering runtime throughput; warp-speed computation and immediate execution.",
+      "creativeProblemSolved": "How to communicate speed and performance metrics without resorting to boring static line graphs.",
+      "emotionalEffect": [
+        "urgency",
+        "awe",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "cyber-terminal",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "diagonal-shear",
+        "perspective-card-grid"
+      ],
+      "usefulCombinations": [
+        "tech-metric-surge",
+        "ui-badge-latency-ultra",
+        "sound-whoosh"
+      ],
+      "parameters": {
+        "streamVelocity": 8.5,
+        "streakCount": 36,
+        "streakColor": "#38BDF8"
+      },
+      "knownFailureModes": [
+        "Streak velocity over 12 px/frame triggers motion blur nausea",
+        "Never layer dense paragraphs over kinetic stream lines"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/backgrounds/kinetic-stream-lines.png",
+        "description": "High-energy kinetic motion stream lines with directional blur."
+      },
+      "qualityScore": 9.6,
+      "tags": [
+        "background",
+        "velocity",
+        "stream",
+        "speed",
+        "kinetic"
+      ],
+      "provenIn": "Best thing you'll see today (00:05)"
+    },
+    {
+      "id": "tex-glass-frosted-refraction",
+      "name": "Refractive Frosted Glass Surface",
+      "type": "component",
+      "whatItCommunicates": "Tangible depth, optical refraction, and multi-layered UI sophisticated elegance.",
+      "creativeProblemSolved": "How to give flat 2D cards authentic tactile optical presence.",
+      "emotionalEffect": [
+        "delight",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "bento-grid",
+        "cascade-stack"
+      ],
+      "usefulCombinations": [
+        "bg-supercool-bento-glass",
+        "tech-dof-floating-cards"
+      ],
+      "parameters": {
+        "refractionBlurPx": 24,
+        "innerHighlightOpacity": 0.15,
+        "borderSpecularWidthPx": 1
+      },
+      "knownFailureModes": [
+        "Heavy performance impact if applied to more than 6 active elements simultaneously"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/textures/glass-frosted-refraction.png",
+        "description": "High-resolution frosted glass optical dispersion texture."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "texture",
+        "glass",
+        "refraction",
+        "frosted",
+        "bento"
+      ],
+      "provenIn": "Super Cool Launch Videos (00:10)"
+    },
+    {
+      "id": "tex-specular-lens-flare",
+      "name": "Anamorphic Specular Flare Ray",
+      "type": "component",
+      "whatItCommunicates": "Cinematic lighting polish; premium optical lens flare glancing off metallic edges.",
+      "creativeProblemSolved": "How to direct viewer eye tracking to a critical CTA button or key metric reveal.",
+      "emotionalEffect": [
+        "awe",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "industrial-craft",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "tech-pbr-titanium-pivot",
+        "tech-kinetic-glow-punch",
+        "sound-riser"
+      ],
+      "parameters": {
+        "flareWidthPx": 480,
+        "flareAngleDeg": -25,
+        "blendMode": "screen"
+      },
+      "knownFailureModes": [
+        "Avoid centering flare over paragraphs (causes localized illegibility)"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/textures/specular-lens-flare.png",
+        "description": "Clean anamorphic specular flare ray texture extracted from 84-hour motion piece."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "texture",
+        "flare",
+        "specular",
+        "anamorphic",
+        "cinematic"
+      ],
+      "provenIn": "84 Hours No AI Benchmark (00:08)"
+    },
+    {
+      "id": "ui-badge-usdc-verified",
+      "name": "Instant USDC Settlement Pill",
+      "type": "component",
+      "whatItCommunicates": "Instant, cryptographic, fully reserved dollar settlement on-chain.",
+      "creativeProblemSolved": "How to prove enterprise crypto credibility and security in a single micro-badge.",
+      "emotionalEffect": [
+        "precision",
+        "relief"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "bg-blinkcash-cyan-ambient",
+        "ref-blinkcash-stablecoin-deposit",
+        "sound-warm-resolution-chime"
+      ],
+      "parameters": {
+        "badgeWidthPx": 280,
+        "pillHeightPx": 64,
+        "statusDotColor": "#10B981"
+      },
+      "knownFailureModes": [
+        "Never display adjacent to unverified speculative token symbols"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/ui/badge-usdc-verified.svg",
+        "description": "Verified USDC Settlement badge with security glow."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "ui",
+        "badge",
+        "usdc",
+        "fintech",
+        "stablecoin"
+      ],
+      "provenIn": "BlinkCashX Mobile Deposit Sequence"
+    },
+    {
+      "id": "ui-badge-latency-ultra",
+      "name": "Sub-12ms Latency Execution Pill",
+      "type": "component",
+      "whatItCommunicates": "Absolute speed advantage; sub-frame execution latency leaving legacy systems behind.",
+      "creativeProblemSolved": "How to visualize API/network performance without a full technical dashboard.",
+      "emotionalEffect": [
+        "urgency",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "cyber-terminal",
+        "dark-saas",
+        "fintech-flow"
+      ],
+      "compatibleCompositions": [
+        "diagonal-shear",
+        "perspective-card-grid"
+      ],
+      "usefulCombinations": [
+        "bg-kinetic-stream-lines",
+        "tech-metric-surge",
+        "sound-whoosh"
+      ],
+      "parameters": {
+        "badgeWidthPx": 260,
+        "pillHeightPx": 56,
+        "accentGreenHex": "#22C55E"
+      },
+      "knownFailureModes": [
+        "Do not place near red urgency badges (causes green/red traffic-light confusion)"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/ui/badge-latency-ultra.svg",
+        "description": "Ultra-low latency execution pill (<12ms) with directional trend arrow."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "ui",
+        "badge",
+        "latency",
+        "speed",
+        "performance"
+      ],
+      "provenIn": "High-Frequency Trading & Velocity Benchmarks"
+    },
+    {
+      "id": "ui-badge-prediction-market",
+      "name": "Astra Live Event Probability Pill",
+      "type": "component",
+      "whatItCommunicates": "Real-time crowd intelligence and predictive market odds updating live.",
+      "creativeProblemSolved": "How to showcase dynamic betting or prediction probabilities with crystal clarity.",
+      "emotionalEffect": [
+        "tension",
+        "urgency",
+        "awe"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "bg-astra-horizon-glow",
+        "ref-astra-prediction-conveyor",
+        "sound-tension-drone"
+      ],
+      "parameters": {
+        "badgeWidthPx": 340,
+        "pillHeightPx": 72,
+        "probabilityText": "84.2% YES",
+        "deltaBadgeText": "+14.6%"
+      },
+      "knownFailureModes": [
+        "Text clipping if event headline exceeds 28 characters"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/ui/badge-prediction-market.svg",
+        "description": "Astra-style live probability market pill with dynamic amber odds indicator."
+      },
+      "qualityScore": 9.9,
+      "tags": [
+        "ui",
+        "badge",
+        "prediction",
+        "odds",
+        "astra",
+        "fintech"
+      ],
+      "provenIn": "Astra Prediction Reference (Frame 365)"
+    },
+    {
+      "id": "ui-card-transaction-success",
+      "name": "Instant Verified Settlement Receipt",
+      "type": "component",
+      "whatItCommunicates": "Zero-friction finality; the absolute catharsis of a completed high-value action.",
+      "creativeProblemSolved": "How to deliver the payoff moment in a conversion ad.",
+      "emotionalEffect": [
+        "relief",
+        "delight",
+        "precision"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-editorial"
+      ],
+      "usefulCombinations": [
+        "bg-blinkcash-cyan-ambient",
+        "tech-action-progress-modal",
+        "sound-warm-resolution-chime"
+      ],
+      "parameters": {
+        "cardWidthPx": 420,
+        "cardHeightPx": 180,
+        "settlementSpeedLabel": "0.14s",
+        "settlementAmount": "$10,000.00 USDC"
+      },
+      "knownFailureModes": [
+        "Never place higher than Y:60% in a mobile lockup (phone screen must anchor the upper frame)"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/ui/card-transaction-success.svg",
+        "description": "Fintech instant transaction verified settlement receipt card."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "ui",
+        "card",
+        "receipt",
+        "settlement",
+        "fintech",
+        "catharsis"
+      ],
+      "provenIn": "BlinkCashX Payoff Climax"
+    },
+    {
+      "id": "device-ipad-pro-m4",
+      "name": "iPad Pro M4 Ultra-Thin Vector Chassis",
+      "type": "3d-model",
+      "whatItCommunicates": "Pro-level tablet canvas; extreme power in an impossibly thin form factor.",
+      "creativeProblemSolved": "How to showcase tablet-optimized workflows and creative apps without generic 3D asset bloat.",
+      "emotionalEffect": [
+        "precision",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "industrial-craft",
+        "editorial-light"
+      ],
+      "compatibleCompositions": [
+        "wide-cinematic",
+        "asymmetric-grid"
+      ],
+      "usefulCombinations": [
+        "bg-monolithic-graphite",
+        "tech-pbr-titanium-pivot"
+      ],
+      "parameters": {
+        "bezelWidthPx": 16,
+        "cornerRadiusPx": 36,
+        "chassisGradient": "linear-gradient(135deg, #2D2F35, #1A1C20, #121316)"
+      },
+      "knownFailureModes": [
+        "In vertical 9:16 ads, iPad frame must be scaled to fit canvas width <= 92%"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/devices/ipad-pro-m4-frame.svg",
+        "description": "iPad Pro M4 ultra-thin vector hardware frame with micro-bezels."
+      },
+      "qualityScore": 9.8,
+      "tags": [
+        "device",
+        "ipad",
+        "hardware",
+        "vector",
+        "tablet"
+      ],
+      "provenIn": "Apple Pro Studio Workflows"
+    },
+    {
+      "id": "device-studio-display-5k",
+      "name": "Studio Display 5K Aluminum Frame",
+      "type": "3d-model",
+      "whatItCommunicates": "Desktop mastery; the ultimate professional workspace and crystal-clear visibility.",
+      "creativeProblemSolved": "How to frame complex desktop software apps with premium hardware framing.",
+      "emotionalEffect": [
+        "precision",
+        "prestige"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "industrial-craft",
+        "editorial-light"
+      ],
+      "compatibleCompositions": [
+        "monumental-centered",
+        "wide-cinematic"
+      ],
+      "usefulCombinations": [
+        "bg-monolithic-graphite",
+        "sound-impact"
+      ],
+      "parameters": {
+        "aspectRatio": "16:9",
+        "aluminumStandHeightPx": 220,
+        "panelWidthPx": 1480
+      },
+      "knownFailureModes": [
+        "Stand foot will clip off-canvas if vertical offset Y > 50%"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/assets/devices/studio-display-5k-frame.svg",
+        "description": "Studio Display 5K monitor frame with aluminum stand."
+      },
+      "qualityScore": 9.7,
+      "tags": [
+        "device",
+        "monitor",
+        "desktop",
+        "hardware",
+        "display"
+      ],
+      "provenIn": "Studio Workstation Workflows"
+    },
+    {
+      "id": "sound-warm-resolution-chime",
+      "name": "Warm Harmonic Resolution Chime (880Hz)",
+      "type": "sound-cue",
+      "whatItCommunicates": "Relief, achievement, instant settlement, and emotional gratification.",
+      "creativeProblemSolved": "How to sonically reward the viewer when a problem is solved or transaction clears.",
+      "emotionalEffect": [
+        "relief",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "fintech-flow",
+        "dark-saas",
+        "editorial-light",
+        "minimalist"
+      ],
+      "compatibleCompositions": [
+        "monolithic-vertical",
+        "asymmetric-editorial",
+        "bento-grid"
+      ],
+      "usefulCombinations": [
+        "ui-card-transaction-success",
+        "tech-action-progress-modal",
+        "bg-blinkcash-cyan-ambient"
+      ],
+      "parameters": {
+        "fundamentalHz": 880,
+        "decaySeconds": 1.2,
+        "harmonicsCount": 4
+      },
+      "knownFailureModes": [
+        "Do not trigger during high-stress problem scene; reserve exclusively for resolution/payoff scene"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/audio/sfx/chime.wav",
+        "description": "Rich 880Hz harmonic metallic bell settlement chime synthesized with pure PCM audio."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "audio",
+        "sfx",
+        "chime",
+        "resolution",
+        "relief",
+        "settlement"
+      ],
+      "provenIn": "BlinkCashX Settlement Climax"
+    },
+    {
+      "id": "sound-sub-tension-drone",
+      "name": "Resonant Sub-Bass Tension Drone (48Hz)",
+      "type": "sound-cue",
+      "whatItCommunicates": "Dread, overwhelming stakes, heavy impending friction, and intense focus.",
+      "creativeProblemSolved": "How to instantly build visceral tension in the opening 2 seconds without loud harsh noise.",
+      "emotionalEffect": [
+        "tension",
+        "visual-overload",
+        "urgency"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "fintech-flow",
+        "cyber-terminal"
+      ],
+      "compatibleCompositions": [
+        "perspective-card-grid",
+        "diagonal-shear"
+      ],
+      "usefulCombinations": [
+        "bg-astra-dark-grid",
+        "ref-astra-prediction-conveyor",
+        "tech-conveyor-belt-3d"
+      ],
+      "parameters": {
+        "droneHz": 48,
+        "lfoRateHz": 0.8,
+        "durationSeconds": 2
+      },
+      "knownFailureModes": [
+        "Never play simultaneously with loud melodic music bassline (causes phase cancellation muddiness)"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/audio/sfx/tension-drone.wav",
+        "description": "Deep 48Hz resonant sub-bass drone with slow 0.8Hz breathing LFO envelope."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "audio",
+        "sfx",
+        "drone",
+        "tension",
+        "sub-bass",
+        "urgency"
+      ],
+      "provenIn": "Astra Act 1 Opening Drone"
+    },
+    {
+      "id": "sound-tactile-mechanical-switch",
+      "name": "Tactile Mechanical Switch Keystroke",
+      "type": "sound-cue",
+      "whatItCommunicates": "Physical tactile precision, immediate human command, and keyboard-first speed.",
+      "creativeProblemSolved": "How to make software UI interactions feel deeply satisfying and physical.",
+      "emotionalEffect": [
+        "precision",
+        "delight"
+      ],
+      "compatibleStyles": [
+        "dark-saas",
+        "cyber-terminal",
+        "industrial-craft"
+      ],
+      "compatibleCompositions": [
+        "bento-grid",
+        "monolithic-vertical"
+      ],
+      "usefulCombinations": [
+        "tech-bezier-cursor-interaction",
+        "bg-supercool-bento-glass"
+      ],
+      "parameters": {
+        "primaryClickHz": 3200,
+        "bottomOutHz": 1800,
+        "splitMs": 8
+      },
+      "knownFailureModes": [
+        "Avoid machine-gun repetition (<50ms apart) which sounds like audio corruption"
+      ],
+      "previewOrExample": {
+        "referenceFile": "public/audio/sfx/switch.wav",
+        "description": "Dual-transient mechanical switch keystroke click with tactile bottom-out."
+      },
+      "qualityScore": 10,
+      "tags": [
+        "audio",
+        "sfx",
+        "switch",
+        "click",
+        "tactile",
+        "keystroke"
+      ],
+      "provenIn": "Super Cool Launch UI Interactions"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "session-test-rejection-1",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline when headline fontSize exceeded 60px"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast and collided with the subtext badge.",
+      "timestamp": "2026-09-12T16:25:24.716Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:25:24.721Z"
+    },
+    {
+      "id": "session-test-rejection-1",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline when headline fontSize exceeded 60px"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast and collided with the subtext badge.",
+      "timestamp": "2026-09-12T16:26:12.116Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:26:12.120Z"
+    },
+    {
+      "id": "session-test-rejection-1789230462837",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789230462837",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789230462837"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789230462837",
+      "timestamp": "2026-09-12T16:27:42.837Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:27:43.151Z"
+    },
+    {
+      "id": "session-test-rejection-1789231186391",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789231186391",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789231186391"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789231186391",
+      "timestamp": "2026-09-12T16:39:46.391Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:39:46.395Z"
+    },
+    {
+      "id": "session-test-rejection-1789231231882",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789231231882",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789231231882"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789231231882",
+      "timestamp": "2026-09-12T16:40:31.882Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:40:31.885Z"
+    },
+    {
+      "id": "vercel-studio-ad-1789231258057",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d",
+        "bg-tension-shear-grid",
+        "typo-stagger-stress",
+        "trans-whip-snap",
+        "comp-uncluttered-bento",
+        "tech-action-progress-modal",
+        "bg-clean-slate-fade",
+        "typo-editorial-restrained-serif",
+        "trans-smooth-glide",
+        "comp-velocity-speedrun",
+        "tech-pbr-titanium-pivot",
+        "typo-monumental-clean-sans"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T16:40:58.075Z"
+    },
+    {
+      "id": "session-test-rejection-1789231315700",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789231315700",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789231315700"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789231315700",
+      "timestamp": "2026-09-12T16:41:55.700Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:41:55.704Z"
+    },
+    {
+      "id": "session-test-rejection-1789231571429",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789231571429",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789231571429"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789231571429",
+      "timestamp": "2026-09-12T16:46:11.429Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T16:46:11.436Z"
+    },
+    {
+      "id": "vercel-studio-ad-1789231591232",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d",
+        "bg-tension-shear-grid",
+        "typo-stagger-stress",
+        "trans-whip-snap",
+        "comp-uncluttered-bento",
+        "tech-action-progress-modal",
+        "bg-clean-slate-fade",
+        "typo-editorial-restrained-serif",
+        "trans-smooth-glide",
+        "comp-velocity-speedrun",
+        "tech-pbr-titanium-pivot",
+        "typo-monumental-clean-sans"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1-provocation",
+          "category": "creative-memory-violation",
+          "severity": "critical",
+          "description": "Creative Memory violation [3D Perspective Friction Conveyor]: Headline positioned at Y:50% conflicts with failure mode: \"Overlaps centered headline if headline posY > 30%\"."
+        }
+      ],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T16:46:31.260Z"
+    },
+    {
+      "id": "session-rcrut-1789237333881",
+      "brand": "RCRUT",
+      "conceptAngle": "Signal Emerging From Noise",
+      "intent": "Create tension and visual overload then cathartic relief and clarity",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-notification-cascade-barrage",
+        "sound-sub-tension-drone",
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d",
+        "ref-architectural-monolith-hook",
+        "sound-impact",
+        "comp-uncluttered-bento",
+        "tech-snappy-card-drop",
+        "tech-bezier-cursor-interaction",
+        "sound-tactile-mechanical-switch",
+        "tech-action-progress-modal",
+        "sound-warm-resolution-chime",
+        "cta-button",
+        "bg-astra-horizon-glow"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-4-discover",
+          "category": "motion-intentionality",
+          "severity": "major",
+          "description": "Scene uses unmotivated 2D slide/wipe transition instead of intentional camera depth or seamless cut.",
+          "suggestedFix": "Use 3D camera travel or seamless cut to motivate spatial progression."
+        }
+      ],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Signal emerging from noise executed across 7 narrative scenes with electric violet branding and 9.0+ quality gate.",
+      "timestamp": "2026-09-12T18:22:13.881Z"
+    },
+    {
+      "id": "session-rcrut-1789237903897",
+      "brand": "RCRUT",
+      "conceptAngle": "Signal Emerging From Noise",
+      "intent": "Create tension and visual overload then cathartic relief and clarity",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-notification-cascade-barrage",
+        "sound-sub-tension-drone",
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d",
+        "ref-architectural-monolith-hook",
+        "sound-impact",
+        "comp-uncluttered-bento",
+        "tech-snappy-card-drop",
+        "tech-bezier-cursor-interaction",
+        "sound-tactile-mechanical-switch",
+        "tech-action-progress-modal",
+        "sound-warm-resolution-chime",
+        "cta-button",
+        "bg-astra-horizon-glow"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-4-discover",
+          "category": "motion-intentionality",
+          "severity": "major",
+          "description": "Scene uses unmotivated 2D slide/wipe transition instead of intentional camera depth or seamless cut.",
+          "suggestedFix": "Use 3D camera travel or seamless cut to motivate spatial progression."
+        }
+      ],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Signal emerging from noise executed across 7 narrative scenes with electric violet branding and 9.0+ quality gate.",
+      "timestamp": "2026-09-12T18:31:43.897Z"
+    },
+    {
+      "id": "session-rcrut-1789238487766",
+      "brand": "RCRUT",
+      "conceptAngle": "Signal Emerging From Noise",
+      "intent": "Create tension and visual overload then cathartic relief and clarity",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-notification-cascade-barrage",
+        "sound-sub-tension-drone",
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d",
+        "ref-architectural-monolith-hook",
+        "sound-impact",
+        "comp-uncluttered-bento",
+        "tech-snappy-card-drop",
+        "tech-bezier-cursor-interaction",
+        "sound-tactile-mechanical-switch",
+        "tech-action-progress-modal",
+        "sound-warm-resolution-chime",
+        "cta-button",
+        "bg-astra-horizon-glow"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-4-discover",
+          "category": "motion-intentionality",
+          "severity": "major",
+          "description": "Scene uses unmotivated 2D slide/wipe transition instead of intentional camera depth or seamless cut.",
+          "suggestedFix": "Use 3D camera travel or seamless cut to motivate spatial progression."
+        }
+      ],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Signal emerging from noise executed across 7 narrative scenes with electric violet branding and 9.0+ quality gate.",
+      "timestamp": "2026-09-12T18:41:27.766Z"
+    },
+    {
+      "id": "reconstructed-ad-1789247337106",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero-Lag Talent Calibration",
+      "intent": "cinematic-spectacle",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T21:08:57.126Z"
+    },
+    {
+      "id": "reconstructed-ad-1789247376670",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T21:09:36.688Z"
+    },
+    {
+      "id": "reconstructed-ad-1789247414556",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T21:10:14.573Z"
+    },
+    {
+      "id": "reconstructed-ad-1789247428159",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T21:10:28.177Z"
+    },
+    {
+      "id": "reconstructed-ad-1789250783794",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T22:06:23.810Z"
+    },
+    {
+      "id": "session-test-rejection-1789250794264",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789250794264",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789250794264"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789250794264",
+      "timestamp": "2026-09-12T22:06:34.264Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-12T22:06:34.270Z"
+    },
+    {
+      "id": "reconstructed-ad-1789253181971",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T22:46:21.988Z"
+    },
+    {
+      "id": "reconstructed-ad-1789255196665",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-12T23:19:56.680Z"
+    },
+    {
+      "id": "reconstructed-ad-1789259727072",
+      "brand": "Vercel",
+      "conceptAngle": "The Discipline of Craft",
+      "intent": "editorial-manifesto",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-13T00:35:27.089Z"
+    },
+    {
+      "id": "reconstructed-ad-1789470239065",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T11:03:59.079Z"
+    },
+    {
+      "id": "reconstructed-ad-1789471864109",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T11:31:04.126Z"
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789472990046
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789472990052
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789474233692
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789474233697
+    },
+    {
+      "id": "session-test-rejection-1789474255532",
+      "brand": "TestBrand",
+      "conceptAngle": "The Tension Test",
+      "intent": "Create tension and visual overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-perspective-conveyor-friction",
+        "tech-conveyor-belt-3d"
+      ],
+      "critiqueOverallScore": 6.5,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "spatial-collision-1789474255532",
+          "severity": "critical",
+          "description": "Cards clipped over centered headline at run 1789474255532"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Cards moved too fast at run 1789474255532",
+      "timestamp": "2026-09-15T12:10:55.532Z"
+    },
+    {
+      "id": "session-test-approval-1",
+      "brand": "Teenage Engineering",
+      "conceptAngle": "The Industrial Monolith",
+      "intent": "Create premium technical precision",
+      "style": "industrial-craft",
+      "itemsUsed": [
+        "tech-pbr-titanium-pivot",
+        "comp-monolithic-hardware",
+        "bg-matte-graphite-specular"
+      ],
+      "critiqueOverallScore": 9.8,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Stunning titanium reflections and flawless pacing.",
+      "timestamp": "2026-09-15T12:10:55.536Z"
+    },
+    {
+      "id": "reconstructed-ad-1789474278026",
+      "brand": "Vercel",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-15T12:11:18.041Z"
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789499474706
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789499474711
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789499663918
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789499663922
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789501815569
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789501815574
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789503399295
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789503399393
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789506643404
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789506643409
+    },
+    {
+      "id": "outcome-test-rcrut-001",
+      "brand": "RCRUT",
+      "conceptAngle": "Zero to Production Velocity",
+      "intent": "feature-escalation",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero",
+        "tech-kinetic-stagger"
+      ],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "approved",
+      "userFeedbackNotes": "Broadcast approved: clean typography and flawless asymmetric rhythm.",
+      "timestamp": 1789508442020
+    },
+    {
+      "id": "outcome-test-rejection-002",
+      "brand": "Cluttered Finance Inc",
+      "conceptAngle": "The Hectic Rush",
+      "intent": "tension-overload",
+      "style": "dark-saas",
+      "itemsUsed": [
+        "comp-monolithic-hero"
+      ],
+      "critiqueOverallScore": 6.2,
+      "critiquePassed": false,
+      "critiqueIssues": [
+        {
+          "sceneId": "scene-1",
+          "category": "crowding",
+          "severity": "critical",
+          "description": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+          "suggestedFix": "Increase negative space to 60%"
+        }
+      ],
+      "userVerdict": "rejected",
+      "userFeedbackNotes": "Crowded bottom margin and excessive kinetic velocity on financial badges.",
+      "timestamp": 1789508442031
+    },
+    {
+      "id": "reconstructed-ad-1789577670370",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-16T16:59:04.371Z"
+    },
+    {
+      "id": "reconstructed-ad-1789578205839",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-16T17:07:35.364Z"
+    },
+    {
+      "id": "reconstructed-ad-1789578645589",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-16T17:16:09.201Z"
+    },
+    {
+      "id": "reconstructed-ad-1789580208288",
+      "brand": "RCRUT",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-16T17:41:09.868Z"
+    },
+    {
+      "id": "reconstructed-ad-1789588535994",
+      "brand": "TestBrand",
+      "conceptAngle": "The Modern Infrastructure Shift",
+      "intent": "transformation",
+      "style": "dark-saas",
+      "itemsUsed": [],
+      "critiqueOverallScore": 9.5,
+      "critiquePassed": true,
+      "critiqueIssues": [],
+      "userVerdict": "unreviewed",
+      "timestamp": "2026-09-16T20:00:00.457Z"
+    }
+  ],
+  "affinityWeights": {
+    "intent:create tension and visual overload:comp-perspective-conveyor-friction": -6.3,
+    "intent:create tension and visual overload:tech-conveyor-belt-3d": -6.3,
+    "pair:comp-perspective-conveyor-friction:tech-conveyor-belt-3d": -4,
+    "intent:create premium technical precision:tech-pbr-titanium-pivot": 3.15,
+    "intent:create premium technical precision:comp-monolithic-hardware": 3.15,
+    "intent:create premium technical precision:bg-matte-graphite-specular": 3.15,
+    "pair:tech-pbr-titanium-pivot:comp-monolithic-hardware": 2.25,
+    "pair:tech-pbr-titanium-pivot:bg-matte-graphite-specular": 2.25,
+    "pair:comp-monolithic-hardware:bg-matte-graphite-specular": 2.25,
+    "intent:transformation:comp-perspective-conveyor-friction": -0.35,
+    "intent:transformation:tech-conveyor-belt-3d": -0.35,
+    "intent:transformation:bg-tension-shear-grid": -0.35,
+    "intent:transformation:typo-stagger-stress": -0.35,
+    "intent:transformation:trans-whip-snap": -0.35,
+    "intent:transformation:comp-uncluttered-bento": -0.35,
+    "intent:transformation:tech-action-progress-modal": -0.35,
+    "intent:transformation:bg-clean-slate-fade": -0.35,
+    "intent:transformation:typo-editorial-restrained-serif": -0.35,
+    "intent:transformation:trans-smooth-glide": -0.35,
+    "intent:transformation:comp-velocity-speedrun": -0.35,
+    "intent:transformation:tech-pbr-titanium-pivot": -0.35,
+    "intent:transformation:typo-monumental-clean-sans": -0.35,
+    "pair:comp-perspective-conveyor-friction:bg-tension-shear-grid": -0.25,
+    "pair:comp-perspective-conveyor-friction:typo-stagger-stress": -0.25,
+    "pair:comp-perspective-conveyor-friction:trans-whip-snap": -0.25,
+    "pair:comp-perspective-conveyor-friction:comp-uncluttered-bento": 0.5,
+    "pair:comp-perspective-conveyor-friction:tech-action-progress-modal": 0.5,
+    "pair:comp-perspective-conveyor-friction:bg-clean-slate-fade": -0.25,
+    "pair:comp-perspective-conveyor-friction:typo-editorial-restrained-serif": -0.25,
+    "pair:comp-perspective-conveyor-friction:trans-smooth-glide": -0.25,
+    "pair:comp-perspective-conveyor-friction:comp-velocity-speedrun": -0.25,
+    "pair:comp-perspective-conveyor-friction:tech-pbr-titanium-pivot": -0.25,
+    "pair:comp-perspective-conveyor-friction:typo-monumental-clean-sans": -0.25,
+    "pair:tech-conveyor-belt-3d:bg-tension-shear-grid": -0.25,
+    "pair:tech-conveyor-belt-3d:typo-stagger-stress": -0.25,
+    "pair:tech-conveyor-belt-3d:trans-whip-snap": -0.25,
+    "pair:tech-conveyor-belt-3d:comp-uncluttered-bento": 0.5,
+    "pair:tech-conveyor-belt-3d:tech-action-progress-modal": 0.5,
+    "pair:tech-conveyor-belt-3d:bg-clean-slate-fade": -0.25,
+    "pair:tech-conveyor-belt-3d:typo-editorial-restrained-serif": -0.25,
+    "pair:tech-conveyor-belt-3d:trans-smooth-glide": -0.25,
+    "pair:tech-conveyor-belt-3d:comp-velocity-speedrun": -0.25,
+    "pair:tech-conveyor-belt-3d:tech-pbr-titanium-pivot": -0.25,
+    "pair:tech-conveyor-belt-3d:typo-monumental-clean-sans": -0.25,
+    "pair:bg-tension-shear-grid:typo-stagger-stress": -0.25,
+    "pair:bg-tension-shear-grid:trans-whip-snap": -0.25,
+    "pair:bg-tension-shear-grid:comp-uncluttered-bento": -0.25,
+    "pair:bg-tension-shear-grid:tech-action-progress-modal": -0.25,
+    "pair:bg-tension-shear-grid:bg-clean-slate-fade": -0.25,
+    "pair:bg-tension-shear-grid:typo-editorial-restrained-serif": -0.25,
+    "pair:bg-tension-shear-grid:trans-smooth-glide": -0.25,
+    "pair:bg-tension-shear-grid:comp-velocity-speedrun": -0.25,
+    "pair:bg-tension-shear-grid:tech-pbr-titanium-pivot": -0.25,
+    "pair:bg-tension-shear-grid:typo-monumental-clean-sans": -0.25,
+    "pair:typo-stagger-stress:trans-whip-snap": -0.25,
+    "pair:typo-stagger-stress:comp-uncluttered-bento": -0.25,
+    "pair:typo-stagger-stress:tech-action-progress-modal": -0.25,
+    "pair:typo-stagger-stress:bg-clean-slate-fade": -0.25,
+    "pair:typo-stagger-stress:typo-editorial-restrained-serif": -0.25,
+    "pair:typo-stagger-stress:trans-smooth-glide": -0.25,
+    "pair:typo-stagger-stress:comp-velocity-speedrun": -0.25,
+    "pair:typo-stagger-stress:tech-pbr-titanium-pivot": -0.25,
+    "pair:typo-stagger-stress:typo-monumental-clean-sans": -0.25,
+    "pair:trans-whip-snap:comp-uncluttered-bento": -0.25,
+    "pair:trans-whip-snap:tech-action-progress-modal": -0.25,
+    "pair:trans-whip-snap:bg-clean-slate-fade": -0.25,
+    "pair:trans-whip-snap:typo-editorial-restrained-serif": -0.25,
+    "pair:trans-whip-snap:trans-smooth-glide": -0.25,
+    "pair:trans-whip-snap:comp-velocity-speedrun": -0.25,
+    "pair:trans-whip-snap:tech-pbr-titanium-pivot": -0.25,
+    "pair:trans-whip-snap:typo-monumental-clean-sans": -0.25,
+    "pair:comp-uncluttered-bento:tech-action-progress-modal": 0.5,
+    "pair:comp-uncluttered-bento:bg-clean-slate-fade": -0.25,
+    "pair:comp-uncluttered-bento:typo-editorial-restrained-serif": -0.25,
+    "pair:comp-uncluttered-bento:trans-smooth-glide": -0.25,
+    "pair:comp-uncluttered-bento:comp-velocity-speedrun": -0.25,
+    "pair:comp-uncluttered-bento:tech-pbr-titanium-pivot": -0.25,
+    "pair:comp-uncluttered-bento:typo-monumental-clean-sans": -0.25,
+    "pair:tech-action-progress-modal:bg-clean-slate-fade": -0.25,
+    "pair:tech-action-progress-modal:typo-editorial-restrained-serif": -0.25,
+    "pair:tech-action-progress-modal:trans-smooth-glide": -0.25,
+    "pair:tech-action-progress-modal:comp-velocity-speedrun": -0.25,
+    "pair:tech-action-progress-modal:tech-pbr-titanium-pivot": -0.25,
+    "pair:tech-action-progress-modal:typo-monumental-clean-sans": -0.25,
+    "pair:bg-clean-slate-fade:typo-editorial-restrained-serif": -0.25,
+    "pair:bg-clean-slate-fade:trans-smooth-glide": -0.25,
+    "pair:bg-clean-slate-fade:comp-velocity-speedrun": -0.25,
+    "pair:bg-clean-slate-fade:tech-pbr-titanium-pivot": -0.25,
+    "pair:bg-clean-slate-fade:typo-monumental-clean-sans": -0.25,
+    "pair:typo-editorial-restrained-serif:trans-smooth-glide": -0.25,
+    "pair:typo-editorial-restrained-serif:comp-velocity-speedrun": -0.25,
+    "pair:typo-editorial-restrained-serif:tech-pbr-titanium-pivot": -0.25,
+    "pair:typo-editorial-restrained-serif:typo-monumental-clean-sans": -0.25,
+    "pair:trans-smooth-glide:comp-velocity-speedrun": -0.25,
+    "pair:trans-smooth-glide:tech-pbr-titanium-pivot": -0.25,
+    "pair:trans-smooth-glide:typo-monumental-clean-sans": -0.25,
+    "pair:comp-velocity-speedrun:tech-pbr-titanium-pivot": -0.25,
+    "pair:comp-velocity-speedrun:typo-monumental-clean-sans": -0.25,
+    "pair:tech-pbr-titanium-pivot:typo-monumental-clean-sans": -0.25,
+    "intent:create tension and visual overload then cathartic relief and clarity:comp-notification-cascade-barrage": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:sound-sub-tension-drone": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:comp-perspective-conveyor-friction": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:tech-conveyor-belt-3d": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:ref-architectural-monolith-hook": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:comp-uncluttered-bento": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:tech-snappy-card-drop": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:tech-bezier-cursor-interaction": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:sound-tactile-mechanical-switch": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:tech-action-progress-modal": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:sound-warm-resolution-chime": 1.05,
+    "intent:create tension and visual overload then cathartic relief and clarity:bg-astra-horizon-glow": 1.05,
+    "pair:comp-notification-cascade-barrage:sound-sub-tension-drone": 0.75,
+    "pair:comp-notification-cascade-barrage:comp-perspective-conveyor-friction": 0.75,
+    "pair:comp-notification-cascade-barrage:tech-conveyor-belt-3d": 0.75,
+    "pair:comp-notification-cascade-barrage:ref-architectural-monolith-hook": 0.75,
+    "pair:comp-notification-cascade-barrage:sound-impact": 0.75,
+    "pair:comp-notification-cascade-barrage:comp-uncluttered-bento": 0.75,
+    "pair:comp-notification-cascade-barrage:tech-snappy-card-drop": 0.75,
+    "pair:comp-notification-cascade-barrage:tech-bezier-cursor-interaction": 0.75,
+    "pair:comp-notification-cascade-barrage:sound-tactile-mechanical-switch": 0.75,
+    "pair:comp-notification-cascade-barrage:tech-action-progress-modal": 0.75,
+    "pair:comp-notification-cascade-barrage:sound-warm-resolution-chime": 0.75,
+    "pair:comp-notification-cascade-barrage:cta-button": 0.75,
+    "pair:comp-notification-cascade-barrage:bg-astra-horizon-glow": 0.75,
+    "pair:sound-sub-tension-drone:comp-perspective-conveyor-friction": 0.75,
+    "pair:sound-sub-tension-drone:tech-conveyor-belt-3d": 0.75,
+    "pair:sound-sub-tension-drone:ref-architectural-monolith-hook": 0.75,
+    "pair:sound-sub-tension-drone:sound-impact": 0.75,
+    "pair:sound-sub-tension-drone:comp-uncluttered-bento": 0.75,
+    "pair:sound-sub-tension-drone:tech-snappy-card-drop": 0.75,
+    "pair:sound-sub-tension-drone:tech-bezier-cursor-interaction": 0.75,
+    "pair:sound-sub-tension-drone:sound-tactile-mechanical-switch": 0.75,
+    "pair:sound-sub-tension-drone:tech-action-progress-modal": 0.75,
+    "pair:sound-sub-tension-drone:sound-warm-resolution-chime": 0.75,
+    "pair:sound-sub-tension-drone:cta-button": 0.75,
+    "pair:sound-sub-tension-drone:bg-astra-horizon-glow": 0.75,
+    "pair:comp-perspective-conveyor-friction:ref-architectural-monolith-hook": 0.75,
+    "pair:comp-perspective-conveyor-friction:sound-impact": 0.75,
+    "pair:comp-perspective-conveyor-friction:tech-snappy-card-drop": 0.75,
+    "pair:comp-perspective-conveyor-friction:tech-bezier-cursor-interaction": 0.75,
+    "pair:comp-perspective-conveyor-friction:sound-tactile-mechanical-switch": 0.75,
+    "pair:comp-perspective-conveyor-friction:sound-warm-resolution-chime": 0.75,
+    "pair:comp-perspective-conveyor-friction:cta-button": 0.75,
+    "pair:comp-perspective-conveyor-friction:bg-astra-horizon-glow": 0.75,
+    "pair:tech-conveyor-belt-3d:ref-architectural-monolith-hook": 0.75,
+    "pair:tech-conveyor-belt-3d:sound-impact": 0.75,
+    "pair:tech-conveyor-belt-3d:tech-snappy-card-drop": 0.75,
+    "pair:tech-conveyor-belt-3d:tech-bezier-cursor-interaction": 0.75,
+    "pair:tech-conveyor-belt-3d:sound-tactile-mechanical-switch": 0.75,
+    "pair:tech-conveyor-belt-3d:sound-warm-resolution-chime": 0.75,
+    "pair:tech-conveyor-belt-3d:cta-button": 0.75,
+    "pair:tech-conveyor-belt-3d:bg-astra-horizon-glow": 0.75,
+    "pair:ref-architectural-monolith-hook:sound-impact": 0.75,
+    "pair:ref-architectural-monolith-hook:comp-uncluttered-bento": 0.75,
+    "pair:ref-architectural-monolith-hook:tech-snappy-card-drop": 0.75,
+    "pair:ref-architectural-monolith-hook:tech-bezier-cursor-interaction": 0.75,
+    "pair:ref-architectural-monolith-hook:sound-tactile-mechanical-switch": 0.75,
+    "pair:ref-architectural-monolith-hook:tech-action-progress-modal": 0.75,
+    "pair:ref-architectural-monolith-hook:sound-warm-resolution-chime": 0.75,
+    "pair:ref-architectural-monolith-hook:cta-button": 0.75,
+    "pair:ref-architectural-monolith-hook:bg-astra-horizon-glow": 0.75,
+    "pair:sound-impact:comp-uncluttered-bento": 0.75,
+    "pair:sound-impact:tech-snappy-card-drop": 0.75,
+    "pair:sound-impact:tech-bezier-cursor-interaction": 0.75,
+    "pair:sound-impact:sound-tactile-mechanical-switch": 0.75,
+    "pair:sound-impact:tech-action-progress-modal": 0.75,
+    "pair:sound-impact:sound-warm-resolution-chime": 0.75,
+    "pair:sound-impact:cta-button": 0.75,
+    "pair:sound-impact:bg-astra-horizon-glow": 0.75,
+    "pair:comp-uncluttered-bento:tech-snappy-card-drop": 0.75,
+    "pair:comp-uncluttered-bento:tech-bezier-cursor-interaction": 0.75,
+    "pair:comp-uncluttered-bento:sound-tactile-mechanical-switch": 0.75,
+    "pair:comp-uncluttered-bento:sound-warm-resolution-chime": 0.75,
+    "pair:comp-uncluttered-bento:cta-button": 0.75,
+    "pair:comp-uncluttered-bento:bg-astra-horizon-glow": 0.75,
+    "pair:tech-snappy-card-drop:tech-bezier-cursor-interaction": 0.75,
+    "pair:tech-snappy-card-drop:sound-tactile-mechanical-switch": 0.75,
+    "pair:tech-snappy-card-drop:tech-action-progress-modal": 0.75,
+    "pair:tech-snappy-card-drop:sound-warm-resolution-chime": 0.75,
+    "pair:tech-snappy-card-drop:cta-button": 0.75,
+    "pair:tech-snappy-card-drop:bg-astra-horizon-glow": 0.75,
+    "pair:tech-bezier-cursor-interaction:sound-tactile-mechanical-switch": 0.75,
+    "pair:tech-bezier-cursor-interaction:tech-action-progress-modal": 0.75,
+    "pair:tech-bezier-cursor-interaction:sound-warm-resolution-chime": 0.75,
+    "pair:tech-bezier-cursor-interaction:cta-button": 0.75,
+    "pair:tech-bezier-cursor-interaction:bg-astra-horizon-glow": 0.75,
+    "pair:sound-tactile-mechanical-switch:tech-action-progress-modal": 0.75,
+    "pair:sound-tactile-mechanical-switch:sound-warm-resolution-chime": 0.75,
+    "pair:sound-tactile-mechanical-switch:cta-button": 0.75,
+    "pair:sound-tactile-mechanical-switch:bg-astra-horizon-glow": 0.75,
+    "pair:tech-action-progress-modal:sound-warm-resolution-chime": 0.75,
+    "pair:tech-action-progress-modal:cta-button": 0.75,
+    "pair:tech-action-progress-modal:bg-astra-horizon-glow": 0.75,
+    "pair:sound-warm-resolution-chime:cta-button": 0.75,
+    "pair:sound-warm-resolution-chime:bg-astra-horizon-glow": 0.75,
+    "pair:cta-button:bg-astra-horizon-glow": 0.75,
+    "pair:comp-monolithic-hero:tech-kinetic-stagger": 2
+  }
+}

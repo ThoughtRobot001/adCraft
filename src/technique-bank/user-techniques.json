@@ -1,0 +1,33 @@
+[
+  {
+    "id": "tech-custom-hologram-shimmer",
+    "name": "Custom Holographic Shimmer Wipe",
+    "category": "scene-transition",
+    "description": "Prismatic diagonal chromatic aberration wipe across the screen.",
+    "visualPurpose": "High-energy futuristic brand transition beat.",
+    "whenToUse": [
+      "hologram",
+      "shimmer",
+      "prismatic",
+      "chromatic wipe"
+    ],
+    "targetPrimitive": "particle-tunnel",
+    "motionCurve": "whip",
+    "parameters": {
+      "shimmerAngle": 45,
+      "chromaticOffset": 8
+    },
+    "defaultProps": {
+      "direction": "inward"
+    },
+    "codeSnippet": "// Custom holographic shimmer implementation",
+    "provenIn": "Unit Test Custom Memory",
+    "qualityRating": 9.9,
+    "tags": [
+      "hologram",
+      "shimmer",
+      "wipe",
+      "custom"
+    ]
+  }
+]

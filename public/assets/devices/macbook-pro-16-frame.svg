@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <linearGradient id="lid-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#23252A"/>
+      <stop offset="100%" stop-color="#141518"/>
+    </linearGradient>
+    <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2E3036"/>
+      <stop offset="100%" stop-color="#18191C"/>
+    </linearGradient>
+  </defs>
+  <!-- Screen Lid -->
+  <rect x="80" y="40" width="1440" height="900" rx="24" fill="url(#lid-grad)" stroke="#3F424A" stroke-width="2"/>
+  <!-- Display Bezel Viewport -->
+  <rect x="104" y="64" width="1392" height="852" rx="14" fill="#000000"/>
+  <!-- Camera Notch -->
+  <path d="M 720 64 L 720 86 A 6 6 0 0 0 726 92 L 874 92 A 6 6 0 0 0 880 86 L 880 64 Z" fill="#141518"/>
+  <circle cx="800" cy="78" r="4" fill="#050608" stroke="#333" stroke-width="1"/>
+  <!-- Bottom Base Plate -->
+  <path d="M 40 940 L 1560 940 L 1540 962 L 60 962 Z" fill="url(#chassis-grad)" stroke="#3F424A" stroke-width="1"/>
+  <rect x="740" y="940" width="120" height="6" rx="3" fill="#0E0F11"/>
+</svg>

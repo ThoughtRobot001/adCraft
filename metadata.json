@@ -1,0 +1,6 @@
+{
+  "name": "AdCraft - AI-Powered Video & Image Ad Creation",
+  "description": "AI-powered creative advertising platform to turn ideas, products, and brands into high-performing video and image campaigns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

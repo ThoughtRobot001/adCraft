@@ -1,0 +1,5 @@
+{
+  "status": "procedural-fallback",
+  "shaderFallback": "bg-shader-domain-warp",
+  "resolution": "1920x1080"
+}

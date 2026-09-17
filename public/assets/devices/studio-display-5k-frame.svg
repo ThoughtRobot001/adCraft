@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200">
+  <defs>
+    <linearGradient id="alu-stand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E2E3E8"/>
+      <stop offset="100%" stop-color="#9A9CA6"/>
+    </linearGradient>
+    <linearGradient id="panel-bezel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1B1F"/>
+      <stop offset="100%" stop-color="#0E0F12"/>
+    </linearGradient>
+  </defs>
+  <!-- Display Panel -->
+  <rect x="60" y="40" width="1480" height="880" rx="20" fill="url(#panel-bezel)" stroke="#3E4048" stroke-width="2"/>
+  <rect x="84" y="64" width="1432" height="832" rx="10" fill="#000000"/>
+  <circle cx="800" cy="52" r="3" fill="#050608"/>
+  <!-- Stand Arm -->
+  <path d="M 740 920 L 860 920 L 840 1140 L 760 1140 Z" fill="url(#alu-stand)" stroke="#7C7E88" stroke-width="1.5"/>
+  <!-- Stand Foot -->
+  <rect x="620" y="1140" width="360" height="16" rx="6" fill="url(#alu-stand)" stroke="#7C7E88" stroke-width="1.5"/>
+</svg>
